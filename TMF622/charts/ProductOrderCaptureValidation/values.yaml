@@ -58,28 +58,29 @@ mongodb:
   storage: 5Gi
 
 api:
-  image: tmfc002/productorderapi:0.1.0
-  versionLabel: productorderapi-0.1.0
+  image: ravijangra92/tmf622:product-order-api-1.0
+  versionLabel: product-order-api-1.0
 
 validation:
-  image: tmfc002/ordervalidation:0.1.0
-  versionLabel: ordervalidation-0.1.0
+  image: ravijangra92/tmf622:order-validation-1.0
+  versionLabel: order-validation-1.0
 
 metrics:
-  image: tmfc002/openmetrics:0.1.0
-  versionLabel: openmetrics-0.1.0
+  image: ravijangra92/tmf622:open-metrics-1.0
+  versionLabel: open-metrics-1.0
 
 mcp:
-  image: tmfc002/productordermcp:0.1.0
-  versionLabel: productordermcp-0.1.0
+  image: ravijangra92/tmf622:mcp-server-1.0
+  versionLabel: mcp-server-1.0
 
 partyrole:
-  image: tmfc002/partyroleapi:0.1.0
-  versionLabel: partyroleapi-0.1.0
+  image: ravijangra92/tmf622:party-role-1.0
+  versionLabel: party-role-1.0
 
 roleinitialization:
-  image: tmfc002/roleinitialization:0.1.0
+  image: ravijangra92/tmf622:role-init-1.0
+  versionLabel: role-init-1.0
 
 productorderinitialization:
-  image: tmfc002/productorderinitialization:0.1.0
-
+  image: ravijangra92/tmf622:product-order-init-1.0
+  versionLabel: product-order-init-1.0
