@@ -8,7 +8,7 @@ component:
   version: "0.1.0"
   apiVersion: v4
   specificationUrl: https://raw.githubusercontent.com/tmforum-apis/TMF622_ProductOrder/main/TMF622-ProductOrder-v4.0.0.swagger.json
-  storageClassName: default
+  storageClassName: ""
   apipolicy:
     apiKeyVerification:
       enabled: false
@@ -42,6 +42,17 @@ component:
     catalog:
       name: productcatalogmanagement
       specificationUrl: https://raw.githubusercontent.com/tmforum-apis/TMF620_ProductCatalog/master/TMF620-ProductCatalog-v4.0.0.swagger.json
+  eventNotification:
+    publishedEvents:
+      - ProductOrderCreateEvent
+      - ProductOrderAttributeValueChangeEvent
+      - ProductOrderDeleteEvent
+      - ProductOrderStateChangeEvent
+      - ProductOrderInformationRequiredEvent
+      - CancelProductOrderCreateEvent
+      - CancelProductOrderStateChangeEvent
+      - CancelProductOrderInformationRequiredEvent
+    subscribedEvents: []
   MCPServer:
     enabled: false
 

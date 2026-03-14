@@ -5,10 +5,11 @@ metadata:
   labels:
     oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.component.name }}
 spec:
-  storageClassName: {{ .Values.component.storageClassName }}
+  {{- with .Values.component.storageClassName }}
+  storageClassName: {{ . | quote }}
+  {{- end }}
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
       storage: {{ .Values.mongodb.storage }}
-

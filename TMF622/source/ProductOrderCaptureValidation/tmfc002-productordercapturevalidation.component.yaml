@@ -33,14 +33,14 @@ spec:
     dependentAPIs: []
   eventNotification:
     publishedEvents:
-      - ProductOrderCreateEvent
-      - ProductOrderAttributeValueChangeEvent
-      - ProductOrderDeleteEvent
-      - ProductOrderStateChangeEvent
-      - ProductOrderInformationRequiredEvent
-      - CancelProductOrderCreateEvent
-      - CancelProductOrderStateChangeEvent
-      - CancelProductOrderInformationRequiredEvent
+      - name: ProductOrderCreateEvent
+      - name: ProductOrderAttributeValueChangeEvent
+      - name: ProductOrderDeleteEvent
+      - name: ProductOrderStateChangeEvent
+      - name: ProductOrderInformationRequiredEvent
+      - name: CancelProductOrderCreateEvent
+      - name: CancelProductOrderStateChangeEvent
+      - name: CancelProductOrderInformationRequiredEvent
     subscribedEvents: []
   managementFunction:
     exposedAPIs:

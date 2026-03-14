@@ -1,3 +1,6 @@
+{{- $eventNotification := .Values.component.eventNotification | default (dict) }}
+{{- $publishedEvents := get $eventNotification "publishedEvents" | default (list) }}
+{{- $subscribedEvents := get $eventNotification "subscribedEvents" | default (list) }}
 apiVersion: oda.tmforum.org/v1
 kind: Component
 metadata:
@@ -55,16 +58,8 @@ spec:
     dependentAPIs: []
     {{- end }}
   eventNotification:
-    publishedEvents:
-      - ProductOrderCreateEvent
-      - ProductOrderAttributeValueChangeEvent
-      - ProductOrderDeleteEvent
-      - ProductOrderStateChangeEvent
-      - ProductOrderInformationRequiredEvent
-      - CancelProductOrderCreateEvent
-      - CancelProductOrderStateChangeEvent
-      - CancelProductOrderInformationRequiredEvent
-    subscribedEvents: []
+    publishedEvents:{{ include "productordercapturevalidation.renderEventList" $publishedEvents | nindent 6 }}
+    subscribedEvents:{{ include "productordercapturevalidation.renderEventList" $subscribedEvents | nindent 6 }}
   managementFunction:
     exposedAPIs:
       - name: metrics
@@ -99,4 +94,3 @@ spec:
         path: /{{ .Release.Name }}-{{ .Values.component.name }}/tmf-api/partyRoleManagement/v4
         developerUI: /{{ .Release.Name }}-{{ .Values.component.name }}/tmf-api/partyRoleManagement/v4/docs
         port: 8080
-

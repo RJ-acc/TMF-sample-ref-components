@@ -9,6 +9,8 @@ spec:
     metadata:
       labels:
         app: {{ .Release.Name }}-roleinitialization
+      annotations:
+        sidecar.istio.io/inject: "false"
     spec:
       restartPolicy: OnFailure
       containers:
@@ -25,4 +27,3 @@ spec:
               value: {{ .Values.security.canvasSystemRole }}
           imagePullPolicy: IfNotPresent
   backoffLimit: 10
-
