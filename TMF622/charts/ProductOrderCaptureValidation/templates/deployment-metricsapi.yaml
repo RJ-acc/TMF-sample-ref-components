@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-metricsapi
+  labels:
+    oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.component.name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      impl: {{ .Release.Name }}-metricsapi
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-{{ .Values.component.name }}
+        impl: {{ .Release.Name }}-metricsapi
+        version: {{ .Values.metrics.versionLabel }}
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-metricsapi
+          image: {{ .Values.metrics.image }}
+          env:
+            - name: RELEASE_NAME
+              value: {{ .Release.Name }}
+            - name: COMPONENT_NAME
+              value: {{ .Release.Name }}-{{ .Values.component.name }}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: {{ .Release.Name }}-mtapi
+              containerPort: 4000
+          startupProbe:
+            httpGet:
+              path: /health
+              port: 4000
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            failureThreshold: 20
+

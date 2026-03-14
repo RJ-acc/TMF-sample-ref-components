@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-prodorderapi
+  labels:
+    app: {{ .Release.Name }}-{{ .Values.component.name }}
+    oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.component.name }}
+spec:
+  type: {{ .Values.service.type }}
+  selector:
+    impl: {{ .Release.Name }}-prodorderapi
+  ports:
+    - port: 8080
+      targetPort: {{ .Release.Name }}-poapi
+      name: http-{{ .Release.Name }}-prodorderapi
+

@@ -1,0 +1,7 @@
+apiVersion: v2
+name: productordercapturevalidation
+description: A reference-style TMFC002 Product Order Capture & Validation ODA Component
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+

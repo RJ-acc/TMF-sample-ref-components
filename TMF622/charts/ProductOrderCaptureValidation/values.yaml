@@ -1,0 +1,85 @@
+# Default values for productordercapturevalidation.
+
+component:
+  id: TMFC002
+  name: productordercapturevalidation
+  functionalBlock: CoreCommerce
+  publicationDate: 2026-03-14T00:00:00.000Z
+  version: "0.1.0"
+  apiVersion: v4
+  specificationUrl: https://raw.githubusercontent.com/tmforum-apis/TMF622_ProductOrder/main/TMF622-ProductOrder-v4.0.0.swagger.json
+  storageClassName: default
+  apipolicy:
+    apiKeyVerification:
+      enabled: false
+      location: header
+    rateLimit:
+      enabled: false
+      identifier: IP
+      limit: "6"
+      interval: pm
+    quota:
+      identifier: ""
+      limit: ""
+    OASValidation:
+      requestEnabled: false
+      responseEnabled: false
+      allowUnspecifiedHeaders: false
+      allowUnspecifiedQueryParams: false
+      allowUnspecifiedCookies: false
+    CORS:
+      enabled: false
+      allowCredentials: false
+      allowOrigins: "https://allowed-origin.com, https://allowed-origin2.com"
+      handlePreflightRequests:
+        enabled: false
+        allowHeaders: "Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+        allowMethods: "GET, POST, PATCH, DELETE"
+        maxAge: 36000
+    template: ""
+  dependentAPIs:
+    enabled: false
+    catalog:
+      name: productcatalogmanagement
+      specificationUrl: https://raw.githubusercontent.com/tmforum-apis/TMF620_ProductCatalog/master/TMF620-ProductCatalog-v4.0.0.swagger.json
+  MCPServer:
+    enabled: false
+
+security:
+  canvasSystemRole: ProductOrderAdmin
+
+service:
+  type: NodePort
+
+mongodb:
+  image: mongo:7
+  port: 27017
+  database: tmfc002
+  storage: 5Gi
+
+api:
+  image: tmfc002/productorderapi:0.1.0
+  versionLabel: productorderapi-0.1.0
+
+validation:
+  image: tmfc002/ordervalidation:0.1.0
+  versionLabel: ordervalidation-0.1.0
+
+metrics:
+  image: tmfc002/openmetrics:0.1.0
+  versionLabel: openmetrics-0.1.0
+
+mcp:
+  image: tmfc002/productordermcp:0.1.0
+  versionLabel: productordermcp-0.1.0
+
+partyrole:
+  image: tmfc002/partyroleapi:0.1.0
+  versionLabel: partyroleapi-0.1.0
+
+roleinitialization:
+  image: tmfc002/roleinitialization:0.1.0
+
+productorderinitialization:
+  image: tmfc002/productorderinitialization:0.1.0
+

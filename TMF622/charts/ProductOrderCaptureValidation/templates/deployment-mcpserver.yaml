@@ -1,0 +1,44 @@
+{{- if .Values.component.MCPServer.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-prodordermcp
+  labels:
+    oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.component.name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      impl: {{ .Release.Name }}-prodordermcp
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-{{ .Values.component.name }}
+        impl: {{ .Release.Name }}-prodordermcp
+        version: {{ .Values.mcp.versionLabel }}
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-prodordermcp
+          image: {{ .Values.mcp.image }}
+          env:
+            - name: TMF622_MODE
+              value: live
+            - name: TMF622_BASE_URL
+              value: http://{{ .Release.Name }}-prodorderapi:8080/{{ .Release.Name }}-{{ .Values.component.name }}
+            - name: TMF622_API_VERSION
+              value: {{ .Values.component.apiVersion }}
+            - name: TMF622_SPEC_URL
+              value: {{ .Values.component.specificationUrl }}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: {{ .Release.Name }}-pomcp
+              containerPort: 8080
+          startupProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            failureThreshold: 20
+{{- end }}
+
