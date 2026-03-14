@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 from typing import Any
 
 from fastapi import FastAPI
@@ -7,6 +8,7 @@ from fastapi.responses import PlainTextResponse
 from prometheus_client import CONTENT_TYPE_LATEST, CollectorRegistry, Counter, generate_latest
 
 app = FastAPI(title="TMFC002 Metrics Listener", docs_url=None, redoc_url=None)
+API_BASE_PATH = "/" + os.getenv("API_BASE_PATH", "").strip("/")
 registry = CollectorRegistry()
 event_counter = Counter(
     "tmfc002_order_events_total",
@@ -41,7 +43,16 @@ async def receive_order_event(payload: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-@app.get("/metrics")
-async def metrics() -> PlainTextResponse:
+def _render_metrics() -> PlainTextResponse:
     return PlainTextResponse(generate_latest(registry).decode("utf-8"), media_type=CONTENT_TYPE_LATEST)
 
+
+@app.get("/metrics")
+async def metrics() -> PlainTextResponse:
+    return _render_metrics()
+
+
+if API_BASE_PATH != "/":
+    @app.get(f"{API_BASE_PATH}/metrics")
+    async def metrics_with_base_path() -> PlainTextResponse:
+        return _render_metrics()

@@ -24,6 +24,8 @@ spec:
               value: {{ .Release.Name }}
             - name: COMPONENT_NAME
               value: {{ .Release.Name }}-{{ .Values.component.name }}
+            - name: API_BASE_PATH
+              value: /{{ .Release.Name }}-{{ .Values.component.name }}
           imagePullPolicy: IfNotPresent
           ports:
             - name: {{ .Release.Name }}-mtapi
@@ -35,4 +37,3 @@ spec:
             initialDelaySeconds: 5
             periodSeconds: 5
             failureThreshold: 20
-
