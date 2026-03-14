@@ -6,10 +6,24 @@ from uuid import uuid4
 
 from fastapi import APIRouter, FastAPI, HTTPException, Request, Response, status
 
+from common.api_directory import build_api_directory
 from common.events import utc_now
 from common.store import get_store
 
 API_BASE_PATH = "/" + os.getenv("API_BASE_PATH", "/tmf-api/partyRoleManagement/v4").strip("/")
+API_VERSION = "4.0.0"
+API_DIRECTORY_DESCRIPTION = """## TMF API Reference: TMF669 - Party Role Management
+
+### Reference component: TMFC002 Product Order Capture & Validation
+
+Party Role Management API manages the component roles used by the security function.
+
+### Operations
+- Retrieve an entity or a collection of entities depending on filter criteria
+- Create a party role
+- Partially update an entity
+- Delete an entity
+"""
 app = FastAPI(
     title="TMFC002 Party Role API",
     docs_url=f"{API_BASE_PATH}/docs",
@@ -36,6 +50,49 @@ def _select_fields(document: dict[str, Any], fields: str | None) -> dict[str, An
 @app.get("/health")
 async def health() -> dict[str, Any]:
     return {"status": "ok", "backend": store.backend}
+
+
+@router.get("", include_in_schema=False)
+@router.get("/", include_in_schema=False)
+async def describe_party_role_api() -> dict[str, Any]:
+    return build_api_directory(
+        base_path=API_BASE_PATH,
+        title="Party Role Management",
+        version=API_VERSION,
+        description=API_DIRECTORY_DESCRIPTION,
+        operations=[
+            {
+                "name": "listPartyRole",
+                "href": "/partyRole",
+                "method": "GET",
+                "description": "This operation list or find PartyRole entities",
+            },
+            {
+                "name": "createPartyRole",
+                "href": "/partyRole",
+                "method": "POST",
+                "description": "This operation creates a PartyRole entity.",
+            },
+            {
+                "name": "retrievePartyRole",
+                "href": "/partyRole/{id}",
+                "method": "GET",
+                "description": "This operation retrieves a PartyRole entity. Attribute selection is enabled for all first level attributes.",
+            },
+            {
+                "name": "patchPartyRole",
+                "href": "/partyRole/{id}",
+                "method": "PATCH",
+                "description": "This operation updates partially a PartyRole entity.",
+            },
+            {
+                "name": "deletePartyRole",
+                "href": "/partyRole/{id}",
+                "method": "DELETE",
+                "description": "This operation deletes a PartyRole entity.",
+            },
+        ],
+    )
 
 
 @router.get("/partyRole")
@@ -105,4 +162,3 @@ async def delete_party_role(role_id: str) -> Response:
 
 
 app.include_router(router)
-

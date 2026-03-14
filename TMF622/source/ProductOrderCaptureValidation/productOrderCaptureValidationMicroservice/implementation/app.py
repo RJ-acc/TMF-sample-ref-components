@@ -9,6 +9,7 @@ from uuid import uuid4
 import httpx
 from fastapi import APIRouter, FastAPI, HTTPException, Request, Response, status
 
+from common.api_directory import build_api_directory
 from common.events import build_event, publish_event, utc_now
 from common.store import get_store
 from common.validation import validate_cancel_product_order, validate_product_order
@@ -19,6 +20,21 @@ logger = logging.getLogger("tmfc002-product-order-api")
 COMPONENT_NAME = os.getenv("COMPONENT_NAME", "productordercapturevalidation")
 API_BASE_PATH = "/" + os.getenv("API_BASE_PATH", "/tmf-api/productOrderingManagement/v4").strip("/")
 VALIDATION_SERVICE_URL = os.getenv("VALIDATION_SERVICE_URL", "http://localhost:8081").rstrip("/")
+API_VERSION = "4.0.0"
+API_DIRECTORY_DESCRIPTION = """## TMF API Reference: TMF622 - Product Ordering Management
+
+### Reference component: TMFC002 Product Order Capture & Validation
+
+Product Ordering Management API supports product order capture, validation-aware state handling,
+cancel product order workflows, and event subscription management.
+
+### Operations
+- Retrieve an entity or a collection of entities depending on filter criteria
+- Create a product order or cancel product order task
+- Partially update an entity
+- Delete a product order
+- Register and unregister event listeners
+"""
 
 app = FastAPI(
     title="TMFC002 Product Order Capture & Validation API",
@@ -106,6 +122,127 @@ async def _publish(event_type: str, resource_type: str, payload: dict[str, Any])
 @app.get("/health")
 async def health() -> dict[str, Any]:
     return {"status": "ok", "backend": store.backend, "component": COMPONENT_NAME}
+
+
+@router.get("", include_in_schema=False)
+@router.get("/", include_in_schema=False)
+async def describe_product_order_api() -> dict[str, Any]:
+    return build_api_directory(
+        base_path=API_BASE_PATH,
+        title="Product Ordering Management",
+        version=API_VERSION,
+        description=API_DIRECTORY_DESCRIPTION,
+        operations=[
+            {
+                "name": "listProductOrder",
+                "href": "/productOrder",
+                "method": "GET",
+                "description": "This operation list or find ProductOrder entities",
+            },
+            {
+                "name": "createProductOrder",
+                "href": "/productOrder",
+                "method": "POST",
+                "description": "This operation creates a ProductOrder entity.",
+            },
+            {
+                "name": "retrieveProductOrder",
+                "href": "/productOrder/{id}",
+                "method": "GET",
+                "description": "This operation retrieves a ProductOrder entity. Attribute selection is enabled for all first level attributes.",
+            },
+            {
+                "name": "patchProductOrder",
+                "href": "/productOrder/{id}",
+                "method": "PATCH",
+                "description": "This operation updates partially a ProductOrder entity.",
+            },
+            {
+                "name": "deleteProductOrder",
+                "href": "/productOrder/{id}",
+                "method": "DELETE",
+                "description": "This operation deletes a ProductOrder entity.",
+            },
+            {
+                "name": "listCancelProductOrder",
+                "href": "/cancelProductOrder",
+                "method": "GET",
+                "description": "This operation list or find CancelProductOrder entities",
+            },
+            {
+                "name": "createCancelProductOrder",
+                "href": "/cancelProductOrder",
+                "method": "POST",
+                "description": "This operation creates a CancelProductOrder entity.",
+            },
+            {
+                "name": "retrieveCancelProductOrder",
+                "href": "/cancelProductOrder/{id}",
+                "method": "GET",
+                "description": "This operation retrieves a CancelProductOrder entity. Attribute selection is enabled for all first level attributes.",
+            },
+            {
+                "name": "registerListener",
+                "href": "/hub",
+                "method": "POST",
+                "description": "Sets the communication endpoint address the service instance must use to deliver notifications.",
+            },
+            {
+                "name": "unregisterListener",
+                "href": "/hub/{id}",
+                "method": "DELETE",
+                "description": "Resets the communication endpoint address the service instance must use to deliver notifications.",
+            },
+            {
+                "name": "listenToProductOrderCreateEvent",
+                "href": "/listener/productOrderCreateEvent",
+                "method": "POST",
+                "description": "Example of a client listener for receiving the notification ProductOrderCreateEvent",
+            },
+            {
+                "name": "listenToProductOrderAttributeValueChangeEvent",
+                "href": "/listener/productOrderAttributeValueChangeEvent",
+                "method": "POST",
+                "description": "Example of a client listener for receiving the notification ProductOrderAttributeValueChangeEvent",
+            },
+            {
+                "name": "listenToProductOrderDeleteEvent",
+                "href": "/listener/productOrderDeleteEvent",
+                "method": "POST",
+                "description": "Example of a client listener for receiving the notification ProductOrderDeleteEvent",
+            },
+            {
+                "name": "listenToProductOrderStateChangeEvent",
+                "href": "/listener/productOrderStateChangeEvent",
+                "method": "POST",
+                "description": "Example of a client listener for receiving the notification ProductOrderStateChangeEvent",
+            },
+            {
+                "name": "listenToProductOrderInformationRequiredEvent",
+                "href": "/listener/productOrderInformationRequiredEvent",
+                "method": "POST",
+                "description": "Example of a client listener for receiving the notification ProductOrderInformationRequiredEvent",
+            },
+            {
+                "name": "listenToCancelProductOrderCreateEvent",
+                "href": "/listener/cancelProductOrderCreateEvent",
+                "method": "POST",
+                "description": "Example of a client listener for receiving the notification CancelProductOrderCreateEvent",
+            },
+            {
+                "name": "listenToCancelProductOrderStateChangeEvent",
+                "href": "/listener/cancelProductOrderStateChangeEvent",
+                "method": "POST",
+                "description": "Example of a client listener for receiving the notification CancelProductOrderStateChangeEvent",
+            },
+            {
+                "name": "listenToCancelProductOrderInformationRequiredEvent",
+                "href": "/listener/cancelProductOrderInformationRequiredEvent",
+                "method": "POST",
+                "description": "Example of a client listener for receiving the notification CancelProductOrderInformationRequiredEvent",
+            },
+        ],
+    )
 
 
 @router.get("/productOrder")
