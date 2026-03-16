@@ -21,4 +21,4 @@ Relevant environment variables:
 - `TMF622_BASE_URL=http://localhost:8080`
 - `TMF622_API_VERSION=v4`
 - `TMF622_SPEC_URL=<spec url>`
-
+- `MCP_HTTP_BASE_PATH=/r1-productordercapturevalidation` to expose the server under a release-prefixed path as well as the default `/mcp`

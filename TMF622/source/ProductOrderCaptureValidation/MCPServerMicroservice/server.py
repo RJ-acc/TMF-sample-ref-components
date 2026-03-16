@@ -126,22 +126,30 @@ async def _run_http(host: str, port: int) -> None:
     from starlette.routing import Mount, Route
     import uvicorn
 
-    sse_transport = SseServerTransport("/mcp/messages/")
+    def build_sse_routes(mcp_path: str, message_path: str) -> list[Route | Mount]:
+        sse_transport = SseServerTransport(message_path)
 
-    async def handle_mcp(request: Request) -> None:
-        async with sse_transport.connect_sse(request.scope, request.receive, request._send) as streams:
-            await server.run(streams[0], streams[1], server.create_initialization_options())
+        async def handle_mcp(request: Request) -> None:
+            async with sse_transport.connect_sse(request.scope, request.receive, request._send) as streams:
+                await server.run(streams[0], streams[1], server.create_initialization_options())
+
+        return [
+            Route(mcp_path, endpoint=handle_mcp),
+            Mount(message_path, app=sse_transport.handle_post_message),
+        ]
 
     async def health_check(request: Request) -> PlainTextResponse:
         return PlainTextResponse("OK")
 
-    app = Starlette(
-        routes=[
-            Route("/mcp", endpoint=handle_mcp),
-            Mount("/mcp/messages/", app=sse_transport.handle_post_message),
-            Route("/health", endpoint=health_check),
-        ]
-    )
+    routes: list[Route | Mount] = build_sse_routes(config.mcp_path, config.mcp_messages_path)
+
+    if config.mcp_path != "/mcp":
+        routes.extend(build_sse_routes("/mcp", "/mcp/messages/"))
+        routes.append(Route(f"{config.http_base_path}/health", endpoint=health_check))
+
+    routes.append(Route("/health", endpoint=health_check))
+
+    app = Starlette(routes=routes)
 
     uvicorn_config = uvicorn.Config(app, host=host, port=port, log_level="warning")
     uvicorn_server = uvicorn.Server(uvicorn_config)

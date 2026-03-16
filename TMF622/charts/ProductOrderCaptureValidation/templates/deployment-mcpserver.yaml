@@ -23,6 +23,8 @@ spec:
           env:
             - name: TMF622_MODE
               value: live
+            - name: MCP_HTTP_BASE_PATH
+              value: /{{ .Release.Name }}-{{ .Values.component.name }}
             - name: TMF622_BASE_URL
               value: http://{{ .Release.Name }}-prodorderapi:8080/{{ .Release.Name }}-{{ .Values.component.name }}
             - name: TMF622_API_VERSION
@@ -41,4 +43,3 @@ spec:
             periodSeconds: 5
             failureThreshold: 20
 {{- end }}
-
