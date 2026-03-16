@@ -54,7 +54,7 @@ component:
       - CancelProductOrderInformationRequiredEvent
     subscribedEvents: []
   MCPServer:
-    enabled: false
+    enabled: true
 
 security:
   canvasSystemRole: ProductOrderAdmin
@@ -81,8 +81,8 @@ metrics:
   versionLabel: open-metrics-1.2
 
 mcp:
-  image: ravijangra92/tmf622:mcp-server-1.1
-  versionLabel: mcp-server-1.1
+  image: ravijangra92/tmf622:mcp-server-1.2
+  versionLabel: mcp-server-1.2
 
 partyrole:
   image: ravijangra92/tmf622:party-role-1.1
