@@ -78,14 +78,13 @@ Install the currently published charts:
 | `TMF620` | `productcatalogmanagement` | `helm upgrade --install tmf620 tmf-sample-ref-components/productcatalogmanagement -n components --create-namespace` |
 | `TMF622` | `productordercapturevalidation` | `helm upgrade --install tmf622 tmf-sample-ref-components/productordercapturevalidation -n components --create-namespace` |
 | `TMF632` | `partymanagement` | `helm upgrade --install tmf632 tmf-sample-ref-components/partymanagement -n components --create-namespace` |
+| `TMF637` | `productinventorymanagement` | `helm upgrade --install tmf637 tmf-sample-ref-components/productinventorymanagement -n components --create-namespace` |
 | `TMF666` | `billingaccountmanagement` | `helm upgrade --install tmf666 tmf-sample-ref-components/billingaccountmanagement -n components --create-namespace` |
 | `TMF672` | `permissionsmanagement` | `helm upgrade --install tmf672 tmf-sample-ref-components/permissionsmanagement -n components --create-namespace` |
 | `TMF678` | `billgenerationmanagement` | `helm upgrade --install tmf678 tmf-sample-ref-components/billgenerationmanagement -n components --create-namespace` |
 | `TMF680` | `productrecommendation` | `helm upgrade --install tmf680 tmf-sample-ref-components/productrecommendation -n components --create-namespace` |
 | `TMF683` | `partyinteractionmanagement` | `helm upgrade --install tmf683 tmf-sample-ref-components/partyinteractionmanagement -n components --create-namespace` |
 | `TMF760` | `productconfigurator` | `helm upgrade --install tmf760 tmf-sample-ref-components/productconfigurator -n components --create-namespace` |
-
-`TMF637 Product Inventory Management` is not published in the Helm repository yet and will be added later.
 
 To inspect chart defaults before installing, run:
 

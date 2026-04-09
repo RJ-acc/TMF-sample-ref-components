@@ -5,7 +5,7 @@ component:
   name: productrecommendation
   functionalBlock: CoreCommerce
   publicationDate: 2026-04-08T00:00:00.000Z
-  version: "0.2.0"
+  version: "0.3.0"
   apiVersion: v4
   specificationUrl: https://raw.githubusercontent.com/tmforum-apis/TMF680_Recommendation/main/TMF680_Recommendation_Management_API_v4.0.0_swagger.json
   storageClassName: ""
