@@ -68,8 +68,12 @@ jobs:
       - name: Set up Helm
         uses: azure/setup-helm@v4
 
-      - name: Configure GitHub Pages
+      - name: Enable GitHub Pages site
+        if: ${{ secrets.PAGES_ENABLEMENT_TOKEN != '' }}
         uses: actions/configure-pages@v5
+        with:
+          token: ${{ secrets.PAGES_ENABLEMENT_TOKEN }}
+          enablement: true
 
       - name: Package all charts
         shell: bash

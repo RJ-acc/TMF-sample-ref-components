@@ -56,6 +56,8 @@ https://<OWNER>.github.io/<REPO>
 
 Replace `<OWNER>` and `<REPO>` with the GitHub user or organization and repository name that host this project.
 
+If you want the workflow to enable GitHub Pages automatically when it is not configured yet, add a repository secret named `PAGES_ENABLEMENT_TOKEN` and use a token with permission to administer Pages for the repository. Otherwise, enable Pages once in the repository settings and keep the publishing source set to `GitHub Actions`.
+
 Add the repository and list the published charts:
 
 ```bash
