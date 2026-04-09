@@ -5,7 +5,7 @@ This chart packages a reference-style implementation of a `TMFC035 Permissions M
 The chart deploys:
 - the `TMF672 User Role Permission Management` API
 - a small permissions-management engine service
-- an optional MCP wrapper over the TMF672 API
+- an MCP wrapper over the TMF672 API, enabled by default
 - a Party Role API and role bootstrap job
 - a metrics listener that subscribes to TMF672 permission events
 - MongoDB for persistence
@@ -13,7 +13,7 @@ The chart deploys:
 Install:
 
 ```bash
-helm install pm1 ./charts/PermissionsManagement -n components
+helm upgrade --install pm1 ./charts/PermissionsManagement -n components
 ```
 
 Base API path:
@@ -28,15 +28,15 @@ Example:
 /pm1-permissionsmanagement/tmf-api/rolesAndPermissions/v4
 ```
 
-Enable the MCP server:
+Disable the MCP server:
 
 ```bash
-helm install pm1 ./charts/PermissionsManagement \
+helm upgrade --install pm1 ./charts/PermissionsManagement \
   -n components \
-  --set component.MCPServer.enabled=true
+  --set component.MCPServer.enabled=false
 ```
 
-When enabled, the chart advertises the MCP endpoint at `/<release>-permissionsmanagement/mcp` and also keeps the direct in-container `/mcp` route available for service-level checks.
+By default, the chart advertises the MCP endpoint at `/<release>-permissionsmanagement/mcp` and also keeps the direct in-container `/mcp` route available for service-level checks.
 
 Implementation notes:
 - The TMF672 API implements the complete current `v4.0.0` path surface from the official spec.

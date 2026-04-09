@@ -9,7 +9,7 @@ This chart packages a reference-style implementation of a `TMFC002 Product Order
 The component exposes:
 
 - the `TMF622 Product Ordering Management` API
-- an optional MCP wrapper over the TMF622 API
+- an MCP wrapper over the TMF622 API, enabled by default
 
 The component can also declare a dependency on `TMF620 Product Catalog Management`, which is useful when validation logic needs to verify product offerings against a catalog.
 
@@ -27,23 +27,23 @@ The chart also deploys:
 ## Installation
 
 ```bash
-helm install r1 ./charts/ProductOrderCaptureValidation -n components
+helm upgrade --install r1 ./charts/ProductOrderCaptureValidation -n components
 ```
 
-Enable the MCP wrapper:
+Disable the MCP wrapper:
 
 ```bash
-helm install r1 ./charts/ProductOrderCaptureValidation \
-  --set component.MCPServer.enabled=true \
+helm upgrade --install r1 ./charts/ProductOrderCaptureValidation \
+  --set component.MCPServer.enabled=false \
   -n components
 ```
 
-When enabled, the chart advertises the MCP endpoint at `/<release>-productordercapturevalidation/mcp` and also keeps the direct in-container `/mcp` route available for service-level checks.
+By default, the chart advertises the MCP endpoint at `/<release>-productordercapturevalidation/mcp` and also keeps the direct in-container `/mcp` route available for service-level checks.
 
 Enable the catalog dependency declaration:
 
 ```bash
-helm install r1 ./charts/ProductOrderCaptureValidation \
+helm upgrade --install r1 ./charts/ProductOrderCaptureValidation \
   --set component.dependentAPIs.enabled=true \
   -n components
 ```

@@ -5,7 +5,7 @@ This chart packages a reference-style implementation of a `TMFC001 Product Catal
 The chart deploys:
 - the `TMF620 Product Catalog Management` API
 - a small catalog-management engine service
-- an optional MCP wrapper over the TMF620 API
+- an MCP wrapper over the TMF620 API, enabled by default
 - a Party Role API and role bootstrap job
 - a metrics listener that subscribes to TMF620 catalog-management events
 - MongoDB for persistence
@@ -13,7 +13,7 @@ The chart deploys:
 Install:
 
 ```bash
-helm install pc1 ./charts/ProductCatalogManagement -n components
+helm upgrade --install pc1 ./charts/ProductCatalogManagement -n components
 ```
 
 Base API path:
@@ -28,15 +28,15 @@ Example:
 /pc1-productcatalogmanagement/tmf-api/productCatalogManagement/v5
 ```
 
-Enable the MCP server:
+Disable the MCP server:
 
 ```bash
-helm install pc1 ./charts/ProductCatalogManagement \
+helm upgrade --install pc1 ./charts/ProductCatalogManagement \
   -n components \
-  --set component.MCPServer.enabled=true
+  --set component.MCPServer.enabled=false
 ```
 
-When enabled, the chart advertises the MCP endpoint at `/<release>-productcatalogmanagement/mcp` and also keeps the direct in-container `/mcp` route available for service-level checks.
+By default, the chart advertises the MCP endpoint at `/<release>-productcatalogmanagement/mcp` and also keeps the direct in-container `/mcp` route available for service-level checks.
 
 Implementation notes:
 - The TMF620 API implements the complete current `v5.0.0` path surface from the official spec.

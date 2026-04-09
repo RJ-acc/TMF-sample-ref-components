@@ -8,7 +8,7 @@ The chart creates a runnable component shape for:
 
 - the `TMF678 Customer Bill Management` API
 - an internal bill-generation engine
-- an optional MCP wrapper over the TMF678 API
+- an MCP wrapper over the TMF678 API, enabled by default
 - a MongoDB backing store
 - a metrics listener that subscribes to TMF678 create and state-change events
 - a simplified `TMF669 Party Role Management` API for the security function
@@ -18,7 +18,7 @@ The chart creates a runnable component shape for:
 ## Install
 
 ```bash
-helm install pr1 ./charts/BillGenerationManagement -n components
+helm upgrade --install pr1 ./charts/BillGenerationManagement -n components
 ```
 
 The public core API base path is exposed as:
@@ -33,17 +33,17 @@ Example:
 /pr1-billgenerationmanagement/tmf-api/customerBillManagement/v5
 ```
 
-## Optional MCP server
+## MCP server
 
-Enable the MCP wrapper:
+The MCP wrapper is enabled by default. Disable it with:
 
 ```bash
-helm install pr1 ./charts/BillGenerationManagement \
+helm upgrade --install pr1 ./charts/BillGenerationManagement \
   -n components \
-  --set component.MCPServer.enabled=true
+  --set component.MCPServer.enabled=false
 ```
 
-When enabled, the chart advertises the MCP endpoint at `/<release>-billgenerationmanagement/mcp` and also keeps the direct in-container `/mcp` route available for service-level checks.
+By default, the chart advertises the MCP endpoint at `/<release>-billgenerationmanagement/mcp` and also keeps the direct in-container `/mcp` route available for service-level checks.
 
 ## Image values
 

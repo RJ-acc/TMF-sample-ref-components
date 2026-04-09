@@ -9,7 +9,7 @@ This chart packages a reference-style implementation of a `TMFC050 Product Recom
 The component exposes:
 
 - the `TMF680 Recommendation` API
-- an optional MCP wrapper over the TMF680 API
+- an MCP wrapper over the TMF680 API, enabled by default
 
 The component can also declare a dependency on `TMF620 Product Catalog Management`, which is useful when recommendation ranking needs product-offering context.
 
@@ -27,23 +27,23 @@ The chart also deploys:
 ## Installation
 
 ```bash
-helm install r1 ./charts/ProductRecommendation -n components
+helm upgrade --install r1 ./charts/ProductRecommendation -n components
 ```
 
-Enable the MCP wrapper:
+Disable the MCP wrapper:
 
 ```bash
-helm install r1 ./charts/ProductRecommendation \
-  --set component.MCPServer.enabled=true \
+helm upgrade --install r1 ./charts/ProductRecommendation \
+  --set component.MCPServer.enabled=false \
   -n components
 ```
 
-When enabled, the chart advertises the MCP endpoint at `/<release>-productrecommendation/mcp` and also keeps the direct in-container `/mcp` route available for service-level checks.
+By default, the chart advertises the MCP endpoint at `/<release>-productrecommendation/mcp` and also keeps the direct in-container `/mcp` route available for service-level checks.
 
 Enable the catalog dependency declaration:
 
 ```bash
-helm install r1 ./charts/ProductRecommendation \
+helm upgrade --install r1 ./charts/ProductRecommendation \
   --set component.dependentAPIs.enabled=true \
   -n components
 ```

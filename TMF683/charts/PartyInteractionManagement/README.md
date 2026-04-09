@@ -5,7 +5,7 @@ This chart packages a reference-style implementation of a `TMFC023 Party Interac
 The chart deploys:
 - the `TMF683 Party Interaction` API
 - a small interaction-management engine service
-- an optional MCP wrapper over the TMF683 API
+- an MCP wrapper over the TMF683 API, enabled by default
 - a Party Role API and role bootstrap job
 - a metrics listener that subscribes to TMF683 party-interaction events
 - MongoDB for persistence
@@ -13,7 +13,7 @@ The chart deploys:
 Install:
 
 ```bash
-helm install pi1 ./charts/PartyInteractionManagement -n components
+helm upgrade --install pi1 ./charts/PartyInteractionManagement -n components
 ```
 
 Base API path:
@@ -28,15 +28,15 @@ Example:
 /pi1-partyinteractionmanagement/tmf-api/partyInteractionManagement/v5
 ```
 
-Enable the MCP server:
+Disable the MCP server:
 
 ```bash
-helm install pi1 ./charts/PartyInteractionManagement \
+helm upgrade --install pi1 ./charts/PartyInteractionManagement \
   -n components \
-  --set component.MCPServer.enabled=true
+  --set component.MCPServer.enabled=false
 ```
 
-When enabled, the chart advertises the MCP endpoint at `/<release>-partyinteractionmanagement/mcp` and also keeps the direct in-container `/mcp` route available for service-level checks.
+By default, the chart advertises the MCP endpoint at `/<release>-partyinteractionmanagement/mcp` and also keeps the direct in-container `/mcp` route available for service-level checks.
 
 Implementation notes:
 - The TMF683 API implements the complete current `v5.0.0` path surface from the official spec.

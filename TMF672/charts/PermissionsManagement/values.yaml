@@ -5,7 +5,7 @@ component:
   name: permissionsmanagement
   functionalBlock: PartyManagement
   publicationDate: 2026-04-09T00:00:00.000Z
-  version: "0.3.0"
+  version: "0.4.0"
   apiVersion: v4
   specificationUrl: https://raw.githubusercontent.com/tmforum-apis/TMF672_UserRolesPermissions/main/TMF672_User_Role_Permission_Management_API_v4.0.0_swagger.json
   storageClassName: ""
@@ -54,7 +54,7 @@ component:
       - UserRoleStateChangeEvent
     subscribedEvents: []
   MCPServer:
-    enabled: false
+    enabled: true
 
 security:
   canvasSystemRole: PermissionsManagementAdmin

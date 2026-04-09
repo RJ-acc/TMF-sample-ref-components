@@ -71,6 +71,8 @@ List all available versions:
 helm search repo tmf-sample-ref-components --versions
 ```
 
+All chart install commands below use `helm upgrade --install`, and each chart enables its MCP server by default. To disable MCP for a release, add `--set component.MCPServer.enabled=false`.
+
 Install the currently published charts:
 
 | TMF API | Published Chart | Install Command |

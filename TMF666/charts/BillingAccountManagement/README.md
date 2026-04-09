@@ -5,7 +5,7 @@ This chart packages a reference-style implementation of a `TMFC024 Billing Accou
 The chart deploys:
 - the `TMF666 Account Management` API
 - a small account-management engine service
-- an optional MCP wrapper over the TMF666 API
+- an MCP wrapper over the TMF666 API, enabled by default
 - a Party Role API and role bootstrap job
 - a metrics listener that subscribes to TMF666 account-management events
 - MongoDB for persistence
@@ -13,7 +13,7 @@ The chart deploys:
 Install:
 
 ```bash
-helm install ba1 ./charts/BillingAccountManagement -n components
+helm upgrade --install ba1 ./charts/BillingAccountManagement -n components
 ```
 
 Base API path:
@@ -28,15 +28,15 @@ Example:
 /ba1-billingaccountmanagement/tmf-api/accountManagement/v5
 ```
 
-Enable the MCP server:
+Disable the MCP server:
 
 ```bash
-helm install ba1 ./charts/BillingAccountManagement \
+helm upgrade --install ba1 ./charts/BillingAccountManagement \
   -n components \
-  --set component.MCPServer.enabled=true
+  --set component.MCPServer.enabled=false
 ```
 
-When enabled, the chart advertises the MCP endpoint at `/<release>-billingaccountmanagement/mcp` and also keeps the direct in-container `/mcp` route available for service-level checks.
+By default, the chart advertises the MCP endpoint at `/<release>-billingaccountmanagement/mcp` and also keeps the direct in-container `/mcp` route available for service-level checks.
 
 Implementation notes:
 - The TMF666 API implements the complete current `v5.0.0` path surface from the official spec.

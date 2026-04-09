@@ -42,6 +42,8 @@ spec:
         port: 8080
       {{- if .Values.component.MCPServer.enabled }}
       - name: billgenerationmanagementmcp
+        specification:
+          - url: "https://modelcontextprotocol.io/specification/"
         implementation: {{ .Release.Name }}-billgenmcp
         apiType: mcp
         path: /{{ .Release.Name }}-{{ .Values.component.name }}/mcp

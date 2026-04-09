@@ -42,6 +42,8 @@ spec:
         port: 8080
       {{- if .Values.component.MCPServer.enabled }}
       - name: billingaccountmanagementmcp
+        specification:
+          - url: "https://modelcontextprotocol.io/specification/"
         implementation: {{ .Release.Name }}-billingaccountmcp
         apiType: mcp
         path: /{{ .Release.Name }}-{{ .Values.component.name }}/mcp
