@@ -112,6 +112,28 @@ jobs:
             fi
           }
 
+          chart_matches_existing_package() {
+            chart_dir="$1"
+            package_path="$2"
+            extract_dir="$(mktemp -d)"
+
+            tar -xzf "$package_path" -C "$extract_dir"
+            extracted_chart_dir="$(find "$extract_dir" -mindepth 1 -maxdepth 1 -type d | head -n 1)"
+
+            if [ -z "$extracted_chart_dir" ]; then
+              rm -rf "$extract_dir"
+              return 1
+            fi
+
+            if diff -qr "$chart_dir" "$extracted_chart_dir" >/dev/null; then
+              rm -rf "$extract_dir"
+              return 0
+            fi
+
+            rm -rf "$extract_dir"
+            return 1
+          }
+
           trap cleanup EXIT
           rm -rf "$publish_dir"
           mkdir -p "$publish_dir"
@@ -130,17 +152,28 @@ jobs:
             )
           fi
 
-          for package in .chart-packages/*.tgz; do
-            package_name="$(basename "$package")"
+          mapfile -t chart_files < <(find . -name Chart.yaml | sort)
+
+          for chart_file in "${chart_files[@]}"; do
+            chart_dir="$(dirname "$chart_file")"
+            chart_name="$(sed -n 's/^name: //p' "$chart_file" | head -n 1)"
+            chart_version="$(sed -n 's/^version: //p' "$chart_file" | head -n 1)"
+            package_name="${chart_name}-${chart_version}.tgz"
+            package_path=".chart-packages/${package_name}"
             target_package="$publish_dir/$package_name"
 
-            if [ -f "$target_package" ] && ! cmp -s "$package" "$target_package"; then
-              echo "Published package ${package_name} already exists with different contents."
+            if [ -f "$target_package" ]; then
+              if chart_matches_existing_package "$chart_dir" "$target_package"; then
+                echo "Reusing previously published package ${package_name}."
+                continue
+              fi
+
+              echo "Published package ${package_name} already exists for different chart contents."
               echo "Bump the chart version before releasing updated chart contents."
               exit 1
             fi
 
-            cp "$package" "$target_package"
+            cp "$package_path" "$target_package"
           done
 
           if [ -f "$pages_dir/index.yaml" ]; then
