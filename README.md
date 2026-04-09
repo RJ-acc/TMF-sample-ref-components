@@ -1,6 +1,6 @@
 # TMF Sample Reference Components
 
-This repository contains reference-style sample components for nine TM Forum Open APIs. Each sample follows the same broad structure:
+This repository contains reference-style sample components for ten TM Forum Open APIs. Each sample follows the same broad structure:
 
 - a top-level folder per TMF API, such as `TMF622` or `TMF760`
 - a Helm chart under `charts/<ComponentName>`
@@ -12,6 +12,7 @@ These samples are lightweight runnable baselines. They are intended to show comp
 Examples:
 
 - `TMF620` is used for `TMFC001 Product Catalog Management`
+- `TMF637` is used for `TMFC005 Product Inventory Management`
 - `TMF680` is used for `TMFC050 Product Recommendation`
 - `TMF678` is used for `TMFC030 Bill Generation Management`
 - `TMF760` is used for `TMFC027 Product Configurator`
@@ -21,6 +22,7 @@ Examples:
 | TMF API | Official API Name | What This API Is For | Sample Component | Component README | Helm Chart |
 | --- | --- | --- | --- | --- | --- |
 | `TMF620` | Product Catalog Management | manage catalogs, categories, offerings, prices, specifications, and import/export jobs | `TMFC001 Product Catalog Management` | [TMF620](TMF620/README.md) | [ProductCatalogManagement](TMF620/charts/ProductCatalogManagement/README.md) |
+| `TMF637` | Product Inventory Management | manage customer-facing product inventory records and lifecycle state | `TMFC005 Product Inventory Management` | [TMF637](TMF637/README.md) | [ProductInventoryManagement](TMF637/charts/ProductInventoryManagement/README.md) |
 | `TMF622` | Product Ordering Management | capture and validate customer product orders | `TMFC002 Product Order Capture & Validation` | [TMF622](TMF622/README.md) | [ProductOrderCaptureValidation](TMF622/charts/ProductOrderCaptureValidation/README.md) |
 | `TMF632` | Party Management | manage party records such as `individual` and `organization` | `TMFC028 Party Management` | [TMF632](TMF632/README.md) | [PartyManagement](TMF632/charts/PartyManagement/README.md) |
 | `TMF666` | Account Management | manage billing, financial, settlement, and related account resources | `TMFC024 Billing Account Management` | [TMF666](TMF666/README.md) | [BillingAccountManagement](TMF666/charts/BillingAccountManagement/README.md) |
@@ -35,6 +37,7 @@ Examples:
 | Sample Component | Chart Folder | What The Chart Deploys | Main Resources / Operations | Source README |
 | --- | --- | --- | --- | --- |
 | `TMFC001 Product Catalog Management` | [`TMF620/charts/ProductCatalogManagement`](TMF620/charts/ProductCatalogManagement/README.md) | TMF620 API, catalog-management engine, metrics listener, Party Role API, MongoDB, bootstrap jobs, optional MCP wrapper | `productCatalog`, `category`, `productOffering`, `productOfferingPrice`, `productSpecification`, `importJob`, `exportJob` | [Source](TMF620/source/ProductCatalogManagement/README.md) |
+| `TMFC005 Product Inventory Management` | [`TMF637/charts/ProductInventoryManagement`](TMF637/charts/ProductInventoryManagement/README.md) | TMF637 API, product-inventory engine, metrics listener, Party Role API, MongoDB, bootstrap jobs, optional MCP wrapper | `product` list/create/get/patch/delete plus hub and listener callbacks | [Source](TMF637/source/ProductInventoryManagement/README.md) |
 | `TMFC002 Product Order Capture & Validation` | [`TMF622/charts/ProductOrderCaptureValidation`](TMF622/charts/ProductOrderCaptureValidation/README.md) | TMF622 API, order-validation microservice, metrics listener, Party Role API, MongoDB, bootstrap jobs, optional MCP wrapper | `productOrder` capture and validation | [Source](TMF622/source/ProductOrderCaptureValidation/README.md) |
 | `TMFC028 Party Management` | [`TMF632/charts/PartyManagement`](TMF632/charts/PartyManagement/README.md) | TMF632 API, party-management engine, metrics listener, Party Role API, MongoDB, optional MCP wrapper | `individual` and `organization` with full current path surface | [Source](TMF632/source/PartyManagement/README.md) |
 | `TMFC024 Billing Account Management` | [`TMF666/charts/BillingAccountManagement`](TMF666/charts/BillingAccountManagement/README.md) | TMF666 API, account-management engine, metrics listener, Party Role API, MongoDB, optional MCP wrapper | `billFormat`, `billPresentationMedia`, `billingAccount`, `billingCycleSpecification`, `financialAccount`, `partyAccount`, `settlementAccount` | [Source](TMF666/source/BillingAccountManagement/README.md) |
@@ -48,28 +51,31 @@ Examples:
 
 The workflow at `.github/workflows/release-helm-charts.yml` lints every chart under `TMF*/charts/*` and, on pushes to `main`, packages them into a Helm repository, publishes the generated files to `gh-pages`, and deploys the same content through GitHub Pages.
 
-GitHub Pages should be enabled for this repository and configured to use **GitHub Actions** as the publishing source. The published repository URL is:
+The published Helm repository is:
 
 ```text
-https://<OWNER>.github.io/<REPO>
+https://rj-acc.github.io/TMF-sample-ref-components
 ```
-
-Replace `<OWNER>` and `<REPO>` with the GitHub user or organization and repository name that host this project.
-
-If you want the workflow to enable GitHub Pages automatically when it is not configured yet, add a repository secret named `PAGES_ENABLEMENT_TOKEN` and use a token with permission to administer Pages for the repository. Otherwise, enable Pages once in the repository settings and keep the publishing source set to `GitHub Actions`.
 
 Add the repository and list the published charts:
 
 ```bash
-helm repo add tmf-sample-ref-components https://<OWNER>.github.io/<REPO>
+helm repo add tmf-sample-ref-components https://rj-acc.github.io/TMF-sample-ref-components
 helm repo update
 helm search repo tmf-sample-ref-components
 ```
 
-Install any of the published charts:
+List all available versions:
+
+```bash
+helm search repo tmf-sample-ref-components --versions
+```
+
+Install the currently published charts:
 
 | TMF API | Published Chart | Install Command |
 | --- | --- | --- |
+| `TMF620` | `productcatalogmanagement` | `helm upgrade --install tmf620 tmf-sample-ref-components/productcatalogmanagement -n components --create-namespace` |
 | `TMF622` | `productordercapturevalidation` | `helm upgrade --install tmf622 tmf-sample-ref-components/productordercapturevalidation -n components --create-namespace` |
 | `TMF632` | `partymanagement` | `helm upgrade --install tmf632 tmf-sample-ref-components/partymanagement -n components --create-namespace` |
 | `TMF666` | `billingaccountmanagement` | `helm upgrade --install tmf666 tmf-sample-ref-components/billingaccountmanagement -n components --create-namespace` |
@@ -79,7 +85,13 @@ Install any of the published charts:
 | `TMF683` | `partyinteractionmanagement` | `helm upgrade --install tmf683 tmf-sample-ref-components/partyinteractionmanagement -n components --create-namespace` |
 | `TMF760` | `productconfigurator` | `helm upgrade --install tmf760 tmf-sample-ref-components/productconfigurator -n components --create-namespace` |
 
-To inspect chart defaults before installing, run `helm show values tmf-sample-ref-components/<chart-name>`.
+`TMF637 Product Inventory Management` is not published in the Helm repository yet and will be added later.
+
+To inspect chart defaults before installing, run:
+
+```bash
+helm show values tmf-sample-ref-components/<chart-name>
+```
 
 ## Common Layout
 
