@@ -1,0 +1,97 @@
+# Default values for permissionsmanagement.
+
+component:
+  id: TMFC035
+  name: permissionsmanagement
+  functionalBlock: PartyManagement
+  publicationDate: 2026-04-09T00:00:00.000Z
+  version: "0.1.2"
+  apiVersion: v4
+  specificationUrl: https://raw.githubusercontent.com/tmforum-apis/TMF672_UserRolesPermissions/main/TMF672_User_Role_Permission_Management_API_v4.0.0_swagger.json
+  storageClassName: ""
+  apipolicy:
+    apiKeyVerification:
+      enabled: false
+      location: header
+    rateLimit:
+      enabled: false
+      identifier: IP
+      limit: "6"
+      interval: pm
+    quota:
+      identifier: ""
+      limit: ""
+    OASValidation:
+      requestEnabled: false
+      responseEnabled: false
+      allowUnspecifiedHeaders: false
+      allowUnspecifiedQueryParams: false
+      allowUnspecifiedCookies: false
+    CORS:
+      enabled: false
+      allowCredentials: false
+      allowOrigins: "https://allowed-origin.com, https://allowed-origin2.com"
+      handlePreflightRequests:
+        enabled: false
+        allowHeaders: "Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+        allowMethods: "GET, POST, PATCH, DELETE"
+        maxAge: 36000
+    template: ""
+  dependentAPIs:
+    enabled: true
+    partyManagement:
+      name: partymanagement
+      specificationUrl: https://raw.githubusercontent.com/tmforum-apis/TMF632_PartyManagement/main/TMF632-Party_Management-v5.0.0.oas.yaml
+  eventNotification:
+    publishedEvents:
+      - PermissionAttributeValueChangeEvent
+      - PermissionCreateEvent
+      - PermissionDeleteEvent
+      - PermissionStateChangeEvent
+      - UserRoleAttributeValueChangeEvent
+      - UserRoleCreateEvent
+      - UserRoleDeleteEvent
+      - UserRoleStateChangeEvent
+    subscribedEvents: []
+  MCPServer:
+    enabled: false
+
+security:
+  canvasSystemRole: PermissionsManagementAdmin
+
+service:
+  type: NodePort
+
+mongodb:
+  image: mongo:7
+  port: 27017
+  database: tmfc035
+  storage: 5Gi
+
+api:
+  image: ravijangra92/tmf672:permissions-management-api-0.1.0
+  versionLabel: permissions-management-api-0.1.0
+
+engine:
+  image: ravijangra92/tmf672:permissions-management-engine-0.1.0
+  versionLabel: permissions-management-engine-0.1.0
+
+metrics:
+  image: ravijangra92/tmf672:open-metrics-0.1.1
+  versionLabel: open-metrics-0.1.1
+
+mcp:
+  image: ravijangra92/tmf672:mcp-server-0.1.0
+  versionLabel: mcp-server-0.1.0
+
+partyrole:
+  image: ravijangra92/tmf672:party-role-0.1.1
+  versionLabel: party-role-0.1.1
+
+roleinitialization:
+  image: ravijangra92/tmf672:role-init-0.1.0
+  versionLabel: role-init-0.1.0
+
+permissionsmanagementinitialization:
+  image: ravijangra92/tmf672:permissions-management-init-0.1.0
+  versionLabel: permissions-management-init-0.1.0

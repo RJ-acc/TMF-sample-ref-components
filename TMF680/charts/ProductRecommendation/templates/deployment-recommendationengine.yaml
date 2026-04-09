@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-recommendationengine
+  labels:
+    oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.component.name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      impl: {{ .Release.Name }}-recommendationengine
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-{{ .Values.component.name }}
+        impl: {{ .Release.Name }}-recommendationengine
+        version: {{ .Values.engine.versionLabel }}
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-recommendationengine
+          image: {{ .Values.engine.image }}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: {{ .Release.Name }}-receng
+              containerPort: 8081
+          startupProbe:
+            httpGet:
+              path: /health
+              port: 8081
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            failureThreshold: 20

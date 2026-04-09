@@ -1,0 +1,90 @@
+# Default values for partyinteractionmanagement.
+
+component:
+  id: TMFC023
+  name: partyinteractionmanagement
+  functionalBlock: PartyManagement
+  publicationDate: 2026-04-09T00:00:00.000Z
+  version: "0.1.2"
+  apiVersion: v5
+  specificationUrl: https://raw.githubusercontent.com/tmforum-apis/TMF683_PartyInteraction/main/TMF683-Party_Interaction-v5.0.0.oas.yaml
+  storageClassName: ""
+  apipolicy:
+    apiKeyVerification:
+      enabled: false
+      location: header
+    rateLimit:
+      enabled: false
+      identifier: IP
+      limit: "6"
+      interval: pm
+    quota:
+      identifier: ""
+      limit: ""
+    OASValidation:
+      requestEnabled: false
+      responseEnabled: false
+      allowUnspecifiedHeaders: false
+      allowUnspecifiedQueryParams: false
+      allowUnspecifiedCookies: false
+    CORS:
+      enabled: false
+      allowCredentials: false
+      allowOrigins: "https://allowed-origin.com, https://allowed-origin2.com"
+      handlePreflightRequests:
+        enabled: false
+        allowHeaders: "Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+        allowMethods: "GET, POST, PATCH, DELETE"
+        maxAge: 36000
+    template: ""
+  dependentAPIs:
+    enabled: false
+  eventNotification:
+    publishedEvents:
+      - PartyInteractionAttributeValueChangeEvent
+      - PartyInteractionCreateEvent
+      - PartyInteractionDeleteEvent
+      - PartyInteractionStatusChangeEvent
+    subscribedEvents: []
+  MCPServer:
+    enabled: false
+
+security:
+  canvasSystemRole: PartyInteractionManagementAdmin
+
+service:
+  type: NodePort
+
+mongodb:
+  image: mongo:7
+  port: 27017
+  database: tmfc023
+  storage: 5Gi
+
+api:
+  image: ravijangra92/tmf683:party-interaction-management-api-0.1.0
+  versionLabel: party-interaction-management-api-0.1.0
+
+engine:
+  image: ravijangra92/tmf683:party-interaction-management-engine-0.1.0
+  versionLabel: party-interaction-management-engine-0.1.0
+
+metrics:
+  image: ravijangra92/tmf683:open-metrics-0.1.1
+  versionLabel: open-metrics-0.1.1
+
+mcp:
+  image: ravijangra92/tmf683:mcp-server-0.1.0
+  versionLabel: mcp-server-0.1.0
+
+partyrole:
+  image: ravijangra92/tmf683:party-role-0.1.1
+  versionLabel: party-role-0.1.1
+
+roleinitialization:
+  image: ravijangra92/tmf683:role-init-0.1.0
+  versionLabel: role-init-0.1.0
+
+partyinteractionmanagementinitialization:
+  image: ravijangra92/tmf683:party-interaction-management-init-0.1.0
+  versionLabel: party-interaction-management-init-0.1.0

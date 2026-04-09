@@ -1,0 +1,114 @@
+# Default values for billingaccountmanagement.
+
+component:
+  id: TMFC024
+  name: billingaccountmanagement
+  functionalBlock: CoreCommerce
+  publicationDate: 2026-04-08T00:00:00.000Z
+  version: "0.1.2"
+  apiVersion: v5
+  specificationUrl: https://raw.githubusercontent.com/tmforum-apis/TMF666_AccountManagement/main/TMF666-Account_Management-v5.0.0.oas.yaml
+  storageClassName: ""
+  apipolicy:
+    apiKeyVerification:
+      enabled: false
+      location: header
+    rateLimit:
+      enabled: false
+      identifier: IP
+      limit: "6"
+      interval: pm
+    quota:
+      identifier: ""
+      limit: ""
+    OASValidation:
+      requestEnabled: false
+      responseEnabled: false
+      allowUnspecifiedHeaders: false
+      allowUnspecifiedQueryParams: false
+      allowUnspecifiedCookies: false
+    CORS:
+      enabled: false
+      allowCredentials: false
+      allowOrigins: "https://allowed-origin.com, https://allowed-origin2.com"
+      handlePreflightRequests:
+        enabled: false
+        allowHeaders: "Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+        allowMethods: "GET, POST, PATCH, DELETE"
+        maxAge: 36000
+    template: ""
+  dependentAPIs:
+    enabled: false
+  eventNotification:
+    publishedEvents:
+      - BillFormatAttributeValueChangeEvent
+      - BillFormatCreateEvent
+      - BillFormatDeleteEvent
+      - BillFormatStateChangeEvent
+      - BillPresentationMediaAttributeValueChangeEvent
+      - BillPresentationMediaCreateEvent
+      - BillPresentationMediaDeleteEvent
+      - BillPresentationMediaStateChangeEvent
+      - BillingAccountAttributeValueChangeEvent
+      - BillingAccountCreateEvent
+      - BillingAccountDeleteEvent
+      - BillingAccountStateChangeEvent
+      - BillingCycleSpecificationAttributeValueChangeEvent
+      - BillingCycleSpecificationCreateEvent
+      - BillingCycleSpecificationDeleteEvent
+      - BillingCycleSpecificationStateChangeEvent
+      - FinancialAccountAttributeValueChangeEvent
+      - FinancialAccountCreateEvent
+      - FinancialAccountDeleteEvent
+      - FinancialAccountStateChangeEvent
+      - PartyAccountAttributeValueChangeEvent
+      - PartyAccountCreateEvent
+      - PartyAccountDeleteEvent
+      - PartyAccountStateChangeEvent
+      - SettlementAccountAttributeValueChangeEvent
+      - SettlementAccountCreateEvent
+      - SettlementAccountDeleteEvent
+      - SettlementAccountStateChangeEvent
+    subscribedEvents: []
+  MCPServer:
+    enabled: false
+
+security:
+  canvasSystemRole: BillingAccountManagementAdmin
+
+service:
+  type: NodePort
+
+mongodb:
+  image: mongo:7
+  port: 27017
+  database: tmfc024
+  storage: 5Gi
+
+api:
+  image: ravijangra92/tmf666:billing-account-api-0.1.0
+  versionLabel: billing-account-api-0.1.0
+
+engine:
+  image: ravijangra92/tmf666:account-management-engine-0.1.0
+  versionLabel: account-management-engine-0.1.0
+
+metrics:
+  image: ravijangra92/tmf666:open-metrics-0.1.1
+  versionLabel: open-metrics-0.1.1
+
+mcp:
+  image: ravijangra92/tmf666:mcp-server-0.1.0
+  versionLabel: mcp-server-0.1.0
+
+partyrole:
+  image: ravijangra92/tmf666:party-role-0.1.1
+  versionLabel: party-role-0.1.1
+
+roleinitialization:
+  image: ravijangra92/tmf666:role-init-0.1.0
+  versionLabel: role-init-0.1.0
+
+billingaccountinitialization:
+  image: ravijangra92/tmf666:billing-account-init-0.1.0
+  versionLabel: billing-account-init-0.1.0

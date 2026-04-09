@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Release.Name }}-productconfiguratorinitialization
+  labels:
+    oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.component.name }}
+spec:
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-productconfiguratorinitialization
+      annotations:
+        sidecar.istio.io/inject: "false"
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: {{ .Release.Name }}-productconfiguratorinitialization
+          image: {{ .Values.productconfigurationinitialization.image }}
+          env:
+            - name: RELEASE_NAME
+              value: {{ .Release.Name }}
+            - name: COMPONENT_NAME
+              value: {{ .Release.Name }}-{{ .Values.component.name }}
+            - name: PRODUCT_CONFIGURATION_API_BASE_URL
+              value: http://{{ .Release.Name }}-prodconfigapi:8080/{{ .Release.Name }}-{{ .Values.component.name }}/tmf-api/productConfiguration/{{ .Values.component.apiVersion }}
+            - name: METRICS_CALLBACK_URL
+              value: http://{{ .Release.Name }}-{{ .Values.component.name }}-sm:4000/listener/productConfigurationEvent
+          imagePullPolicy: IfNotPresent
+  backoffLimit: 10

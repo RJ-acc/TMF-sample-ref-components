@@ -1,0 +1,90 @@
+# Default values for billgenerationmanagement.
+
+component:
+  id: TMFC030
+  name: billgenerationmanagement
+  functionalBlock: CoreCommerce
+  publicationDate: 2026-04-08T00:00:00.000Z
+  version: "0.1.2"
+  apiVersion: v5
+  specificationUrl: https://raw.githubusercontent.com/tmforum-apis/TMF678_CustomerBill/main/TMF678-CustomerBill-v5.0.0.oas.yaml
+  storageClassName: ""
+  apipolicy:
+    apiKeyVerification:
+      enabled: false
+      location: header
+    rateLimit:
+      enabled: false
+      identifier: IP
+      limit: "6"
+      interval: pm
+    quota:
+      identifier: ""
+      limit: ""
+    OASValidation:
+      requestEnabled: false
+      responseEnabled: false
+      allowUnspecifiedHeaders: false
+      allowUnspecifiedQueryParams: false
+      allowUnspecifiedCookies: false
+    CORS:
+      enabled: false
+      allowCredentials: false
+      allowOrigins: "https://allowed-origin.com, https://allowed-origin2.com"
+      handlePreflightRequests:
+        enabled: false
+        allowHeaders: "Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+        allowMethods: "GET, POST, PATCH, DELETE"
+        maxAge: 36000
+    template: ""
+  dependentAPIs:
+    enabled: false
+  eventNotification:
+    publishedEvents:
+      - CustomerBillCreateEvent
+      - CustomerBillStateChangeEvent
+      - CustomerBillOnDemandCreateEvent
+      - CustomerBillOnDemandStateChangeEvent
+    subscribedEvents: []
+  MCPServer:
+    enabled: false
+
+security:
+  canvasSystemRole: BillGenerationManagementAdmin
+
+service:
+  type: NodePort
+
+mongodb:
+  image: mongo:7
+  port: 27017
+  database: tmfc030
+  storage: 5Gi
+
+api:
+  image: ravijangra92/tmf678:bill-generation-api-0.1.0
+  versionLabel: bill-generation-api-0.1.0
+
+engine:
+  image: ravijangra92/tmf678:bill-generation-engine-0.1.0
+  versionLabel: bill-generation-engine-0.1.0
+
+metrics:
+  image: ravijangra92/tmf678:open-metrics-0.1.1
+  versionLabel: open-metrics-0.1.1
+
+mcp:
+  image: ravijangra92/tmf678:mcp-server-0.1.0
+  versionLabel: mcp-server-0.1.0
+
+partyrole:
+  image: ravijangra92/tmf678:party-role-0.1.1
+  versionLabel: party-role-0.1.1
+
+roleinitialization:
+  image: ravijangra92/tmf678:role-init-0.1.0
+  versionLabel: role-init-0.1.0
+
+billgenerationinitialization:
+  image: ravijangra92/tmf678:bill-generation-init-0.1.0
+  versionLabel: bill-generation-init-0.1.0

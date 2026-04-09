@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Release.Name }}-billgenerationinitialization
+  labels:
+    oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.component.name }}
+spec:
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-billgenerationinitialization
+      annotations:
+        sidecar.istio.io/inject: "false"
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: {{ .Release.Name }}-billgenerationinitialization
+          image: {{ .Values.billgenerationinitialization.image }}
+          env:
+            - name: RELEASE_NAME
+              value: {{ .Release.Name }}
+            - name: COMPONENT_NAME
+              value: {{ .Release.Name }}-{{ .Values.component.name }}
+            - name: CUSTOMER_BILL_API_BASE_URL
+              value: http://{{ .Release.Name }}-billgenapi:8080/{{ .Release.Name }}-{{ .Values.component.name }}/tmf-api/customerBillManagement/{{ .Values.component.apiVersion }}
+            - name: METRICS_CALLBACK_URL
+              value: http://{{ .Release.Name }}-{{ .Values.component.name }}-sm:4000/listener/customerBillEvent
+          imagePullPolicy: IfNotPresent
+  backoffLimit: 10

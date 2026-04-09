@@ -1,0 +1,96 @@
+{{- $eventNotification := .Values.component.eventNotification | default (dict) }}
+{{- $publishedEvents := get $eventNotification "publishedEvents" | default (list) }}
+{{- $subscribedEvents := get $eventNotification "subscribedEvents" | default (list) }}
+apiVersion: oda.tmforum.org/v1
+kind: Component
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.component.name }}
+  labels:
+    oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.component.name }}
+spec:
+  componentMetadata:
+    id: {{ .Values.component.id }}
+    name: {{ .Values.component.name }}
+    functionalBlock: {{ .Values.component.functionalBlock }}
+    publicationDate: {{ .Values.component.publicationDate | quote }}
+    status: specified
+    version: {{ .Values.component.version | quote }}
+    description: "Reference TMFC050 Product Recommendation component with TMF680 recommendation queries, deterministic ranking, metrics, role support, and optional MCP."
+    maintainers:
+      - name: TMFC050 Reference Authors
+        email: oda-components@example.com
+    owners:
+      - name: TMFC050 Reference Authors
+        email: oda-components@example.com
+  coreFunction:
+    exposedAPIs:
+      - name: recommendationmanagement
+        specification:
+          - url: {{ .Values.component.specificationUrl | quote }}
+        implementation: {{ .Release.Name }}-prodrecapi
+        apiType: openapi
+        id: TMF680
+        gatewayConfiguration:
+          apiKeyVerification: {{ .Values.component.apipolicy.apiKeyVerification | toYaml | nindent 12 }}
+          rateLimit: {{ .Values.component.apipolicy.rateLimit | toYaml | nindent 12 }}
+          quota: {{ .Values.component.apipolicy.quota | toYaml | nindent 12 }}
+          OASValidation: {{ .Values.component.apipolicy.OASValidation | toYaml | nindent 12 }}
+          CORS: {{ .Values.component.apipolicy.CORS | toYaml | nindent 12 }}
+          template: {{ .Values.component.apipolicy.template | quote }}
+        path: /{{ .Release.Name }}-{{ .Values.component.name }}/tmf-api/recommendationManagement/{{ .Values.component.apiVersion }}
+        developerUI: /{{ .Release.Name }}-{{ .Values.component.name }}/tmf-api/recommendationManagement/{{ .Values.component.apiVersion }}/docs
+        port: 8080
+      {{- if .Values.component.MCPServer.enabled }}
+      - name: productrecommendationmcp
+        implementation: {{ .Release.Name }}-prodrecmcp
+        apiType: mcp
+        path: /{{ .Release.Name }}-{{ .Values.component.name }}/mcp
+        port: 8080
+      {{- end }}
+    {{- if .Values.component.dependentAPIs.enabled }}
+    dependentAPIs:
+      - name: {{ .Values.component.dependentAPIs.catalog.name }}
+        apiType: openapi
+        id: TMF620
+        specification:
+          - url: {{ .Values.component.dependentAPIs.catalog.specificationUrl | quote }}
+    {{- else }}
+    dependentAPIs: []
+    {{- end }}
+  eventNotification:
+    publishedEvents:{{ include "productrecommendation.renderEventList" $publishedEvents | nindent 6 }}
+    subscribedEvents:{{ include "productrecommendation.renderEventList" $subscribedEvents | nindent 6 }}
+  managementFunction:
+    exposedAPIs:
+      - name: metrics
+        apiType: prometheus
+        gatewayConfiguration:
+          apiKeyVerification: {{ .Values.component.apipolicy.apiKeyVerification | toYaml | nindent 12 }}
+          rateLimit: {{ .Values.component.apipolicy.rateLimit | toYaml | nindent 12 }}
+          quota: {{ .Values.component.apipolicy.quota | toYaml | nindent 12 }}
+          OASValidation: {{ .Values.component.apipolicy.OASValidation | toYaml | nindent 12 }}
+          CORS: {{ .Values.component.apipolicy.CORS | toYaml | nindent 12 }}
+          template: {{ .Values.component.apipolicy.template | quote }}
+        implementation: {{ .Release.Name }}-{{ .Values.component.name }}-sm
+        path: /{{ .Release.Name }}-{{ .Values.component.name }}/metrics
+        port: 4000
+    dependentAPIs: []
+  securityFunction:
+    canvasSystemRole: {{ .Values.security.canvasSystemRole }}
+    exposedAPIs:
+      - name: partyrole
+        specification:
+          - url: "https://raw.githubusercontent.com/tmforum-apis/TMF669_PartyRole/master/TMF669-PartyRole-v4.0.0.swagger.json"
+        implementation: {{ .Release.Name }}-partyroleapi
+        apiType: openapi
+        id: TMF669
+        gatewayConfiguration:
+          apiKeyVerification: {{ .Values.component.apipolicy.apiKeyVerification | toYaml | nindent 12 }}
+          rateLimit: {{ .Values.component.apipolicy.rateLimit | toYaml | nindent 12 }}
+          quota: {{ .Values.component.apipolicy.quota | toYaml | nindent 12 }}
+          OASValidation: {{ .Values.component.apipolicy.OASValidation | toYaml | nindent 12 }}
+          CORS: {{ .Values.component.apipolicy.CORS | toYaml | nindent 12 }}
+          template: {{ .Values.component.apipolicy.template | quote }}
+        path: /{{ .Release.Name }}-{{ .Values.component.name }}/tmf-api/partyRoleManagement/v4
+        developerUI: /{{ .Release.Name }}-{{ .Values.component.name }}/tmf-api/partyRoleManagement/v4/docs
+        port: 8080

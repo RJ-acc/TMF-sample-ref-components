@@ -1,0 +1,76 @@
+apiVersion: oda.tmforum.org/v1
+kind: Component
+metadata:
+  name: r1-permissionsmanagement
+  labels:
+    oda.tmforum.org/componentName: r1-permissionsmanagement
+spec:
+  componentMetadata:
+    id: TMFC035
+    name: permissionsmanagement
+    functionalBlock: PartyManagement
+    publicationDate: "2026-04-09T00:00:00.000Z"
+    status: specified
+    version: "0.1.0"
+    description: Reference TMFC035 Permissions Management component with TMF672 support for permission and userRole resources, metrics, role support, and optional MCP.
+    maintainers:
+      - name: TMFC035 Reference Authors
+        email: oda-components@example.com
+    owners:
+      - name: TMFC035 Reference Authors
+        email: oda-components@example.com
+  coreFunction:
+    exposedAPIs:
+      - name: rolesandpermissions
+        specification:
+          - url: "https://raw.githubusercontent.com/tmforum-apis/TMF672_UserRolesPermissions/main/TMF672_User_Role_Permission_Management_API_v4.0.0_swagger.json"
+        implementation: r1-permissionsmanagementapi
+        apiType: openapi
+        id: TMF672
+        path: /r1-permissionsmanagement/tmf-api/rolesAndPermissions/v4
+        developerUI: /r1-permissionsmanagement/tmf-api/rolesAndPermissions/v4/docs
+        port: 8080
+      - name: permissionsmanagementmcp
+        specification:
+          - url: "https://modelcontextprotocol.io/specification/"
+        implementation: r1-permissionsmanagementmcp
+        apiType: mcp
+        path: /r1-permissionsmanagement/mcp
+        port: 8080
+    dependentAPIs:
+      - name: partymanagement
+        apiType: openapi
+        id: TMF632
+        specification:
+          - url: "https://raw.githubusercontent.com/tmforum-apis/TMF632_PartyManagement/main/TMF632-Party_Management-v5.0.0.oas.yaml"
+  eventNotification:
+    publishedEvents:
+      - name: PermissionAttributeValueChangeEvent
+      - name: PermissionCreateEvent
+      - name: PermissionDeleteEvent
+      - name: PermissionStateChangeEvent
+      - name: UserRoleAttributeValueChangeEvent
+      - name: UserRoleCreateEvent
+      - name: UserRoleDeleteEvent
+      - name: UserRoleStateChangeEvent
+    subscribedEvents: []
+  managementFunction:
+    exposedAPIs:
+      - name: metrics
+        apiType: prometheus
+        implementation: r1-permissionsmanagement-sm
+        path: /r1-permissionsmanagement/metrics
+        port: 4000
+    dependentAPIs: []
+  securityFunction:
+    canvasSystemRole: PermissionsManagementAdmin
+    exposedAPIs:
+      - name: partyrole
+        specification:
+          - url: "https://raw.githubusercontent.com/tmforum-apis/TMF669_PartyRole/master/TMF669-PartyRole-v4.0.0.swagger.json"
+        implementation: r1-partyroleapi
+        apiType: openapi
+        id: TMF669
+        path: /r1-permissionsmanagement/tmf-api/partyRoleManagement/v4
+        developerUI: /r1-permissionsmanagement/tmf-api/partyRoleManagement/v4/docs
+        port: 8080

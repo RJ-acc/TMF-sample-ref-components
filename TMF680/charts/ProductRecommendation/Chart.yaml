@@ -1,0 +1,6 @@
+apiVersion: v2
+name: productrecommendation
+description: A reference-style TMFC050 Product Recommendation ODA Component
+type: application
+version: 0.1.1
+appVersion: "0.1.1"

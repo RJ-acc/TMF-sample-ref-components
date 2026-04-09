@@ -1,0 +1,94 @@
+# Default values for partymanagement.
+
+component:
+  id: TMFC028
+  name: partymanagement
+  functionalBlock: PartyManagement
+  publicationDate: 2026-04-09T00:00:00.000Z
+  version: "0.1.2"
+  apiVersion: v5
+  specificationUrl: https://raw.githubusercontent.com/tmforum-apis/TMF632_PartyManagement/main/TMF632-Party_Management-v5.0.0.oas.yaml
+  storageClassName: ""
+  apipolicy:
+    apiKeyVerification:
+      enabled: false
+      location: header
+    rateLimit:
+      enabled: false
+      identifier: IP
+      limit: "6"
+      interval: pm
+    quota:
+      identifier: ""
+      limit: ""
+    OASValidation:
+      requestEnabled: false
+      responseEnabled: false
+      allowUnspecifiedHeaders: false
+      allowUnspecifiedQueryParams: false
+      allowUnspecifiedCookies: false
+    CORS:
+      enabled: false
+      allowCredentials: false
+      allowOrigins: "https://allowed-origin.com, https://allowed-origin2.com"
+      handlePreflightRequests:
+        enabled: false
+        allowHeaders: "Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+        allowMethods: "GET, POST, PATCH, DELETE"
+        maxAge: 36000
+    template: ""
+  dependentAPIs:
+    enabled: false
+  eventNotification:
+    publishedEvents:
+      - IndividualAttributeValueChangeEvent
+      - IndividualCreateEvent
+      - IndividualDeleteEvent
+      - IndividualStateChangeEvent
+      - OrganizationAttributeValueChangeEvent
+      - OrganizationCreateEvent
+      - OrganizationDeleteEvent
+      - OrganizationStateChangeEvent
+    subscribedEvents: []
+  MCPServer:
+    enabled: false
+
+security:
+  canvasSystemRole: PartyManagementAdmin
+
+service:
+  type: NodePort
+
+mongodb:
+  image: mongo:7
+  port: 27017
+  database: tmfc028
+  storage: 5Gi
+
+api:
+  image: ravijangra92/tmf632:party-management-api-0.1.0
+  versionLabel: party-management-api-0.1.0
+
+engine:
+  image: ravijangra92/tmf632:party-management-engine-0.1.0
+  versionLabel: party-management-engine-0.1.0
+
+metrics:
+  image: ravijangra92/tmf632:open-metrics-0.1.1
+  versionLabel: open-metrics-0.1.1
+
+mcp:
+  image: ravijangra92/tmf632:mcp-server-0.1.0
+  versionLabel: mcp-server-0.1.0
+
+partyrole:
+  image: ravijangra92/tmf632:party-role-0.1.1
+  versionLabel: party-role-0.1.1
+
+roleinitialization:
+  image: ravijangra92/tmf632:role-init-0.1.0
+  versionLabel: role-init-0.1.0
+
+partymanagementinitialization:
+  image: ravijangra92/tmf632:party-management-init-0.1.0
+  versionLabel: party-management-init-0.1.0

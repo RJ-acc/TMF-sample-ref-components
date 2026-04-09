@@ -1,0 +1,45 @@
+{{- if .Values.component.MCPServer.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-partymanagementmcp
+  labels:
+    oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.component.name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      impl: {{ .Release.Name }}-partymanagementmcp
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-{{ .Values.component.name }}
+        impl: {{ .Release.Name }}-partymanagementmcp
+        version: {{ .Values.mcp.versionLabel }}
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-partymanagementmcp
+          image: {{ .Values.mcp.image }}
+          env:
+            - name: TMF632_MODE
+              value: live
+            - name: MCP_HTTP_BASE_PATH
+              value: /{{ .Release.Name }}-{{ .Values.component.name }}
+            - name: TMF632_BASE_URL
+              value: http://{{ .Release.Name }}-partymanagementapi:8080/{{ .Release.Name }}-{{ .Values.component.name }}
+            - name: TMF632_API_VERSION
+              value: {{ .Values.component.apiVersion }}
+            - name: TMF632_SPEC_URL
+              value: {{ .Values.component.specificationUrl }}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: {{ .Release.Name }}-pmmcp
+              containerPort: 8080
+          startupProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            failureThreshold: 20
+{{- end }}

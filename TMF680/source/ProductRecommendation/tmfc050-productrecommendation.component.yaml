@@ -1,0 +1,63 @@
+apiVersion: oda.tmforum.org/v1
+kind: Component
+metadata:
+  name: r1-productrecommendation
+  labels:
+    oda.tmforum.org/componentName: r1-productrecommendation
+spec:
+  componentMetadata:
+    id: TMFC050
+    name: productrecommendation
+    functionalBlock: CoreCommerce
+    publicationDate: "2026-04-08T00:00:00.000Z"
+    status: specified
+    version: "0.1.0"
+    description: Reference TMFC050 Product Recommendation component with TMF680 recommendation queries, deterministic recommendation generation, metrics, role support, and optional MCP.
+    maintainers:
+      - name: TMFC050 Reference Authors
+        email: oda-components@example.com
+    owners:
+      - name: TMFC050 Reference Authors
+        email: oda-components@example.com
+  coreFunction:
+    exposedAPIs:
+      - name: recommendationmanagement
+        specification:
+          - url: "https://raw.githubusercontent.com/tmforum-apis/TMF680_Recommendation/main/TMF680_Recommendation_Management_API_v4.0.0_swagger.json"
+        implementation: r1-prodrecapi
+        apiType: openapi
+        id: TMF680
+        path: /r1-productrecommendation/tmf-api/recommendationManagement/v4
+        developerUI: /r1-productrecommendation/tmf-api/recommendationManagement/v4/docs
+        port: 8080
+    dependentAPIs:
+      - name: productcatalogmanagement
+        apiType: openapi
+        id: TMF620
+        specification:
+          - url: "https://raw.githubusercontent.com/tmforum-apis/TMF620_ProductCatalog/master/TMF620-ProductCatalog-v4.0.0.swagger.json"
+  eventNotification:
+    publishedEvents:
+      - name: QueryProductRecommendationCreateEvent
+      - name: QueryProductRecommendationStateChangeEvent
+    subscribedEvents: []
+  managementFunction:
+    exposedAPIs:
+      - name: metrics
+        apiType: prometheus
+        implementation: r1-productrecommendation-sm
+        path: /r1-productrecommendation/metrics
+        port: 4000
+    dependentAPIs: []
+  securityFunction:
+    canvasSystemRole: ProductRecommendationAdmin
+    exposedAPIs:
+      - name: partyrole
+        specification:
+          - url: "https://raw.githubusercontent.com/tmforum-apis/TMF669_PartyRole/master/TMF669-PartyRole-v4.0.0.swagger.json"
+        implementation: r1-partyroleapi
+        apiType: openapi
+        id: TMF669
+        path: /r1-productrecommendation/tmf-api/partyRoleManagement/v4
+        developerUI: /r1-productrecommendation/tmf-api/partyRoleManagement/v4/docs
+        port: 8080

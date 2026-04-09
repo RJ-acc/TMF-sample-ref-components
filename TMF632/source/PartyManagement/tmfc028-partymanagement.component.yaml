@@ -1,0 +1,64 @@
+apiVersion: oda.tmforum.org/v1
+kind: Component
+metadata:
+  name: r1-partymanagement
+  labels:
+    oda.tmforum.org/componentName: r1-partymanagement
+spec:
+  componentMetadata:
+    id: TMFC028
+    name: partymanagement
+    functionalBlock: PartyManagement
+    publicationDate: "2026-04-09T00:00:00.000Z"
+    status: specified
+    version: "0.1.0"
+    description: Reference TMFC028 Party Management component with TMF632 CRUD support for individuals and organizations, metrics, role support, and optional MCP.
+    maintainers:
+      - name: TMFC028 Reference Authors
+        email: oda-components@example.com
+    owners:
+      - name: TMFC028 Reference Authors
+        email: oda-components@example.com
+  coreFunction:
+    exposedAPIs:
+      - name: partymanagement
+        specification:
+          - url: "https://raw.githubusercontent.com/tmforum-apis/TMF632_PartyManagement/main/TMF632-Party_Management-v5.0.0.oas.yaml"
+        implementation: r1-partymanagementapi
+        apiType: openapi
+        id: TMF632
+        path: /r1-partymanagement/tmf-api/partyManagement/v5
+        developerUI: /r1-partymanagement/tmf-api/partyManagement/v5/docs
+        port: 8080
+    dependentAPIs: []
+  eventNotification:
+    publishedEvents:
+      - name: IndividualAttributeValueChangeEvent
+      - name: IndividualCreateEvent
+      - name: IndividualDeleteEvent
+      - name: IndividualStateChangeEvent
+      - name: OrganizationAttributeValueChangeEvent
+      - name: OrganizationCreateEvent
+      - name: OrganizationDeleteEvent
+      - name: OrganizationStateChangeEvent
+    subscribedEvents: []
+  managementFunction:
+    exposedAPIs:
+      - name: metrics
+        apiType: prometheus
+        implementation: r1-partymanagement-sm
+        path: /r1-partymanagement/metrics
+        port: 4000
+    dependentAPIs: []
+  securityFunction:
+    canvasSystemRole: PartyManagementAdmin
+    exposedAPIs:
+      - name: partyrole
+        specification:
+          - url: "https://raw.githubusercontent.com/tmforum-apis/TMF669_PartyRole/master/TMF669-PartyRole-v4.0.0.swagger.json"
+        implementation: r1-partyroleapi
+        apiType: openapi
+        id: TMF669
+        path: /r1-partymanagement/tmf-api/partyRoleManagement/v4
+        developerUI: /r1-partymanagement/tmf-api/partyRoleManagement/v4/docs
+        port: 8080

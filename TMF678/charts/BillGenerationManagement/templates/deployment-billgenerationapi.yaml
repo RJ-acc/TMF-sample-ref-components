@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-billgenapi
+  labels:
+    oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.component.name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      impl: {{ .Release.Name }}-billgenapi
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-{{ .Values.component.name }}
+        impl: {{ .Release.Name }}-billgenapi
+        version: {{ .Values.api.versionLabel }}
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-billgenapi
+          image: {{ .Values.api.image }}
+          env:
+            - name: RELEASE_NAME
+              value: {{ .Release.Name }}
+            - name: COMPONENT_NAME
+              value: {{ .Release.Name }}-{{ .Values.component.name }}
+            - name: API_BASE_PATH
+              value: /{{ .Release.Name }}-{{ .Values.component.name }}/tmf-api/customerBillManagement/{{ .Values.component.apiVersion }}
+            - name: ENGINE_SERVICE_URL
+              value: http://{{ .Release.Name }}-billgenerationengine:8081
+            - name: MONGODB_HOST
+              value: {{ .Release.Name }}-mongodb
+            - name: MONGODB_PORT
+              value: {{ .Values.mongodb.port | quote }}
+            - name: MONGODB_DATABASE
+              value: {{ .Values.mongodb.database }}
+            - name: NODE_ENV
+              value: production
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: {{ .Release.Name }}-bgapi
+              containerPort: 8080
+          startupProbe:
+            httpGet:
+              path: /{{ .Release.Name }}-{{ .Values.component.name }}/tmf-api/customerBillManagement/{{ .Values.component.apiVersion }}/customerBill
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            failureThreshold: 30

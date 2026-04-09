@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 import os
 from typing import Any
 from uuid import uuid4
@@ -31,6 +32,13 @@ app = FastAPI(
 )
 router = APIRouter(prefix=API_BASE_PATH)
 store = get_store()
+logger = logging.getLogger(__name__)
+LISTENER_OPERATIONS = [
+    ("listenToPartyRoleAttributeValueChangeEvent", "/listener/partyRoleAttributeValueChangeEvent"),
+    ("listenToPartyRoleCreateEvent", "/listener/partyRoleCreateEvent"),
+    ("listenToPartyRoleDeleteEvent", "/listener/partyRoleDeleteEvent"),
+    ("listenToPartyRoleStateChangeEvent", "/listener/partyRoleStateChangeEvent"),
+]
 
 
 def _href(role_id: str) -> str:
@@ -90,6 +98,18 @@ async def describe_party_role_api() -> dict[str, Any]:
                 "href": "/partyRole/{id}",
                 "method": "DELETE",
                 "description": "This operation deletes a PartyRole entity.",
+            },
+            {
+                "name": "registerListener",
+                "href": "/hub",
+                "method": "POST",
+                "description": "Create a subscription (hub) to receive Events",
+            },
+            {
+                "name": "unregisterListener",
+                "href": "/hub/{id}",
+                "method": "DELETE",
+                "description": "Remove a subscription (hub) to receive Events",
             },
         ],
     )
@@ -159,6 +179,53 @@ async def delete_party_role(role_id: str) -> Response:
     if not deleted:
         raise HTTPException(status_code=404, detail=f"PartyRole '{role_id}' not found")
     return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+
+@router.post("/hub", status_code=status.HTTP_201_CREATED)
+async def register_listener(payload: dict[str, Any]) -> dict[str, Any]:
+    callback = payload.get("callback")
+    if not callback:
+        raise HTTPException(status_code=400, detail="callback is required")
+
+    query = payload.get("query", "")
+    for existing in store.list_documents("subscriptions"):
+        if existing.get("callback") == callback and existing.get("query", "") == query:
+            return existing
+
+    subscription_id = payload.get("id") or str(uuid4())[:8]
+    entity = {
+        "id": subscription_id,
+        "href": f"{API_BASE_PATH}/hub/{subscription_id}",
+        "callback": callback,
+        "query": query,
+        "lastUpdate": utc_now(),
+        "@type": payload.get("@type", "EventSubscription"),
+    }
+    store.create_document("subscriptions", entity)
+    return entity
+
+
+@router.delete("/hub/{subscription_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def unregister_listener(subscription_id: str) -> Response:
+    deleted = store.delete_document("subscriptions", subscription_id)
+    if not deleted:
+        raise HTTPException(status_code=404, detail=f"Subscription '{subscription_id}' not found")
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+
+async def _receive_listener_event(payload: dict[str, Any]) -> Response:
+    logger.info("Received party-role listener payload with keys: %s", sorted(payload.keys()))
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+
+for listener_name, listener_path in LISTENER_OPERATIONS:
+    router.add_api_route(
+        listener_path,
+        _receive_listener_event,
+        methods=["POST"],
+        name=listener_name,
+        status_code=status.HTTP_204_NO_CONTENT,
+    )
 
 
 app.include_router(router)

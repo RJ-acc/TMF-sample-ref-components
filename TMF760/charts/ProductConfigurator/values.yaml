@@ -1,0 +1,93 @@
+# Default values for productconfigurator.
+
+component:
+  id: TMFC027
+  name: productconfigurator
+  functionalBlock: CoreCommerce
+  publicationDate: 2026-04-08T00:00:00.000Z
+  version: "0.1.1"
+  apiVersion: v5
+  specificationUrl: https://raw.githubusercontent.com/tmforum-apis/TMF760_ProductConfigurationManagement/main/TMF760-ProductConfiguration-v5.0.0.oas.yaml
+  storageClassName: ""
+  apipolicy:
+    apiKeyVerification:
+      enabled: false
+      location: header
+    rateLimit:
+      enabled: false
+      identifier: IP
+      limit: "6"
+      interval: pm
+    quota:
+      identifier: ""
+      limit: ""
+    OASValidation:
+      requestEnabled: false
+      responseEnabled: false
+      allowUnspecifiedHeaders: false
+      allowUnspecifiedQueryParams: false
+      allowUnspecifiedCookies: false
+    CORS:
+      enabled: false
+      allowCredentials: false
+      allowOrigins: "https://allowed-origin.com, https://allowed-origin2.com"
+      handlePreflightRequests:
+        enabled: false
+        allowHeaders: "Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+        allowMethods: "GET, POST, DELETE"
+        maxAge: 36000
+    template: ""
+  dependentAPIs:
+    enabled: false
+    catalog:
+      name: productcatalogmanagement
+      specificationUrl: https://raw.githubusercontent.com/tmforum-apis/TMF620_ProductCatalog/main/TMF620-ProductCatalog-v5.0.0.oas.yaml
+  eventNotification:
+    publishedEvents:
+      - QueryProductConfigurationCreateEvent
+      - QueryProductConfigurationStateChangeEvent
+      - CheckProductConfigurationCreateEvent
+      - CheckProductConfigurationStateChangeEvent
+    subscribedEvents: []
+  MCPServer:
+    enabled: false
+
+security:
+  canvasSystemRole: ProductConfiguratorAdmin
+
+service:
+  type: NodePort
+
+mongodb:
+  image: mongo:7
+  port: 27017
+  database: tmfc027
+  storage: 5Gi
+
+api:
+  image: ravijangra92/tmf760:product-configurator-api-0.1.0
+  versionLabel: product-configurator-api-0.1.0
+
+engine:
+  image: ravijangra92/tmf760:configuration-engine-0.1.0
+  versionLabel: configuration-engine-0.1.0
+
+metrics:
+  image: ravijangra92/tmf760:open-metrics-0.1.0
+  versionLabel: open-metrics-0.1.0
+
+mcp:
+  image: ravijangra92/tmf760:mcp-server-0.1.0
+  versionLabel: mcp-server-0.1.0
+
+partyrole:
+  image: ravijangra92/tmf760:party-role-0.1.1
+  versionLabel: party-role-0.1.1
+
+roleinitialization:
+  image: ravijangra92/tmf760:role-init-0.1.0
+  versionLabel: role-init-0.1.0
+
+productconfigurationinitialization:
+  image: ravijangra92/tmf760:product-configurator-init-0.1.0
+  versionLabel: product-configurator-init-0.1.0

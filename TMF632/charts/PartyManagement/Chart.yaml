@@ -1,0 +1,6 @@
+apiVersion: v2
+name: partymanagement
+description: A reference-style TMFC028 Party Management ODA Component
+type: application
+version: 0.1.2
+appVersion: "0.1.2"

@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Release.Name }}-roleinitialization
+  labels:
+    oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.component.name }}
+spec:
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-roleinitialization
+      annotations:
+        sidecar.istio.io/inject: "false"
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: {{ .Release.Name }}-roleinitialization
+          image: {{ .Values.roleinitialization.image }}
+          env:
+            - name: RELEASE_NAME
+              value: {{ .Release.Name }}
+            - name: COMPONENT_NAME
+              value: {{ .Release.Name }}-{{ .Values.component.name }}
+            - name: ROLE_API_BASE_URL
+              value: http://{{ .Release.Name }}-partyroleapi:8080/{{ .Release.Name }}-{{ .Values.component.name }}/tmf-api/partyRoleManagement/v4
+            - name: CANVAS_SYSTEM_ROLE
+              value: {{ .Values.security.canvasSystemRole }}
+          imagePullPolicy: IfNotPresent
+  backoffLimit: 10

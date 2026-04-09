@@ -5,9 +5,10 @@ component:
   name: productordercapturevalidation
   functionalBlock: CoreCommerce
   publicationDate: 2026-03-14T00:00:00.000Z
-  version: "0.1.0"
+  version: "0.1.1"
   apiVersion: v4
   specificationUrl: https://raw.githubusercontent.com/tmforum-apis/TMF622_ProductOrder/main/TMF622-ProductOrder-v4.0.0.swagger.json
+  mcpSpecificationUrl: https://modelcontextprotocol.io/specification/
   storageClassName: ""
   apipolicy:
     apiKeyVerification:
@@ -54,7 +55,7 @@ component:
       - CancelProductOrderInformationRequiredEvent
     subscribedEvents: []
   MCPServer:
-    enabled: true
+    enabled: false
 
 security:
   canvasSystemRole: ProductOrderAdmin
@@ -85,8 +86,8 @@ mcp:
   versionLabel: mcp-server-1.2
 
 partyrole:
-  image: ravijangra92/tmf622:party-role-1.1
-  versionLabel: party-role-1.1
+  image: ravijangra92/tmf622:party-role-1.2
+  versionLabel: party-role-1.2
 
 roleinitialization:
   image: ravijangra92/tmf622:role-init-1.1

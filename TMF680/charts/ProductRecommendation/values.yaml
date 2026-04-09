@@ -1,0 +1,91 @@
+# Default values for productrecommendation.
+
+component:
+  id: TMFC050
+  name: productrecommendation
+  functionalBlock: CoreCommerce
+  publicationDate: 2026-04-08T00:00:00.000Z
+  version: "0.1.1"
+  apiVersion: v4
+  specificationUrl: https://raw.githubusercontent.com/tmforum-apis/TMF680_Recommendation/main/TMF680_Recommendation_Management_API_v4.0.0_swagger.json
+  storageClassName: ""
+  apipolicy:
+    apiKeyVerification:
+      enabled: false
+      location: header
+    rateLimit:
+      enabled: false
+      identifier: IP
+      limit: "6"
+      interval: pm
+    quota:
+      identifier: ""
+      limit: ""
+    OASValidation:
+      requestEnabled: false
+      responseEnabled: false
+      allowUnspecifiedHeaders: false
+      allowUnspecifiedQueryParams: false
+      allowUnspecifiedCookies: false
+    CORS:
+      enabled: false
+      allowCredentials: false
+      allowOrigins: "https://allowed-origin.com, https://allowed-origin2.com"
+      handlePreflightRequests:
+        enabled: false
+        allowHeaders: "Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+        allowMethods: "GET, POST, DELETE"
+        maxAge: 36000
+    template: ""
+  dependentAPIs:
+    enabled: false
+    catalog:
+      name: productcatalogmanagement
+      specificationUrl: https://raw.githubusercontent.com/tmforum-apis/TMF620_ProductCatalog/master/TMF620-ProductCatalog-v4.0.0.swagger.json
+  eventNotification:
+    publishedEvents:
+      - QueryProductRecommendationCreateEvent
+      - QueryProductRecommendationStateChangeEvent
+    subscribedEvents: []
+  MCPServer:
+    enabled: false
+
+security:
+  canvasSystemRole: ProductRecommendationAdmin
+
+service:
+  type: NodePort
+
+mongodb:
+  image: mongo:7
+  port: 27017
+  database: tmfc050
+  storage: 5Gi
+
+api:
+  image: ravijangra92/tmf680:product-recommendation-api-0.1.0
+  versionLabel: product-recommendation-api-0.1.0
+
+engine:
+  image: ravijangra92/tmf680:recommendation-engine-0.1.0
+  versionLabel: recommendation-engine-0.1.0
+
+metrics:
+  image: ravijangra92/tmf680:open-metrics-0.1.0
+  versionLabel: open-metrics-0.1.0
+
+mcp:
+  image: ravijangra92/tmf680:mcp-server-0.1.0
+  versionLabel: mcp-server-0.1.0
+
+partyrole:
+  image: ravijangra92/tmf680:party-role-0.1.1
+  versionLabel: party-role-0.1.1
+
+roleinitialization:
+  image: ravijangra92/tmf680:role-init-0.1.0
+  versionLabel: role-init-0.1.0
+
+productrecommendationinitialization:
+  image: ravijangra92/tmf680:product-recommendation-init-0.1.0
+  versionLabel: product-recommendation-init-0.1.0

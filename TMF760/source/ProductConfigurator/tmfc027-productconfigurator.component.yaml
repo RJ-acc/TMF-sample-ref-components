@@ -1,0 +1,60 @@
+apiVersion: oda.tmforum.org/v1
+kind: Component
+metadata:
+  name: r1-productconfigurator
+  labels:
+    oda.tmforum.org/componentName: r1-productconfigurator
+spec:
+  componentMetadata:
+    id: TMFC027
+    name: productconfigurator
+    functionalBlock: CoreCommerce
+    publicationDate: "2026-04-08T00:00:00.000Z"
+    status: specified
+    version: "0.1.0"
+    description: Reference TMFC027 Product Configurator component with TMF760 query and check operations, deterministic starter configuration logic, metrics, role support, and optional MCP.
+    maintainers:
+      - name: TMFC027 Reference Authors
+        email: oda-components@example.com
+    owners:
+      - name: TMFC027 Reference Authors
+        email: oda-components@example.com
+  coreFunction:
+    exposedAPIs:
+      - name: productconfigurationmanagement
+        specification:
+          - url: "https://raw.githubusercontent.com/tmforum-apis/TMF760_ProductConfigurationManagement/main/TMF760-ProductConfiguration-v5.0.0.oas.yaml"
+        implementation: r1-prodconfigapi
+        apiType: openapi
+        id: TMF760
+        path: /r1-productconfigurator/tmf-api/productConfiguration/v5
+        developerUI: /r1-productconfigurator/tmf-api/productConfiguration/v5/docs
+        port: 8080
+    dependentAPIs: []
+  eventNotification:
+    publishedEvents:
+      - name: QueryProductConfigurationCreateEvent
+      - name: QueryProductConfigurationStateChangeEvent
+      - name: CheckProductConfigurationCreateEvent
+      - name: CheckProductConfigurationStateChangeEvent
+    subscribedEvents: []
+  managementFunction:
+    exposedAPIs:
+      - name: metrics
+        apiType: prometheus
+        implementation: r1-productconfigurator-sm
+        path: /r1-productconfigurator/metrics
+        port: 4000
+    dependentAPIs: []
+  securityFunction:
+    canvasSystemRole: ProductConfiguratorAdmin
+    exposedAPIs:
+      - name: partyrole
+        specification:
+          - url: "https://raw.githubusercontent.com/tmforum-apis/TMF669_PartyRole/master/TMF669-PartyRole-v4.0.0.swagger.json"
+        implementation: r1-partyroleapi
+        apiType: openapi
+        id: TMF669
+        path: /r1-productconfigurator/tmf-api/partyRoleManagement/v4
+        developerUI: /r1-productconfigurator/tmf-api/partyRoleManagement/v4/docs
+        port: 8080

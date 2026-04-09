@@ -1,0 +1,67 @@
+apiVersion: oda.tmforum.org/v1
+kind: Component
+metadata:
+  name: r1-partyinteractionmanagement
+  labels:
+    oda.tmforum.org/componentName: r1-partyinteractionmanagement
+spec:
+  componentMetadata:
+    id: TMFC023
+    name: partyinteractionmanagement
+    functionalBlock: PartyManagement
+    publicationDate: "2026-04-09T00:00:00.000Z"
+    status: specified
+    version: "0.1.0"
+    description: Reference TMFC023 Party Interaction Management component with TMF683 CRUD support for party interactions, metrics, role support, and optional MCP.
+    maintainers:
+      - name: TMFC023 Reference Authors
+        email: oda-components@example.com
+    owners:
+      - name: TMFC023 Reference Authors
+        email: oda-components@example.com
+  coreFunction:
+    exposedAPIs:
+      - name: partyinteractionmanagement
+        specification:
+          - url: "https://raw.githubusercontent.com/tmforum-apis/TMF683_PartyInteraction/main/TMF683-Party_Interaction-v5.0.0.oas.yaml"
+        implementation: r1-partyinteractionmanagementapi
+        apiType: openapi
+        id: TMF683
+        path: /r1-partyinteractionmanagement/tmf-api/partyInteractionManagement/v5
+        developerUI: /r1-partyinteractionmanagement/tmf-api/partyInteractionManagement/v5/docs
+        port: 8080
+      - name: partyinteractionmanagementmcp
+        specification:
+          - url: "https://modelcontextprotocol.io/specification/"
+        implementation: r1-partyinteractionmanagementmcp
+        apiType: mcp
+        path: /r1-partyinteractionmanagement/mcp
+        port: 8080
+    dependentAPIs: []
+  eventNotification:
+    publishedEvents:
+      - name: PartyInteractionAttributeValueChangeEvent
+      - name: PartyInteractionCreateEvent
+      - name: PartyInteractionDeleteEvent
+      - name: PartyInteractionStatusChangeEvent
+    subscribedEvents: []
+  managementFunction:
+    exposedAPIs:
+      - name: metrics
+        apiType: prometheus
+        implementation: r1-partyinteractionmanagement-sm
+        path: /r1-partyinteractionmanagement/metrics
+        port: 4000
+    dependentAPIs: []
+  securityFunction:
+    canvasSystemRole: PartyInteractionManagementAdmin
+    exposedAPIs:
+      - name: partyrole
+        specification:
+          - url: "https://raw.githubusercontent.com/tmforum-apis/TMF669_PartyRole/master/TMF669-PartyRole-v4.0.0.swagger.json"
+        implementation: r1-partyroleapi
+        apiType: openapi
+        id: TMF669
+        path: /r1-partyinteractionmanagement/tmf-api/partyRoleManagement/v4
+        developerUI: /r1-partyinteractionmanagement/tmf-api/partyRoleManagement/v4/docs
+        port: 8080

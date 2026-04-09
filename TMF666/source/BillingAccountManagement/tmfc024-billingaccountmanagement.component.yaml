@@ -1,0 +1,84 @@
+apiVersion: oda.tmforum.org/v1
+kind: Component
+metadata:
+  name: r1-billingaccountmanagement
+  labels:
+    oda.tmforum.org/componentName: r1-billingaccountmanagement
+spec:
+  componentMetadata:
+    id: TMFC024
+    name: billingaccountmanagement
+    functionalBlock: CoreCommerce
+    publicationDate: "2026-04-08T00:00:00.000Z"
+    status: specified
+    version: "0.1.0"
+    description: Reference TMFC024 Billing Account Management component with TMF666 CRUD support for billing accounts and related account-management resources, metrics, role support, and optional MCP.
+    maintainers:
+      - name: TMFC024 Reference Authors
+        email: oda-components@example.com
+    owners:
+      - name: TMFC024 Reference Authors
+        email: oda-components@example.com
+  coreFunction:
+    exposedAPIs:
+      - name: accountmanagement
+        specification:
+          - url: "https://raw.githubusercontent.com/tmforum-apis/TMF666_AccountManagement/main/TMF666-Account_Management-v5.0.0.oas.yaml"
+        implementation: r1-billingaccountapi
+        apiType: openapi
+        id: TMF666
+        path: /r1-billingaccountmanagement/tmf-api/accountManagement/v5
+        developerUI: /r1-billingaccountmanagement/tmf-api/accountManagement/v5/docs
+        port: 8080
+    dependentAPIs: []
+  eventNotification:
+    publishedEvents:
+      - name: BillFormatAttributeValueChangeEvent
+      - name: BillFormatCreateEvent
+      - name: BillFormatDeleteEvent
+      - name: BillFormatStateChangeEvent
+      - name: BillPresentationMediaAttributeValueChangeEvent
+      - name: BillPresentationMediaCreateEvent
+      - name: BillPresentationMediaDeleteEvent
+      - name: BillPresentationMediaStateChangeEvent
+      - name: BillingAccountAttributeValueChangeEvent
+      - name: BillingAccountCreateEvent
+      - name: BillingAccountDeleteEvent
+      - name: BillingAccountStateChangeEvent
+      - name: BillingCycleSpecificationAttributeValueChangeEvent
+      - name: BillingCycleSpecificationCreateEvent
+      - name: BillingCycleSpecificationDeleteEvent
+      - name: BillingCycleSpecificationStateChangeEvent
+      - name: FinancialAccountAttributeValueChangeEvent
+      - name: FinancialAccountCreateEvent
+      - name: FinancialAccountDeleteEvent
+      - name: FinancialAccountStateChangeEvent
+      - name: PartyAccountAttributeValueChangeEvent
+      - name: PartyAccountCreateEvent
+      - name: PartyAccountDeleteEvent
+      - name: PartyAccountStateChangeEvent
+      - name: SettlementAccountAttributeValueChangeEvent
+      - name: SettlementAccountCreateEvent
+      - name: SettlementAccountDeleteEvent
+      - name: SettlementAccountStateChangeEvent
+    subscribedEvents: []
+  managementFunction:
+    exposedAPIs:
+      - name: metrics
+        apiType: prometheus
+        implementation: r1-billingaccountmanagement-sm
+        path: /r1-billingaccountmanagement/metrics
+        port: 4000
+    dependentAPIs: []
+  securityFunction:
+    canvasSystemRole: BillingAccountManagementAdmin
+    exposedAPIs:
+      - name: partyrole
+        specification:
+          - url: "https://raw.githubusercontent.com/tmforum-apis/TMF669_PartyRole/master/TMF669-PartyRole-v4.0.0.swagger.json"
+        implementation: r1-partyroleapi
+        apiType: openapi
+        id: TMF669
+        path: /r1-billingaccountmanagement/tmf-api/partyRoleManagement/v4
+        developerUI: /r1-billingaccountmanagement/tmf-api/partyRoleManagement/v4/docs
+        port: 8080

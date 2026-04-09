@@ -122,10 +122,18 @@ class DocumentStore:
         with self._lock:
             return self._memory.setdefault(collection, {}).pop(document_id, None) is not None
 
+    def reset(self) -> None:
+        if self._backend == "mongo":  # pragma: no cover - depends on runtime infra
+            for collection_name in self._db.list_collection_names():
+                self._db[collection_name].delete_many({})
+            return
+
+        with self._lock:
+            self._memory.clear()
+
 
 STORE = DocumentStore()
 
 
 def get_store() -> DocumentStore:
     return STORE
-

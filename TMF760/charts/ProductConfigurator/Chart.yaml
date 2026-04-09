@@ -1,0 +1,6 @@
+apiVersion: v2
+name: productconfigurator
+description: A reference-style TMFC027 Product Configurator ODA Component
+type: application
+version: 0.1.1
+appVersion: "0.1.1"

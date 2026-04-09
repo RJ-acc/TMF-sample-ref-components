@@ -42,6 +42,8 @@ spec:
         port: 8080
       {{- if .Values.component.MCPServer.enabled }}
       - name: productordermcp
+        specification:
+          - url: {{ .Values.component.mcpSpecificationUrl | quote }}
         implementation: {{ .Release.Name }}-prodordermcp
         apiType: mcp
         path: /{{ .Release.Name }}-{{ .Values.component.name }}/mcp
