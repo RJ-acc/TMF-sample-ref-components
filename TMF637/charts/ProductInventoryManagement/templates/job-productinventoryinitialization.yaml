@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Release.Name }}-productinventoryinitialization
+  labels:
+    oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.component.name }}
+spec:
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-productinventoryinitialization
+      annotations:
+        sidecar.istio.io/inject: "false"
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: {{ .Release.Name }}-productinventoryinitialization
+          image: {{ .Values.productinventoryinitialization.image }}
+          env:
+            - name: RELEASE_NAME
+              value: {{ .Release.Name }}
+            - name: COMPONENT_NAME
+              value: {{ .Release.Name }}-{{ .Values.component.name }}
+            - name: PRODUCT_INVENTORY_API_BASE_URL
+              value: http://{{ .Release.Name }}-productinventoryapi:8080/{{ .Release.Name }}-{{ .Values.component.name }}/tmf-api/productInventoryManagement/{{ .Values.component.apiVersion }}
+            - name: METRICS_CALLBACK_URL
+              value: http://{{ .Release.Name }}-{{ .Values.component.name }}-sm:4000/listener/productEvent
+          imagePullPolicy: IfNotPresent
+  backoffLimit: 10

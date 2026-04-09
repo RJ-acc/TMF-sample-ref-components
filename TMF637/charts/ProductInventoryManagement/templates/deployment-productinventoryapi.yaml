@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-productinventoryapi
+  labels:
+    oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.component.name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      impl: {{ .Release.Name }}-productinventoryapi
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-{{ .Values.component.name }}
+        impl: {{ .Release.Name }}-productinventoryapi
+        version: {{ .Values.api.versionLabel }}
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-productinventoryapi
+          image: {{ .Values.api.image }}
+          env:
+            - name: RELEASE_NAME
+              value: {{ .Release.Name }}
+            - name: COMPONENT_NAME
+              value: {{ .Release.Name }}-{{ .Values.component.name }}
+            - name: API_BASE_PATH
+              value: /{{ .Release.Name }}-{{ .Values.component.name }}/tmf-api/productInventoryManagement/{{ .Values.component.apiVersion }}
+            - name: ENGINE_SERVICE_URL
+              value: http://{{ .Release.Name }}-productinventoryengine:8081
+            - name: MONGODB_HOST
+              value: {{ .Release.Name }}-mongodb
+            - name: MONGODB_PORT
+              value: {{ .Values.mongodb.port | quote }}
+            - name: MONGODB_DATABASE
+              value: {{ .Values.mongodb.database }}
+            - name: NODE_ENV
+              value: production
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: {{ .Release.Name }}-pmapi
+              containerPort: 8080
+          startupProbe:
+            httpGet:
+              path: /{{ .Release.Name }}-{{ .Values.component.name }}/tmf-api/productInventoryManagement/{{ .Values.component.apiVersion }}/product
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            failureThreshold: 30

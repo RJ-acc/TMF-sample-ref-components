@@ -1,0 +1,91 @@
+# Default values for productinventorymanagement.
+
+component:
+  id: TMFC005
+  name: productinventorymanagement
+  functionalBlock: CoreCommerce
+  publicationDate: 2026-04-09T00:00:00.000Z
+  version: "0.1.0"
+  apiVersion: v5
+  specificationUrl: https://raw.githubusercontent.com/tmforum-apis/TMF637_ProductInventory/main/TMF637-ProductInventory-v5.0.0.oas.yaml
+  storageClassName: ""
+  apipolicy:
+    apiKeyVerification:
+      enabled: false
+      location: header
+    rateLimit:
+      enabled: false
+      identifier: IP
+      limit: "6"
+      interval: pm
+    quota:
+      identifier: ""
+      limit: ""
+    OASValidation:
+      requestEnabled: false
+      responseEnabled: false
+      allowUnspecifiedHeaders: false
+      allowUnspecifiedQueryParams: false
+      allowUnspecifiedCookies: false
+    CORS:
+      enabled: false
+      allowCredentials: false
+      allowOrigins: "https://allowed-origin.com, https://allowed-origin2.com"
+      handlePreflightRequests:
+        enabled: false
+        allowHeaders: "Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+        allowMethods: "GET, POST, PATCH, DELETE"
+        maxAge: 36000
+    template: ""
+  dependentAPIs:
+    enabled: false
+  eventNotification:
+    publishedEvents:
+      - ProductAttributeValueChangeEvent
+      - ProductCreateEvent
+      - ProductDeleteEvent
+      - ProductProductBatchEvent
+      - ProductStateChangeEvent
+    subscribedEvents: []
+  MCPServer:
+    enabled: false
+
+security:
+  canvasSystemRole: ProductInventoryManagementAdmin
+
+service:
+  type: NodePort
+
+mongodb:
+  image: mongo:7
+  port: 27017
+  database: tmfc005
+  storage: 5Gi
+
+api:
+  image: ravijangra92/tmf637:product-inventory-api-0.1.0
+  versionLabel: product-inventory-api-0.1.0
+
+engine:
+  image: ravijangra92/tmf637:product-inventory-engine-0.1.0
+  versionLabel: product-inventory-engine-0.1.0
+
+metrics:
+  image: ravijangra92/tmf637:open-metrics-0.1.0
+  versionLabel: open-metrics-0.1.0
+
+mcp:
+  image: ravijangra92/tmf637:mcp-server-0.1.0
+  versionLabel: mcp-server-0.1.0
+
+partyrole:
+  image: ravijangra92/tmf637:party-role-0.1.0
+  versionLabel: party-role-0.1.0
+
+roleinitialization:
+  image: ravijangra92/tmf637:role-init-0.1.0
+  versionLabel: role-init-0.1.0
+
+productinventoryinitialization:
+  image: ravijangra92/tmf637:product-inventory-init-0.1.0
+  versionLabel: product-inventory-init-0.1.0
