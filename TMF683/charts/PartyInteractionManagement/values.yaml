@@ -5,7 +5,7 @@ component:
   name: partyinteractionmanagement
   functionalBlock: PartyManagement
   publicationDate: 2026-04-09T00:00:00.000Z
-  version: "0.1.2"
+  version: "0.2.0"
   apiVersion: v5
   specificationUrl: https://raw.githubusercontent.com/tmforum-apis/TMF683_PartyInteraction/main/TMF683-Party_Interaction-v5.0.0.oas.yaml
   storageClassName: ""

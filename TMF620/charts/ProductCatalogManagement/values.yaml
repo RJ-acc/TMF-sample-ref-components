@@ -1,0 +1,110 @@
+# Default values for productcatalogmanagement.
+
+component:
+  id: TMFC001
+  name: productcatalogmanagement
+  functionalBlock: CoreCommerce
+  publicationDate: 2026-04-09T00:00:00.000Z
+  version: "0.2.0"
+  apiVersion: v5
+  specificationUrl: https://raw.githubusercontent.com/tmforum-apis/TMF620_ProductCatalog/main/TMF620-Product_Catalog_Management-v5.0.0.oas.yaml
+  storageClassName: ""
+  apipolicy:
+    apiKeyVerification:
+      enabled: false
+      location: header
+    rateLimit:
+      enabled: false
+      identifier: IP
+      limit: "6"
+      interval: pm
+    quota:
+      identifier: ""
+      limit: ""
+    OASValidation:
+      requestEnabled: false
+      responseEnabled: false
+      allowUnspecifiedHeaders: false
+      allowUnspecifiedQueryParams: false
+      allowUnspecifiedCookies: false
+    CORS:
+      enabled: false
+      allowCredentials: false
+      allowOrigins: "https://allowed-origin.com, https://allowed-origin2.com"
+      handlePreflightRequests:
+        enabled: false
+        allowHeaders: "Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+        allowMethods: "GET, POST, PATCH, DELETE"
+        maxAge: 36000
+    template: ""
+  dependentAPIs:
+    enabled: false
+  eventNotification:
+    publishedEvents:
+      - ProductCatalogAttributeValueChangeEvent
+      - ProductCatalogCreateEvent
+      - ProductCatalogDeleteEvent
+      - ProductCatalogStateChangeEvent
+      - CategoryAttributeValueChangeEvent
+      - CategoryCreateEvent
+      - CategoryDeleteEvent
+      - CategoryStateChangeEvent
+      - ProductOfferingAttributeValueChangeEvent
+      - ProductOfferingCreateEvent
+      - ProductOfferingDeleteEvent
+      - ProductOfferingStateChangeEvent
+      - ProductOfferingPriceAttributeValueChangeEvent
+      - ProductOfferingPriceCreateEvent
+      - ProductOfferingPriceDeleteEvent
+      - ProductOfferingPriceStateChangeEvent
+      - ProductSpecificationAttributeValueChangeEvent
+      - ProductSpecificationCreateEvent
+      - ProductSpecificationDeleteEvent
+      - ProductSpecificationStateChangeEvent
+      - ImportJobCreateEvent
+      - ImportJobStateChangeEvent
+      - ExportJobCreateEvent
+      - ExportJobStateChangeEvent
+    subscribedEvents: []
+  MCPServer:
+    enabled: false
+
+security:
+  canvasSystemRole: ProductCatalogManagementAdmin
+
+service:
+  type: NodePort
+
+mongodb:
+  image: mongo:7
+  port: 27017
+  database: tmfc001
+  storage: 5Gi
+
+api:
+  image: ravijangra92/tmf620:product-catalog-api-0.1.0
+  versionLabel: product-catalog-api-0.1.0
+
+engine:
+  image: ravijangra92/tmf620:product-catalog-engine-0.1.0
+  versionLabel: product-catalog-engine-0.1.0
+
+metrics:
+  image: ravijangra92/tmf620:open-metrics-0.1.0
+  versionLabel: open-metrics-0.1.0
+
+mcp:
+  image: ravijangra92/tmf620:mcp-server-0.1.0
+  versionLabel: mcp-server-0.1.0
+
+partyrole:
+  image: ravijangra92/tmf620:party-role-0.1.0
+  versionLabel: party-role-0.1.0
+
+roleinitialization:
+  image: ravijangra92/tmf620:role-init-0.1.0
+  versionLabel: role-init-0.1.0
+
+productcataloginitialization:
+  image: ravijangra92/tmf620:product-catalog-init-0.1.0
+  versionLabel: product-catalog-init-0.1.0

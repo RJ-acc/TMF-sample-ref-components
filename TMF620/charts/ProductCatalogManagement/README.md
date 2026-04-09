@@ -1,0 +1,45 @@
+# TMFC001 Product Catalog Management Helm Chart
+
+This chart packages a reference-style implementation of a `TMFC001 Product Catalog Management` component, following the same broad structure used by the TM Forum sample component repo.
+
+The chart deploys:
+- the `TMF620 Product Catalog Management` API
+- a small catalog-management engine service
+- an optional MCP wrapper over the TMF620 API
+- a Party Role API and role bootstrap job
+- a metrics listener that subscribes to TMF620 catalog-management events
+- MongoDB for persistence
+
+Install:
+
+```bash
+helm install pc1 ./charts/ProductCatalogManagement -n components
+```
+
+Base API path:
+
+```text
+/<release>-productcatalogmanagement/tmf-api/productCatalogManagement/v5
+```
+
+Example:
+
+```text
+/pc1-productcatalogmanagement/tmf-api/productCatalogManagement/v5
+```
+
+Enable the MCP server:
+
+```bash
+helm install pc1 ./charts/ProductCatalogManagement \
+  -n components \
+  --set component.MCPServer.enabled=true
+```
+
+When enabled, the chart advertises the MCP endpoint at `/<release>-productcatalogmanagement/mcp` and also keeps the direct in-container `/mcp` route available for service-level checks.
+
+Implementation notes:
+- The TMF620 API implements the complete current `v5.0.0` path surface from the official spec.
+- `productCatalog`, `category`, `productOffering`, `productOfferingPrice`, and `productSpecification` support list/create/get/patch/delete.
+- `importJob` and `exportJob` support list/create/get/delete, matching the official TMF620 task-resource surface.
+- `hub` registration and all listener callback endpoints are included.

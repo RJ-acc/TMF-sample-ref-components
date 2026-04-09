@@ -2,5 +2,5 @@ apiVersion: v2
 name: billgenerationmanagement
 description: A reference-style TMFC030 Bill Generation Management ODA Component
 type: application
-version: 0.1.2
-appVersion: "0.1.2"
+version: 0.2.0
+appVersion: "0.2.0"

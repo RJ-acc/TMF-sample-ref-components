@@ -5,7 +5,7 @@ component:
   name: billgenerationmanagement
   functionalBlock: CoreCommerce
   publicationDate: 2026-04-08T00:00:00.000Z
-  version: "0.1.2"
+  version: "0.2.0"
   apiVersion: v5
   specificationUrl: https://raw.githubusercontent.com/tmforum-apis/TMF678_CustomerBill/main/TMF678-CustomerBill-v5.0.0.oas.yaml
   storageClassName: ""
