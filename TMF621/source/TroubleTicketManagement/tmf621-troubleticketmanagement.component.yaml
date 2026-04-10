@@ -1,0 +1,73 @@
+apiVersion: oda.tmforum.org/v1
+kind: Component
+metadata:
+  name: r1-troubleticketmanagement
+  labels:
+    oda.tmforum.org/componentName: r1-troubleticketmanagement
+spec:
+  componentMetadata:
+    id: TMF621
+    name: troubleticketmanagement
+    functionalBlock: TroubleManagement
+    publicationDate: "2026-04-09T00:00:00.000Z"
+    status: specified
+    version: "0.2.0"
+    description: Reference TMF621 Trouble Ticket Management component with TMF621 CRUD support for trouble tickets, ticket specifications, metrics, role support, and optional MCP.
+    maintainers:
+      - name: TMF621 Reference Authors
+        email: oda-components@example.com
+    owners:
+      - name: TMF621 Reference Authors
+        email: oda-components@example.com
+  coreFunction:
+    exposedAPIs:
+      - name: troubleticketmanagement
+        specification:
+          - url: "https://raw.githubusercontent.com/tmforum-apis/TMF621_TroubleTicket/main/TMF621-Trouble_Ticket-v5.0.1.oas.yaml"
+        implementation: r1-troubleticketmanagementapi
+        apiType: openapi
+        id: TMF621
+        path: /r1-troubleticketmanagement/tmf-api/troubleTicket/v5
+        developerUI: /r1-troubleticketmanagement/tmf-api/troubleTicket/v5/docs
+        port: 8080
+      - name: troubleticketmanagementmcp
+        specification:
+          - url: "https://modelcontextprotocol.io/specification/"
+        implementation: r1-troubleticketmanagementmcp
+        apiType: mcp
+        path: /r1-troubleticketmanagement/mcp
+        port: 8080
+    dependentAPIs: []
+  eventNotification:
+    publishedEvents:
+      - name: TroubleTicketAttributeValueChangeEvent
+      - name: TroubleTicketCreateEvent
+      - name: TroubleTicketDeleteEvent
+      - name: TroubleTicketInformationRequiredEvent
+      - name: TroubleTicketResolvedEvent
+      - name: TroubleTicketSpecificationAttributeValueChangeEvent
+      - name: TroubleTicketSpecificationCreateEvent
+      - name: TroubleTicketSpecificationDeleteEvent
+      - name: TroubleTicketSpecificationStatusChangeEvent
+      - name: TroubleTicketStatusChangeEvent
+    subscribedEvents: []
+  managementFunction:
+    exposedAPIs:
+      - name: metrics
+        apiType: prometheus
+        implementation: r1-troubleticketmanagement-sm
+        path: /r1-troubleticketmanagement/metrics
+        port: 4000
+    dependentAPIs: []
+  securityFunction:
+    canvasSystemRole: TroubleTicketManagementAdmin
+    exposedAPIs:
+      - name: partyrole
+        specification:
+          - url: "https://raw.githubusercontent.com/tmforum-apis/TMF669_PartyRole/master/TMF669-PartyRole-v4.0.0.swagger.json"
+        implementation: r1-partyroleapi
+        apiType: openapi
+        id: TMF669
+        path: /r1-troubleticketmanagement/tmf-api/partyRoleManagement/v4
+        developerUI: /r1-troubleticketmanagement/tmf-api/partyRoleManagement/v4/docs
+        port: 8080

@@ -1,6 +1,6 @@
 # TMF Sample Reference Components
 
-This repository contains reference-style sample components for ten TM Forum Open APIs. Each sample follows the same broad structure:
+This repository contains reference-style sample components for a growing set of TM Forum Open APIs. Each sample follows the same broad structure:
 
 - a top-level folder per TMF API, such as `TMF622` or `TMF760`
 - a Helm chart under `charts/<ComponentName>`
@@ -12,7 +12,10 @@ These samples are lightweight runnable baselines. They are intended to show comp
 Examples:
 
 - `TMF620` is used for `TMFC001 Product Catalog Management`
+- `TMF621` is used for `TMF621 Trouble Ticket Management`
+- `TMF623` is used for `TMF623 SLA Management`
 - `TMF637` is used for `TMFC005 Product Inventory Management`
+- `TMF638` is used for `TMFC008 Service Inventory Management`
 - `TMF680` is used for `TMFC050 Product Recommendation`
 - `TMF678` is used for `TMFC030 Bill Generation Management`
 - `TMF760` is used for `TMFC027 Product Configurator`
@@ -22,8 +25,11 @@ Examples:
 | TMF API | Official API Name | What This API Is For | Sample Component | Component README | Helm Chart |
 | --- | --- | --- | --- | --- | --- |
 | `TMF620` | Product Catalog Management | manage catalogs, categories, offerings, prices, specifications, and import/export jobs | `TMFC001 Product Catalog Management` | [TMF620](TMF620/README.md) | [ProductCatalogManagement](TMF620/charts/ProductCatalogManagement/README.md) |
+| `TMF621` | Trouble Ticket | create, track, and manage trouble tickets and reusable ticket specifications | `TMF621 Trouble Ticket Management` | [TMF621](TMF621/README.md) | [TroubleTicketManagement](TMF621/charts/TroubleTicketManagement/README.md) |
 | `TMF637` | Product Inventory Management | manage customer-facing product inventory records and lifecycle state | `TMFC005 Product Inventory Management` | [TMF637](TMF637/README.md) | [ProductInventoryManagement](TMF637/charts/ProductInventoryManagement/README.md) |
+| `TMF638` | Service Inventory Management | manage customer-facing and resource-facing service inventory records, relationships, and lifecycle state | `TMFC008 Service Inventory Management` | [TMF638](TMF638/README.md) | [ServiceInventoryManagement](TMF638/charts/ServiceInventoryManagement/README.md) |
 | `TMF622` | Product Ordering Management | capture and validate customer product orders | `TMFC002 Product Order Capture & Validation` | [TMF622](TMF622/README.md) | [ProductOrderCaptureValidation](TMF622/charts/ProductOrderCaptureValidation/README.md) |
+| `TMF623` | SLA Management | manage service level agreements, violations, and subscription notifications | `TMF623 SLA Management` | [TMF623](TMF623/README.md) | [SLAManagement](TMF623/charts/SLAManagement/README.md) |
 | `TMF632` | Party Management | manage party records such as `individual` and `organization` | `TMFC028 Party Management` | [TMF632](TMF632/README.md) | [PartyManagement](TMF632/charts/PartyManagement/README.md) |
 | `TMF666` | Account Management | manage billing, financial, settlement, and related account resources | `TMFC024 Billing Account Management` | [TMF666](TMF666/README.md) | [BillingAccountManagement](TMF666/charts/BillingAccountManagement/README.md) |
 | `TMF672` | User Role Permission Management | manage `permission` and `userRole` resources | `TMFC035 Permissions Management` | [TMF672](TMF672/README.md) | [PermissionsManagement](TMF672/charts/PermissionsManagement/README.md) |
@@ -37,8 +43,11 @@ Examples:
 | Sample Component | Chart Folder | What The Chart Deploys | Main Resources / Operations | Source README |
 | --- | --- | --- | --- | --- |
 | `TMFC001 Product Catalog Management` | [`TMF620/charts/ProductCatalogManagement`](TMF620/charts/ProductCatalogManagement/README.md) | TMF620 API, catalog-management engine, metrics listener, Party Role API, MongoDB, bootstrap jobs, optional MCP wrapper | `productCatalog`, `category`, `productOffering`, `productOfferingPrice`, `productSpecification`, `importJob`, `exportJob` | [Source](TMF620/source/ProductCatalogManagement/README.md) |
+| `TMF621 Trouble Ticket Management` | [`TMF621/charts/TroubleTicketManagement`](TMF621/charts/TroubleTicketManagement/README.md) | TMF621 API, trouble-ticket engine, metrics listener, Party Role API, MongoDB, bootstrap jobs, optional MCP wrapper | `troubleTicket` and `troubleTicketSpecification` with hub and listener callbacks | [Source](TMF621/source/TroubleTicketManagement/README.md) |
 | `TMFC005 Product Inventory Management` | [`TMF637/charts/ProductInventoryManagement`](TMF637/charts/ProductInventoryManagement/README.md) | TMF637 API, product-inventory engine, metrics listener, Party Role API, MongoDB, bootstrap jobs, optional MCP wrapper | `product` list/create/get/patch/delete plus hub and listener callbacks | [Source](TMF637/source/ProductInventoryManagement/README.md) |
+| `TMFC008 Service Inventory Management` | [`TMF638/charts/ServiceInventoryManagement`](TMF638/charts/ServiceInventoryManagement/README.md) | TMF638 API, service-inventory engine, metrics listener, Party Role API, MongoDB, bootstrap jobs, optional MCP wrapper | `service` list/create/get/patch/delete plus hub and listener callbacks | [Source](TMF638/source/ServiceInventoryManagement/README.md) |
 | `TMFC002 Product Order Capture & Validation` | [`TMF622/charts/ProductOrderCaptureValidation`](TMF622/charts/ProductOrderCaptureValidation/README.md) | TMF622 API, order-validation microservice, metrics listener, Party Role API, MongoDB, bootstrap jobs, optional MCP wrapper | `productOrder` capture and validation | [Source](TMF622/source/ProductOrderCaptureValidation/README.md) |
+| `TMF623 SLA Management` | [`TMF623/charts/SLAManagement`](TMF623/charts/SLAManagement/README.md) | TMF623 API, SLA-management engine, metrics listener, Party Role API, MongoDB, bootstrap jobs, optional MCP wrapper | `sla`, `slaViolation`, and `hub` subscription flows | [Source](TMF623/source/SLAManagement/README.md) |
 | `TMFC028 Party Management` | [`TMF632/charts/PartyManagement`](TMF632/charts/PartyManagement/README.md) | TMF632 API, party-management engine, metrics listener, Party Role API, MongoDB, optional MCP wrapper | `individual` and `organization` with full current path surface | [Source](TMF632/source/PartyManagement/README.md) |
 | `TMFC024 Billing Account Management` | [`TMF666/charts/BillingAccountManagement`](TMF666/charts/BillingAccountManagement/README.md) | TMF666 API, account-management engine, metrics listener, Party Role API, MongoDB, optional MCP wrapper | `billFormat`, `billPresentationMedia`, `billingAccount`, `billingCycleSpecification`, `financialAccount`, `partyAccount`, `settlementAccount` | [Source](TMF666/source/BillingAccountManagement/README.md) |
 | `TMFC035 Permissions Management` | [`TMF672/charts/PermissionsManagement`](TMF672/charts/PermissionsManagement/README.md) | TMF672 API, permissions engine, metrics listener, Party Role API, MongoDB, optional MCP wrapper | `permission` and `userRole`; list/create/get/patch | [Source](TMF672/source/PermissionsManagement/README.md) |
@@ -78,9 +87,12 @@ Install the currently published charts:
 | TMF API | Published Chart | Install Command |
 | --- | --- | --- |
 | `TMF620` | `productcatalogmanagement` | `helm upgrade --install tmf620 tmf-sample-ref-components/productcatalogmanagement -n components --create-namespace` |
+| `TMF621` | `troubleticketmanagement` | `helm upgrade --install tmf621 tmf-sample-ref-components/troubleticketmanagement -n components --create-namespace` |
 | `TMF622` | `productordercapturevalidation` | `helm upgrade --install tmf622 tmf-sample-ref-components/productordercapturevalidation -n components --create-namespace` |
+| `TMF623` | `slamanagement` | `helm upgrade --install tmf623 tmf-sample-ref-components/slamanagement -n components --create-namespace` |
 | `TMF632` | `partymanagement` | `helm upgrade --install tmf632 tmf-sample-ref-components/partymanagement -n components --create-namespace` |
 | `TMF637` | `productinventorymanagement` | `helm upgrade --install tmf637 tmf-sample-ref-components/productinventorymanagement -n components --create-namespace` |
+| `TMF638` | `serviceinventorymanagement` | `helm upgrade --install tmf638 tmf-sample-ref-components/serviceinventorymanagement -n components --create-namespace` |
 | `TMF666` | `billingaccountmanagement` | `helm upgrade --install tmf666 tmf-sample-ref-components/billingaccountmanagement -n components --create-namespace` |
 | `TMF672` | `permissionsmanagement` | `helm upgrade --install tmf672 tmf-sample-ref-components/permissionsmanagement -n components --create-namespace` |
 | `TMF678` | `billgenerationmanagement` | `helm upgrade --install tmf678 tmf-sample-ref-components/billgenerationmanagement -n components --create-namespace` |

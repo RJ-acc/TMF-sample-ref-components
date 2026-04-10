@@ -1,0 +1,12 @@
+FROM python:3.12-slim
+
+WORKDIR /app
+
+COPY source/TroubleTicketManagement/requirements.txt /app/requirements.txt
+RUN pip install --no-cache-dir -r /app/requirements.txt
+
+COPY source/TroubleTicketManagement /app
+
+ENV PYTHONPATH=/app
+
+CMD ["python", "troubleTicketManagementInitializationMicroservice/implementation/initialization.py"]

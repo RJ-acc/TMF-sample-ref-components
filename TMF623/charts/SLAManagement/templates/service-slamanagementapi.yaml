@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-slamanagementapi
+  labels:
+    app: {{ .Release.Name }}-{{ .Values.component.name }}
+    oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.component.name }}
+spec:
+  type: {{ .Values.service.type }}
+  selector:
+    impl: {{ .Release.Name }}-slamanagementapi
+  ports:
+    - port: 8080
+      targetPort: {{ .Release.Name }}-smapi
+      name: http-{{ .Release.Name }}-slamanagementapi

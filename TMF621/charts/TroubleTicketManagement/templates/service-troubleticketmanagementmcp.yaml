@@ -1,0 +1,17 @@
+{{- if .Values.component.MCPServer.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-troubleticketmanagementmcp
+  labels:
+    app: {{ .Release.Name }}-{{ .Values.component.name }}
+    oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.component.name }}
+spec:
+  type: {{ .Values.service.type }}
+  selector:
+    impl: {{ .Release.Name }}-troubleticketmanagementmcp
+  ports:
+    - port: 8080
+      targetPort: {{ .Release.Name }}-pmmcp
+      name: http-{{ .Release.Name }}-troubleticketmanagementmcp
+{{- end }}

@@ -1,0 +1,68 @@
+apiVersion: oda.tmforum.org/v1
+kind: Component
+metadata:
+  name: r1-serviceinventorymanagement
+  labels:
+    oda.tmforum.org/componentName: r1-serviceinventorymanagement
+spec:
+  componentMetadata:
+    id: TMFC008
+    name: serviceinventorymanagement
+    functionalBlock: Production
+    publicationDate: "2026-04-09T00:00:00.000Z"
+    status: specified
+    version: "0.2.0"
+    description: Reference TMFC008 Service Inventory Management component with TMF638 CRUD support for service inventory resources, metrics, role support, and optional MCP.
+    maintainers:
+      - name: TMFC008 Reference Authors
+        email: oda-components@example.com
+    owners:
+      - name: TMFC008 Reference Authors
+        email: oda-components@example.com
+  coreFunction:
+    exposedAPIs:
+      - name: serviceinventorymanagement
+        specification:
+          - url: "https://raw.githubusercontent.com/tmforum-apis/TMF638_ServiceInventory/main/TMF638-Service_Inventory_Management-v5.0.0.oas.yaml"
+        implementation: r1-serviceinventoryapi
+        apiType: openapi
+        id: TMF638
+        path: /r1-serviceinventorymanagement/tmf-api/serviceInventoryManagement/v5
+        developerUI: /r1-serviceinventorymanagement/tmf-api/serviceInventoryManagement/v5/docs
+        port: 8080
+      - name: serviceinventorymcp
+        specification:
+          - url: "https://modelcontextprotocol.io/specification/"
+        implementation: r1-serviceinventorymcp
+        apiType: mcp
+        path: /r1-serviceinventorymanagement/mcp
+        port: 8080
+    dependentAPIs: []
+  eventNotification:
+    publishedEvents:
+      - name: ServiceAttributeValueChangeEvent
+      - name: ServiceCreateEvent
+      - name: ServiceDeleteEvent
+      - name: ServiceOperatingStatusChangeEvent
+      - name: ServiceStateChangeEvent
+    subscribedEvents: []
+  managementFunction:
+    exposedAPIs:
+      - name: metrics
+        apiType: prometheus
+        implementation: r1-serviceinventorymanagement-sm
+        path: /r1-serviceinventorymanagement/metrics
+        port: 4000
+    dependentAPIs: []
+  securityFunction:
+    canvasSystemRole: ServiceInventoryManagementAdmin
+    exposedAPIs:
+      - name: partyrole
+        specification:
+          - url: "https://raw.githubusercontent.com/tmforum-apis/TMF669_PartyRole/master/TMF669-PartyRole-v4.0.0.swagger.json"
+        implementation: r1-partyroleapi
+        apiType: openapi
+        id: TMF669
+        path: /r1-serviceinventorymanagement/tmf-api/partyRoleManagement/v4
+        developerUI: /r1-serviceinventorymanagement/tmf-api/partyRoleManagement/v4/docs
+        port: 8080

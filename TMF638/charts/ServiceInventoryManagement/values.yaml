@@ -1,0 +1,91 @@
+# Default values for serviceinventorymanagement.
+
+component:
+  id: TMFC008
+  name: serviceinventorymanagement
+  functionalBlock: Production
+  publicationDate: 2026-04-09T00:00:00.000Z
+  version: "0.2.0"
+  apiVersion: v5
+  specificationUrl: https://raw.githubusercontent.com/tmforum-apis/TMF638_ServiceInventory/main/TMF638-Service_Inventory_Management-v5.0.0.oas.yaml
+  storageClassName: ""
+  apipolicy:
+    apiKeyVerification:
+      enabled: false
+      location: header
+    rateLimit:
+      enabled: false
+      identifier: IP
+      limit: "6"
+      interval: pm
+    quota:
+      identifier: ""
+      limit: ""
+    OASValidation:
+      requestEnabled: false
+      responseEnabled: false
+      allowUnspecifiedHeaders: false
+      allowUnspecifiedQueryParams: false
+      allowUnspecifiedCookies: false
+    CORS:
+      enabled: false
+      allowCredentials: false
+      allowOrigins: "https://allowed-origin.com, https://allowed-origin2.com"
+      handlePreflightRequests:
+        enabled: false
+        allowHeaders: "Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+        allowMethods: "GET, POST, PATCH, DELETE"
+        maxAge: 36000
+    template: ""
+  dependentAPIs:
+    enabled: false
+  eventNotification:
+    publishedEvents:
+      - ServiceAttributeValueChangeEvent
+      - ServiceCreateEvent
+      - ServiceDeleteEvent
+      - ServiceOperatingStatusChangeEvent
+      - ServiceStateChangeEvent
+    subscribedEvents: []
+  MCPServer:
+    enabled: true
+
+security:
+  canvasSystemRole: ServiceInventoryManagementAdmin
+
+service:
+  type: NodePort
+
+mongodb:
+  image: mongo:7
+  port: 27017
+  database: tmfc008
+  storage: 5Gi
+
+api:
+  image: ravijangra92/tmf638:service-inventory-api-0.2.0
+  versionLabel: service-inventory-api-0.2.0
+
+engine:
+  image: ravijangra92/tmf638:service-inventory-engine-0.2.0
+  versionLabel: service-inventory-engine-0.2.0
+
+metrics:
+  image: ravijangra92/tmf638:open-metrics-0.2.0
+  versionLabel: open-metrics-0.2.0
+
+mcp:
+  image: ravijangra92/tmf638:mcp-server-0.2.0
+  versionLabel: mcp-server-0.2.0
+
+partyrole:
+  image: ravijangra92/tmf638:party-role-0.2.0
+  versionLabel: party-role-0.2.0
+
+roleinitialization:
+  image: ravijangra92/tmf638:role-init-0.2.0
+  versionLabel: role-init-0.2.0
+
+serviceinventoryinitialization:
+  image: ravijangra92/tmf638:service-inventory-init-0.2.0
+  versionLabel: service-inventory-init-0.2.0

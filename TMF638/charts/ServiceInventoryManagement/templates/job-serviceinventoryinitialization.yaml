@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Release.Name }}-serviceinventoryinitialization
+  labels:
+    oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.component.name }}
+spec:
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-serviceinventoryinitialization
+      annotations:
+        sidecar.istio.io/inject: "false"
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: {{ .Release.Name }}-serviceinventoryinitialization
+          image: {{ .Values.serviceinventoryinitialization.image }}
+          env:
+            - name: RELEASE_NAME
+              value: {{ .Release.Name }}
+            - name: COMPONENT_NAME
+              value: {{ .Release.Name }}-{{ .Values.component.name }}
+            - name: SERVICE_INVENTORY_API_BASE_URL
+              value: http://{{ .Release.Name }}-serviceinventoryapi:8080/{{ .Release.Name }}-{{ .Values.component.name }}/tmf-api/serviceInventoryManagement/{{ .Values.component.apiVersion }}
+            - name: METRICS_CALLBACK_URL
+              value: http://{{ .Release.Name }}-{{ .Values.component.name }}-sm:4000/listener/serviceEvent
+          imagePullPolicy: IfNotPresent
+  backoffLimit: 10

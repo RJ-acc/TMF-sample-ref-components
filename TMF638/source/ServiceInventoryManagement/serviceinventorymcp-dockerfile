@@ -1,0 +1,14 @@
+FROM python:3.12-slim
+
+WORKDIR /app
+
+COPY source/ServiceInventoryManagement/requirements.txt /app/requirements.txt
+RUN pip install --no-cache-dir -r /app/requirements.txt "mcp>=1.0,<2"
+
+COPY source/ServiceInventoryManagement /app
+
+ENV PYTHONPATH=/app
+
+WORKDIR /app/MCPServerMicroservice
+
+CMD ["python", "server.py", "--transport", "http", "--host", "0.0.0.0", "--port", "8080"]

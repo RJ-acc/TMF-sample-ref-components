@@ -1,0 +1,96 @@
+# Default values for troubleticketmanagement.
+
+component:
+  id: TMF621
+  name: troubleticketmanagement
+  functionalBlock: TroubleManagement
+  publicationDate: 2026-04-09T00:00:00.000Z
+  version: "0.2.0"
+  apiVersion: v5
+  specificationUrl: https://raw.githubusercontent.com/tmforum-apis/TMF621_TroubleTicket/main/TMF621-Trouble_Ticket-v5.0.1.oas.yaml
+  storageClassName: ""
+  apipolicy:
+    apiKeyVerification:
+      enabled: false
+      location: header
+    rateLimit:
+      enabled: false
+      identifier: IP
+      limit: "6"
+      interval: pm
+    quota:
+      identifier: ""
+      limit: ""
+    OASValidation:
+      requestEnabled: false
+      responseEnabled: false
+      allowUnspecifiedHeaders: false
+      allowUnspecifiedQueryParams: false
+      allowUnspecifiedCookies: false
+    CORS:
+      enabled: false
+      allowCredentials: false
+      allowOrigins: "https://allowed-origin.com, https://allowed-origin2.com"
+      handlePreflightRequests:
+        enabled: false
+        allowHeaders: "Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+        allowMethods: "GET, POST, PATCH, DELETE"
+        maxAge: 36000
+    template: ""
+  dependentAPIs:
+    enabled: false
+  eventNotification:
+    publishedEvents:
+      - TroubleTicketAttributeValueChangeEvent
+      - TroubleTicketCreateEvent
+      - TroubleTicketDeleteEvent
+      - TroubleTicketInformationRequiredEvent
+      - TroubleTicketResolvedEvent
+      - TroubleTicketSpecificationAttributeValueChangeEvent
+      - TroubleTicketSpecificationCreateEvent
+      - TroubleTicketSpecificationDeleteEvent
+      - TroubleTicketSpecificationStatusChangeEvent
+      - TroubleTicketStatusChangeEvent
+    subscribedEvents: []
+  MCPServer:
+    enabled: true
+
+security:
+  canvasSystemRole: TroubleTicketManagementAdmin
+
+service:
+  type: NodePort
+
+mongodb:
+  image: mongo:7
+  port: 27017
+  database: tmf621
+  storage: 5Gi
+
+api:
+  image: ravijangra92/tmf621:trouble-ticket-management-api-0.2.0
+  versionLabel: trouble-ticket-management-api-0.2.0
+
+engine:
+  image: ravijangra92/tmf621:trouble-ticket-management-engine-0.2.0
+  versionLabel: trouble-ticket-management-engine-0.2.0
+
+metrics:
+  image: ravijangra92/tmf621:open-metrics-0.2.0
+  versionLabel: open-metrics-0.2.0
+
+mcp:
+  image: ravijangra92/tmf621:mcp-server-0.2.0
+  versionLabel: mcp-server-0.2.0
+
+partyrole:
+  image: ravijangra92/tmf621:party-role-0.2.0
+  versionLabel: party-role-0.2.0
+
+roleinitialization:
+  image: ravijangra92/tmf621:role-init-0.2.0
+  versionLabel: role-init-0.2.0
+
+troubleticketmanagementinitialization:
+  image: ravijangra92/tmf621:trouble-ticket-management-init-0.2.0
+  versionLabel: trouble-ticket-management-init-0.2.0

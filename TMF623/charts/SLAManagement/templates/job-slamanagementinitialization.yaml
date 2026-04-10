@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Release.Name }}-slamanagementinitialization
+  labels:
+    oda.tmforum.org/componentName: {{ .Release.Name }}-{{ .Values.component.name }}
+spec:
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-slamanagementinitialization
+      annotations:
+        sidecar.istio.io/inject: "false"
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: {{ .Release.Name }}-slamanagementinitialization
+          image: {{ .Values.slamanagementinitialization.image }}
+          env:
+            - name: RELEASE_NAME
+              value: {{ .Release.Name }}
+            - name: COMPONENT_NAME
+              value: {{ .Release.Name }}-{{ .Values.component.name }}
+            - name: SLA_API_BASE_URL
+              value: http://{{ .Release.Name }}-slamanagementapi:8080/{{ .Release.Name }}-{{ .Values.component.name }}/tmf-api/slaManagement/{{ .Values.component.apiVersion }}
+            - name: METRICS_CALLBACK_URL
+              value: http://{{ .Release.Name }}-{{ .Values.component.name }}-sm:4000/listener/slaEvent
+          imagePullPolicy: IfNotPresent
+  backoffLimit: 10

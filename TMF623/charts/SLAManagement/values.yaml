@@ -1,0 +1,97 @@
+# Default values for slamanagement.
+
+component:
+  id: TMF623
+  name: slamanagement
+  functionalBlock: ServiceQualityManagement
+  publicationDate: 2026-04-09T00:00:00.000Z
+  version: "0.2.0"
+  apiVersion: v2
+  specificationUrl: https://raw.githubusercontent.com/tmforum/TMFAPISWAGGER/develop/slaManagement/v2/swagger2.json
+  storageClassName: ""
+  apipolicy:
+    apiKeyVerification:
+      enabled: false
+      location: header
+    rateLimit:
+      enabled: false
+      identifier: IP
+      limit: "6"
+      interval: pm
+    quota:
+      identifier: ""
+      limit: ""
+    OASValidation:
+      requestEnabled: false
+      responseEnabled: false
+      allowUnspecifiedHeaders: false
+      allowUnspecifiedQueryParams: false
+      allowUnspecifiedCookies: false
+    CORS:
+      enabled: false
+      allowCredentials: false
+      allowOrigins: "https://allowed-origin.com, https://allowed-origin2.com"
+      handlePreflightRequests:
+        enabled: false
+        allowHeaders: "Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+        allowMethods: "GET, POST, PUT, PATCH, DELETE"
+        maxAge: 36000
+    template: ""
+  dependentAPIs:
+    enabled: true
+    partyManagement:
+      name: partymanagement
+      specificationUrl: https://raw.githubusercontent.com/tmforum-apis/TMF632_PartyManagement/main/TMF632-Party_Management-v5.0.0.oas.yaml
+  eventNotification:
+    publishedEvents:
+      - SLAAttributeValueChangeEvent
+      - SLACreateEvent
+      - SLADeleteEvent
+      - SLAStateChangeEvent
+      - SLAViolationAttributeValueChangeEvent
+      - SLAViolationCreateEvent
+      - SLAViolationDeleteEvent
+      - SLAViolationStateChangeEvent
+    subscribedEvents: []
+  MCPServer:
+    enabled: true
+
+security:
+  canvasSystemRole: SLAManagementAdmin
+
+service:
+  type: NodePort
+
+mongodb:
+  image: mongo:7
+  port: 27017
+  database: tmf623
+  storage: 5Gi
+
+api:
+  image: ravijangra92/tmf623:sla-management-api-0.2.0
+  versionLabel: sla-management-api-0.2.0
+
+engine:
+  image: ravijangra92/tmf623:sla-management-engine-0.2.0
+  versionLabel: sla-management-engine-0.2.0
+
+metrics:
+  image: ravijangra92/tmf623:open-metrics-0.2.0
+  versionLabel: open-metrics-0.2.0
+
+mcp:
+  image: ravijangra92/tmf623:mcp-server-0.2.0
+  versionLabel: mcp-server-0.2.0
+
+partyrole:
+  image: ravijangra92/tmf623:party-role-0.2.0
+  versionLabel: party-role-0.2.0
+
+roleinitialization:
+  image: ravijangra92/tmf623:role-init-0.2.0
+  versionLabel: role-init-0.2.0
+
+slamanagementinitialization:
+  image: ravijangra92/tmf623:sla-management-init-0.2.0
+  versionLabel: sla-management-init-0.2.0
