@@ -38,7 +38,7 @@ component:
         maxAge: 36000
     template: ""
   dependentAPIs:
-    enabled: true
+    enabled: false
     partyManagement:
       name: partymanagement
       specificationUrl: https://raw.githubusercontent.com/tmforum-apis/TMF632_PartyManagement/main/TMF632-Party_Management-v5.0.0.oas.yaml

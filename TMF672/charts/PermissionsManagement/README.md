@@ -13,7 +13,7 @@ The chart deploys:
 Install:
 
 ```bash
-helm upgrade --install pm1 ./charts/PermissionsManagement -n components
+helm upgrade --install pe1 ./charts/PermissionsManagement -n components
 ```
 
 Base API path:
@@ -25,13 +25,13 @@ Base API path:
 Example:
 
 ```text
-/pm1-permissionsmanagement/tmf-api/rolesAndPermissions/v4
+/pe1-permissionsmanagement/tmf-api/rolesAndPermissions/v4
 ```
 
 Disable the MCP server:
 
 ```bash
-helm upgrade --install pm1 ./charts/PermissionsManagement \
+helm upgrade --install pe1 ./charts/PermissionsManagement \
   -n components \
   --set component.MCPServer.enabled=false
 ```

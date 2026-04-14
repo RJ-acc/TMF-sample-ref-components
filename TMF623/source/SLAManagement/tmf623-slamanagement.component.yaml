@@ -37,12 +37,7 @@ spec:
         apiType: mcp
         path: /r1-slamanagement/mcp
         port: 8080
-    dependentAPIs:
-      - name: partymanagement
-        apiType: openapi
-        id: TMF632
-        specification:
-          - url: "https://raw.githubusercontent.com/tmforum-apis/TMF632_PartyManagement/main/TMF632-Party_Management-v5.0.0.oas.yaml"
+    dependentAPIs: []
   eventNotification:
     publishedEvents:
       - name: SLAAttributeValueChangeEvent
