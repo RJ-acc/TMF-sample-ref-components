@@ -40,6 +40,8 @@ def _build_input_schema(operation: dict, spec: dict, method: str) -> dict:
             continue
 
         location = parameter.get("in", "query")
+        if location == "body":
+            continue
         is_required = parameter.get("required", False) or location == "path"
         description = parameter.get("description", "")
         parameter_schema = parameter.get("schema") or {

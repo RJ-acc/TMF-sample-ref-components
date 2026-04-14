@@ -150,6 +150,28 @@ class ProductCatalogManagementApiTest(unittest.TestCase):
                 missing_response = asyncio.run(self.request("GET", f"{API_BASE}/{resource_name}/{entity['id']}"))
                 self.assertEqual(missing_response.status_code, 404)
 
+    def test_product_offering_accepts_inline_price_refs(self) -> None:
+        payload = {
+            **sample_payloads()["productOffering"],
+            "productOfferingPrice": [
+                {
+                    "@type": "ProductOfferingPriceRef",
+                    "id": "product-offering-price-fiber-100-monthly",
+                    "name": "Fiber 100 Monthly Price",
+                }
+            ],
+        }
+
+        response = asyncio.run(self.request("POST", f"{API_BASE}/productOffering", json=payload))
+
+        self.assertEqual(response.status_code, 201, response.text)
+        entity = response.json()
+        price_ref = entity["productOfferingPrice"][0]
+        self.assertEqual(price_ref["id"], "product-offering-price-fiber-100-monthly")
+        self.assertEqual(price_ref["name"], "Fiber 100 Monthly Price")
+        self.assertEqual(price_ref["@referredType"], "ProductOfferingPrice")
+        self.assertTrue(price_ref["href"].endswith("/productOfferingPrice/product-offering-price-fiber-100-monthly"))
+
     def test_task_resources_support_list_create_retrieve_delete(self) -> None:
         payloads = sample_payloads()
         for resource_name in task_resource_names():

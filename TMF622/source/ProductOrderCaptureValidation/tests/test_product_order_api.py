@@ -109,6 +109,56 @@ class ProductOrderApiTest(unittest.TestCase):
         delete_response = asyncio.run(self.request("DELETE", f"{API_BASE}/productOrder/{order['id']}"))
         self.assertEqual(delete_response.status_code, 204)
 
+    def test_product_order_accepts_nested_offering_names(self) -> None:
+        payload = {
+            "@type": "ProductOrder",
+            "description": "Activate Spain Roaming Plan - Standard",
+            "notificationContact": "govindrr@yahoo.com",
+            "productOrderItem": [
+                {
+                    "@type": "ProductOrderItem",
+                    "id": "1",
+                    "action": "add",
+                    "quantity": 1,
+                    "productOffering": {
+                        "@type": "ProductOfferingRef",
+                        "id": "product-offering-0114c98c",
+                        "name": "Spain Roaming Plan - Standard",
+                    },
+                    "product": {
+                        "@type": "Product",
+                        "name": "Spain Roaming Plan - Standard",
+                    },
+                }
+            ],
+            "relatedParty": [
+                {
+                    "@type": "RelatedParty",
+                    "id": "C00000001",
+                    "name": "Mary Jane",
+                    "role": "Customer",
+                    "contactMedium": [
+                        {
+                            "@type": "ContactMedium",
+                            "mediumType": "email",
+                            "characteristic": {"emailAddress": "govindrr@yahoo.com"},
+                        }
+                    ],
+                }
+            ],
+            "requestedStartDate": "2026-04-14T00:00:00.000Z",
+        }
+
+        response = asyncio.run(self.request("POST", f"{API_BASE}/productOrder", json=payload))
+
+        self.assertEqual(response.status_code, 201, response.text)
+        entity = response.json()
+        self.assertEqual(entity["state"], "acknowledged")
+        self.assertTrue(entity["validationResult"]["valid"])
+        item = entity["productOrderItem"][0]
+        self.assertEqual(item["productOffering"]["name"], "Spain Roaming Plan - Standard")
+        self.assertEqual(item["product"]["name"], "Spain Roaming Plan - Standard")
+
     def test_invalid_product_order_is_held(self) -> None:
         payload = sample_product_order()
         payload["productOrderItem"] = []

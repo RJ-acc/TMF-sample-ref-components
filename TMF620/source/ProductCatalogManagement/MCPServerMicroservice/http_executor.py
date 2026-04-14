@@ -13,9 +13,12 @@ def _split_arguments(path: str, parameters: list[dict], arguments: dict[str, Any
     body = {}
 
     locations = {}
+    body_parameter_names = set()
     for parameter in parameters:
         if isinstance(parameter, dict) and "$ref" not in parameter and parameter.get("name"):
             locations[parameter["name"]] = parameter.get("in", "query")
+            if parameter.get("in") == "body":
+                body_parameter_names.add(parameter["name"])
 
     for key, value in arguments.items():
         location = locations.get(key)
@@ -25,6 +28,11 @@ def _split_arguments(path: str, parameters: list[dict], arguments: dict[str, Any
             query_params[key] = value
         else:
             body[key] = value
+
+    if len(body) == 1:
+        body_key, body_value = next(iter(body.items()))
+        if body_key in body_parameter_names and isinstance(body_value, dict):
+            body = body_value
 
     return path_params, query_params, body
 

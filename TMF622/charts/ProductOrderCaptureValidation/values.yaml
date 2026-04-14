@@ -82,8 +82,8 @@ metrics:
   versionLabel: open-metrics-1.2
 
 mcp:
-  image: ravijangra92/tmf622:mcp-server-1.2
-  versionLabel: mcp-server-1.2
+  image: ravijangra92/tmf622:mcp-server-1.3
+  versionLabel: mcp-server-1.3
 
 partyrole:
   image: ravijangra92/tmf622:party-role-1.2
