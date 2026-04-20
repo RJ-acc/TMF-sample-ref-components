@@ -34,7 +34,7 @@ spec:
               value: {{ .Values.mongodb.database }}
             - name: NODE_ENV
               value: production
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - name: {{ .Release.Name }}-prapi
               containerPort: 8080

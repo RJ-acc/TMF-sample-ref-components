@@ -21,6 +21,10 @@ spec:
         - name: {{ .Release.Name }}-productcatalogmanagementmcp
           image: {{ .Values.mcp.image }}
           env:
+            - name: RELEASE_NAME
+              value: {{ .Release.Name }}
+            - name: COMPONENT_NAME
+              value: {{ .Release.Name }}-{{ .Values.component.name }}
             - name: TMF620_MODE
               value: live
             - name: MCP_HTTP_BASE_PATH
@@ -31,7 +35,7 @@ spec:
               value: {{ .Values.component.apiVersion }}
             - name: TMF620_SPEC_URL
               value: {{ .Values.component.specificationUrl }}
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - name: {{ .Release.Name }}-pcmcp
               containerPort: 8080

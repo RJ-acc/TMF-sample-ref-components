@@ -1,70 +1,23 @@
 # TMFC001 Product Catalog Management Source
 
-This source tree follows the same reference-component layout used elsewhere in this repo, but implements a Python-based `TMFC001 Product Catalog Management` baseline for `TMF620 Product Catalog Management v5.0.0`.
+This source tree uses the legacy `ProductCatalog` sample implementation:
 
-Key folders:
-- `productCatalogManagementMicroservice/implementation`
-  The core TMF620 API exposing CRUD for `productCatalog`, `category`, `productOffering`, `productOfferingPrice`, and `productSpecification`, plus task-style `importJob` and `exportJob` operations, `hub`, and listener callbacks.
-- `catalogManagementEngineMicroservice/implementation`
-  A lightweight validation and seed-data service used by the API as an optional helper.
-- `common`
-  Shared TMF620 resource metadata, seed documents, validation logic, storage helpers, and event utilities.
-- `openMetricsMicroservice`
-  Prometheus-text metrics listener for TMF620 catalog-management events.
-- `partyRoleMicroservice`
-  Small TMF669 Party Role API used to bootstrap the component system role.
-- `productCatalogInitializationMicroservice/implementation`
-  Registers the metrics listener through the TMF620 `hub` endpoint.
-- `MCPServerMicroservice`
-  Optional MCP wrapper over the TMF620 API.
+- Node.js TMF620 Product Catalog API
+- Node.js Party Role API
+- Node.js metrics listener
+- Node.js bootstrap jobs
+- Python Streamable HTTP MCP server
 
-Local development:
+The Helm chart deploys the TMF620 API at:
 
-```bash
-pip install -r TMF620/source/ProductCatalogManagement/requirements.txt
+```text
+/<release>-productcatalogmanagement/tmf-api/productCatalogManagement/v4
 ```
 
-Run the engine:
+The MCP server is exposed at:
 
-```bash
-uvicorn catalogManagementEngineMicroservice.implementation.app:app \
-  --app-dir TMF620/source/ProductCatalogManagement \
-  --port 8081 --reload
+```text
+/<release>-productcatalogmanagement/mcp
 ```
 
-Run the API:
-
-```bash
-uvicorn productCatalogManagementMicroservice.implementation.app:app \
-  --app-dir TMF620/source/ProductCatalogManagement \
-  --port 8080 --reload
-```
-
-Run the Party Role API:
-
-```bash
-uvicorn partyRoleMicroservice.implementation.app:app \
-  --app-dir TMF620/source/ProductCatalogManagement \
-  --port 8090 --reload
-```
-
-Run the metrics listener:
-
-```bash
-uvicorn openMetricsMicroservice.app:app \
-  --app-dir TMF620/source/ProductCatalogManagement \
-  --port 4000 --reload
-```
-
-Tests:
-
-```bash
-python3 -m unittest discover -s TMF620/source/ProductCatalogManagement/tests -v
-```
-
-This is a reference baseline, not a full TMF620 certification target. The implementation focuses on:
-- the complete official TMF620 path surface
-- spec-aligned CRUD behavior for the main catalog resources
-- task-resource support for import and export jobs
-- listener registration and callback endpoints
-- a simple deterministic data model that is easy to run locally and inside the chart
+Image names are kept under `ravijangra92/tmf620:*` to match the chart values. Do not run `builddockerfile.sh` until the target tags are confirmed.

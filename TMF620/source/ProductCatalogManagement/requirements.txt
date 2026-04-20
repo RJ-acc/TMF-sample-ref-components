@@ -1,6 +1,0 @@
-fastapi>=0.110,<1
-uvicorn>=0.27,<1
-httpx>=0.27,<1
-pymongo>=4.6,<5
-starlette>=0.37,<1
-PyYAML>=6,<7

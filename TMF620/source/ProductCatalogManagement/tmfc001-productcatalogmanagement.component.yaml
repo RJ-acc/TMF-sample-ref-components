@@ -11,8 +11,8 @@ spec:
     functionalBlock: CoreCommerce
     publicationDate: "2026-04-09T00:00:00.000Z"
     status: specified
-    version: "0.1.0"
-    description: Reference TMFC001 Product Catalog Management component with TMF620 CRUD support for catalog resources, task support for import and export jobs, metrics, role support, and optional MCP.
+    version: "0.4.1"
+    description: Reference TMFC001 Product Catalog Management component using the legacy TMF620 v4 ProductCatalog sample source, metrics, role support, and optional MCP.
     maintainers:
       - name: TMFC001 Reference Authors
         email: oda-components@example.com
@@ -23,12 +23,20 @@ spec:
     exposedAPIs:
       - name: productcatalogmanagement
         specification:
-          - url: "https://raw.githubusercontent.com/tmforum-apis/TMF620_ProductCatalog/main/TMF620-Product_Catalog_Management-v5.0.0.oas.yaml"
+          - url: "https://raw.githubusercontent.com/tmforum-apis/TMF620_ProductCatalog/master/TMF620-ProductCatalog-v4.0.0.swagger.json"
         implementation: r1-productcatalogapi
         apiType: openapi
         id: TMF620
-        path: /r1-productcatalogmanagement/tmf-api/productCatalogManagement/v5
-        developerUI: /r1-productcatalogmanagement/tmf-api/productCatalogManagement/v5/docs
+        path: /r1-productcatalogmanagement/tmf-api/productCatalogManagement/v4
+        developerUI: /r1-productcatalogmanagement/tmf-api/productCatalogManagement/v4/docs
+        port: 8080
+      - name: productcatalogmanagementmcp
+        specification:
+          - url: "https://modelcontextprotocol.io/specification/"
+            apiType: mcp
+        implementation: r1-productcatalogmanagementmcp
+        apiType: mcp
+        path: /r1-productcatalogmanagement/mcp
         port: 8080
     dependentAPIs: []
   eventNotification:

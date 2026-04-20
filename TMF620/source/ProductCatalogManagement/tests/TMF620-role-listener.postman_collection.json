@@ -1,0 +1,296 @@
+{
+	"info": {
+		"_postman_id": "5de974da-723f-4d97-b416-074e2be0d5a2",
+		"name": "ComponentAutoTests 3 - create partyRole and event listener",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "314044"
+	},
+	"item": [
+		{
+			"name": "Get partyRole list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"if (jsonData.length>0) {\r",
+							"  id=jsonData[0].id\r",
+							"  postman.setEnvironmentVariable(\"partyRole\", id);\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response is an Array\", function () {\r",
+							"    pm.expect(pm.response.json()).to.be.an('array').but.not.an('object')\r",
+							"});\r",
+							"pm.test(\"Response time is less than 2000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{Hostname}}/r1-productcatalogmanagement/tmf-api/partyRoleManagement/v4/partyRole",
+					"protocol": "http",
+					"host": [
+						"{{Hostname}}"
+					],
+					"path": [
+						"r1-productcatalogmanagement",
+						"tmf-api",
+						"partyRoleManagement",
+						"v4",
+						"partyRole"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create partyRole",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"\r",
+							"id=jsonData.id\r",
+							"postman.setEnvironmentVariable(\"partyRole\", id);\r",
+							"\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Response is an Object\", function () {\r",
+							"    pm.expect(pm.response.json()).to.be.an('object')\r",
+							"});\r",
+							"pm.test(\"Response time is less than 2000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"MVNO Admin\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{Hostname}}/r1-productcatalogmanagement/tmf-api/partyRoleManagement/v4/partyRole",
+					"protocol": "http",
+					"host": [
+						"{{Hostname}}"
+					],
+					"path": [
+						"r1-productcatalogmanagement",
+						"tmf-api",
+						"partyRoleManagement",
+						"v4",
+						"partyRole"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete partyRole",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{Hostname}}/r1-productcatalogmanagement/tmf-api/partyRoleManagement/v4/partyRole/{{partyRole}}",
+					"protocol": "http",
+					"host": [
+						"{{Hostname}}"
+					],
+					"path": [
+						"r1-productcatalogmanagement",
+						"tmf-api",
+						"partyRoleManagement",
+						"v4",
+						"partyRole",
+						"{{partyRole}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register event listener",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Response is an Object\", function () {\r",
+							"    pm.expect(pm.response.json()).to.be.an('object')\r",
+							"});\r",
+							"pm.test(\"Response time is less than 2000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"callback\": \"http://seccon.canvas:5000/listener\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{Hostname}}/r1-productcatalogmanagement/tmf-api/partyRoleManagement/v4/hub",
+					"protocol": "http",
+					"host": [
+						"{{Hostname}}"
+					],
+					"path": [
+						"r1-productcatalogmanagement",
+						"tmf-api",
+						"partyRoleManagement",
+						"v4",
+						"hub"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get event listener list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"if (jsonData.length>0) {\r",
+							"  id=jsonData[0].id\r",
+							"  postman.setEnvironmentVariable(\"hub\", id);\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response is an Array\", function () {\r",
+							"    pm.expect(pm.response.json()).to.be.an('array').but.not.an('object')\r",
+							"});\r",
+							"pm.test(\"Response time is less than 2000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{Hostname}}/r1-productcatalogmanagement/tmf-api/partyRoleManagement/v4/hub",
+					"protocol": "http",
+					"host": [
+						"{{Hostname}}"
+					],
+					"path": [
+						"r1-productcatalogmanagement",
+						"tmf-api",
+						"partyRoleManagement",
+						"v4",
+						"hub"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE event listener",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"pm.test(\"Response is an Object\", function () {\r",
+							"    pm.expect(pm.response.json()).to.be.an('object')\r",
+							"});\r",
+							"pm.test(\"Response time is less than 2000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"callback\": \"http://r1-productcatalog-sm:4000/listener\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{Hostname}}/r1-productcatalogmanagement/tmf-api/partyRoleManagement/v4/hub/{{hub}}",
+					"protocol": "http",
+					"host": [
+						"{{Hostname}}"
+					],
+					"path": [
+						"r1-productcatalogmanagement",
+						"tmf-api",
+						"partyRoleManagement",
+						"v4",
+						"hub",
+						"{{hub}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

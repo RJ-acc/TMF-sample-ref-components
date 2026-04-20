@@ -25,5 +25,5 @@ spec:
               value: http://{{ .Release.Name }}-partyroleapi:8080/{{ .Release.Name }}-{{ .Values.component.name }}/tmf-api/partyRoleManagement/v4
             - name: CANVAS_SYSTEM_ROLE
               value: {{ .Values.security.canvasSystemRole }}
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
   backoffLimit: 10

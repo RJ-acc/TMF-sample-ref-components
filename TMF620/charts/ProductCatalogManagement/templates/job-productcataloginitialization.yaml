@@ -24,6 +24,6 @@ spec:
             - name: CATALOG_API_BASE_URL
               value: http://{{ .Release.Name }}-productcatalogapi:8080/{{ .Release.Name }}-{{ .Values.component.name }}/tmf-api/productCatalogManagement/{{ .Values.component.apiVersion }}
             - name: METRICS_CALLBACK_URL
-              value: http://{{ .Release.Name }}-{{ .Values.component.name }}-sm:4000/listener/catalogEvent
-          imagePullPolicy: IfNotPresent
+              value: http://{{ .Release.Name }}-{{ .Values.component.name }}-sm:4000/listener
+          imagePullPolicy: Always
   backoffLimit: 10

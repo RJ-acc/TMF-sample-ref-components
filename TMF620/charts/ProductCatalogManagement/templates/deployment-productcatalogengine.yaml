@@ -1,3 +1,4 @@
+{{- if .Values.engine.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -19,7 +20,7 @@ spec:
       containers:
         - name: {{ .Release.Name }}-productcatalogengine
           image: {{ .Values.engine.image }}
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - name: {{ .Release.Name }}-pceng
               containerPort: 8081
@@ -30,3 +31,4 @@ spec:
             initialDelaySeconds: 5
             periodSeconds: 5
             failureThreshold: 20
+{{- end }}

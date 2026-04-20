@@ -44,6 +44,7 @@ spec:
       - name: productcatalogmanagementmcp
         specification:
           - url: "https://modelcontextprotocol.io/specification/"
+            apiType: mcp
         implementation: {{ .Release.Name }}-productcatalogmanagementmcp
         apiType: mcp
         path: /{{ .Release.Name }}-{{ .Values.component.name }}/mcp

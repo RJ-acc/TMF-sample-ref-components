@@ -1,12 +1,6 @@
-FROM python:3.12-slim
-
-WORKDIR /app
-
-COPY source/ProductCatalogManagement/requirements.txt /app/requirements.txt
-RUN pip install --no-cache-dir -r /app/requirements.txt
-
-COPY source/ProductCatalogManagement /app
-
-ENV PYTHONPATH=/app
-
-CMD ["python", "roleInitializationMicroservice/implementation/initialization.py"]
+FROM node:10.19
+COPY source/ProductCatalogManagement/roleInitializationMicroservice/implementation/package*.json /src/
+WORKDIR /src
+RUN npm install
+COPY source/ProductCatalogManagement/roleInitializationMicroservice/implementation ./
+CMD ["node", "initialization.js"]

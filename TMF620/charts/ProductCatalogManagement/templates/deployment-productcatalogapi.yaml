@@ -26,8 +26,6 @@ spec:
               value: {{ .Release.Name }}-{{ .Values.component.name }}
             - name: API_BASE_PATH
               value: /{{ .Release.Name }}-{{ .Values.component.name }}/tmf-api/productCatalogManagement/{{ .Values.component.apiVersion }}
-            - name: ENGINE_SERVICE_URL
-              value: http://{{ .Release.Name }}-productcatalogengine:8081
             - name: MONGODB_HOST
               value: {{ .Release.Name }}-mongodb
             - name: MONGODB_PORT
@@ -36,13 +34,13 @@ spec:
               value: {{ .Values.mongodb.database }}
             - name: NODE_ENV
               value: production
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - name: {{ .Release.Name }}-pcapi
               containerPort: 8080
           startupProbe:
             httpGet:
-              path: /{{ .Release.Name }}-{{ .Values.component.name }}/tmf-api/productCatalogManagement/{{ .Values.component.apiVersion }}/productCatalog
+              path: /{{ .Release.Name }}-{{ .Values.component.name }}/tmf-api/productCatalogManagement/{{ .Values.component.apiVersion }}/catalog
               port: 8080
             initialDelaySeconds: 10
             periodSeconds: 5

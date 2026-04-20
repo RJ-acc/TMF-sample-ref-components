@@ -26,7 +26,7 @@ spec:
               value: {{ .Release.Name }}-{{ .Values.component.name }}
             - name: API_BASE_PATH
               value: /{{ .Release.Name }}-{{ .Values.component.name }}
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - name: {{ .Release.Name }}-mtapi
               containerPort: 4000

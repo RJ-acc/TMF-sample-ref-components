@@ -1,0 +1,329 @@
+{
+	"info": {
+		"_postman_id": "86ee2806-dfba-475a-aafe-63fd85bd3594",
+		"name": "ComponentAutoTests 2 - product catalog delete resources",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "314044"
+	},
+	"item": [
+		{
+			"name": "GET productSpecification",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"if (jsonData.length>0) {\r",
+							"  id=jsonData[0].id\r",
+							"  postman.setEnvironmentVariable(\"productSpecification\", id);\r",
+							"}  \r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 2000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{Hostname}}/r1-productcatalogmanagement/tmf-api/productCatalogManagement/v4/productSpecification",
+					"protocol": "http",
+					"host": [
+						"{{Hostname}}"
+					],
+					"path": [
+						"r1-productcatalogmanagement",
+						"tmf-api",
+						"productCatalogManagement",
+						"v4",
+						"productSpecification"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE productSpecification by Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 2000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{Hostname}}/r1-productcatalogmanagement/tmf-api/productCatalogManagement/v4/productSpecification/{{productSpecification}}",
+					"protocol": "http",
+					"host": [
+						"{{Hostname}}"
+					],
+					"path": [
+						"r1-productcatalogmanagement",
+						"tmf-api",
+						"productCatalogManagement",
+						"v4",
+						"productSpecification",
+						"{{productSpecification}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET category",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"if (jsonData.length>0) {\r",
+							"  id=jsonData[0].id\r",
+							"}\r",
+							"postman.setEnvironmentVariable(\"category\", id);\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 2000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{Hostname}}/r1-productcatalogmanagement/tmf-api/productCatalogManagement/v4/category",
+					"protocol": "http",
+					"host": [
+						"{{Hostname}}"
+					],
+					"path": [
+						"r1-productcatalogmanagement",
+						"tmf-api",
+						"productCatalogManagement",
+						"v4",
+						"category"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE category by Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 2000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{Hostname}}/r1-productcatalogmanagement/tmf-api/productCatalogManagement/v4/category/{{category}}",
+					"protocol": "http",
+					"host": [
+						"{{Hostname}}"
+					],
+					"path": [
+						"r1-productcatalogmanagement",
+						"tmf-api",
+						"productCatalogManagement",
+						"v4",
+						"category",
+						"{{category}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET productoffering",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"if (jsonData.length>0) {\r",
+							"  id=jsonData[0].id\r",
+							"  postman.setEnvironmentVariable(\"productoffering\", id);\r",
+							"}\r",
+							"\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 2000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{Hostname}}/r1-productcatalogmanagement/tmf-api/productCatalogManagement/v4/productoffering",
+					"protocol": "http",
+					"host": [
+						"{{Hostname}}"
+					],
+					"path": [
+						"r1-productcatalogmanagement",
+						"tmf-api",
+						"productCatalogManagement",
+						"v4",
+						"productoffering"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE productoffering by Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 2000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{Hostname}}/r1-productcatalogmanagement/tmf-api/productCatalogManagement/v4/productoffering/{{productoffering}}",
+					"protocol": "http",
+					"host": [
+						"{{Hostname}}"
+					],
+					"path": [
+						"r1-productcatalogmanagement",
+						"tmf-api",
+						"productCatalogManagement",
+						"v4",
+						"productoffering",
+						"{{productoffering}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
