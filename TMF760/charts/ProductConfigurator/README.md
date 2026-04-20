@@ -43,7 +43,7 @@ helm upgrade --install pr1 ./charts/ProductConfigurator \
   --set component.MCPServer.enabled=false
 ```
 
-By default, the chart advertises the MCP endpoint at `/<release>-productconfigurator/mcp` and also keeps the direct in-container `/mcp` route available for service-level checks.
+By default, the chart advertises the normal Streamable HTTP MCP endpoint at `/<release>-productconfigurator/mcp`. That endpoint also keeps legacy SSE compatibility for clients or proxies that open it with `GET`; the SSE message channel is `/<release>-productconfigurator/mcp/messages/`, which path aliases may rewrite for public URLs. Direct in-container `/mcp` and `/sse` routes are available for service-level checks.
 
 ## Image values
 

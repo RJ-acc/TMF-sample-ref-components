@@ -114,37 +114,98 @@ async def _run_stdio() -> None:
 
 
 async def _run_http(host: str, port: int) -> None:
+    from contextlib import asynccontextmanager
+
     from mcp.server.sse import SseServerTransport
+    from mcp.server.streamable_http_manager import StreamableHTTPSessionManager
     from starlette.applications import Starlette
-    from starlette.requests import Request
     from starlette.responses import PlainTextResponse
+    from starlette.middleware.cors import CORSMiddleware
     from starlette.routing import Mount, Route
     import uvicorn
 
-    def build_sse_routes(mcp_path: str, message_path: str) -> list[Route | Mount]:
-        sse_transport = SseServerTransport(message_path)
+    class StreamableHTTPApp:
+        def __init__(self, session_manager: StreamableHTTPSessionManager):
+            self.session_manager = session_manager
 
-        async def handle_mcp(request: Request) -> None:
-            async with sse_transport.connect_sse(request.scope, request.receive, request._send) as streams:
+        async def __call__(self, scope, receive, send) -> None:
+            await self.session_manager.handle_request(scope, receive, send)
+
+    class LegacySSEApp:
+        def __init__(self, sse_transport: SseServerTransport):
+            self.sse_transport = sse_transport
+
+        async def __call__(self, scope, receive, send) -> None:
+            async with self.sse_transport.connect_sse(scope, receive, send) as streams:
                 await server.run(streams[0], streams[1], server.create_initialization_options())
 
+    class MCPTransportApp:
+        def __init__(self, streamable_app: StreamableHTTPApp, sse_app: LegacySSEApp):
+            self.streamable_app = streamable_app
+            self.sse_app = sse_app
+
+        async def __call__(self, scope, receive, send) -> None:
+            headers = dict(scope.get("headers", []))
+            is_legacy_sse_open = scope.get("method") == "GET" and b"mcp-session-id" not in headers
+            if is_legacy_sse_open:
+                await self.sse_app(scope, receive, send)
+                return
+
+            await self.streamable_app(scope, receive, send)
+
+    session_manager = StreamableHTTPSessionManager(app=server)
+    streamable_app = StreamableHTTPApp(session_manager)
+
+    def build_transport_routes(
+        mcp_path: str,
+        mcp_message_path: str,
+        sse_path: str,
+        sse_message_path: str,
+    ) -> list[Route | Mount]:
+        mcp_sse_transport = SseServerTransport(mcp_message_path)
+        mcp_sse_app = LegacySSEApp(mcp_sse_transport)
+        transport_app = MCPTransportApp(streamable_app, mcp_sse_app)
+
+        sse_transport = SseServerTransport(sse_message_path)
+        sse_app = LegacySSEApp(sse_transport)
+
         return [
-            Route(mcp_path, endpoint=handle_mcp),
-            Mount(message_path, app=sse_transport.handle_post_message),
+            Route(mcp_path, endpoint=transport_app),
+            Mount(mcp_message_path, app=mcp_sse_transport.handle_post_message),
+            Route(sse_path, endpoint=sse_app),
+            Mount(sse_message_path, app=sse_transport.handle_post_message),
         ]
 
-    async def health_check(request: Request) -> PlainTextResponse:
+    async def health_check(request) -> PlainTextResponse:
         return PlainTextResponse("OK")
 
-    routes: list[Route | Mount] = build_sse_routes(config.mcp_path, config.mcp_messages_path)
+    routes: list[Route | Mount] = build_transport_routes(
+        config.mcp_path,
+        config.mcp_messages_path,
+        config.sse_path,
+        config.sse_messages_path,
+    )
 
     if config.mcp_path != "/mcp":
-        routes.extend(build_sse_routes("/mcp", "/mcp/messages/"))
+        routes.extend(build_transport_routes("/mcp", "/mcp/messages/", "/sse", "/messages/"))
         routes.append(Route(f"{config.http_base_path}/health", endpoint=health_check))
 
     routes.append(Route("/health", endpoint=health_check))
 
-    app = Starlette(routes=routes)
+    @asynccontextmanager
+    async def lifespan(app: Starlette):
+        async with session_manager.run():
+            yield
+
+    app = Starlette(routes=routes, lifespan=lifespan)
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],
+        allow_credentials=False,
+        allow_methods=["*"],
+        allow_headers=["*"],
+        expose_headers=["*"],
+    )
 
     uvicorn_config = uvicorn.Config(app, host=host, port=port, log_level="warning")
     uvicorn_server = uvicorn.Server(uvicorn_config)

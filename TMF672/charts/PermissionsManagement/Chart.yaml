@@ -2,5 +2,5 @@ apiVersion: v2
 name: permissionsmanagement
 description: A reference-style TMFC035 Permissions Management ODA Component
 type: application
-version: 0.5.1
+version: 0.5.2
 appVersion: "0.4.1"

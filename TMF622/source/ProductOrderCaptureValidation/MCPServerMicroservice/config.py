@@ -41,5 +41,13 @@ class Config:
     def mcp_messages_path(self) -> str:
         return f"{self.mcp_path}/messages/"
 
+    @property
+    def sse_path(self) -> str:
+        return f"{self.http_base_path}/sse" if self.http_base_path else "/sse"
+
+    @property
+    def sse_messages_path(self) -> str:
+        return f"{self.http_base_path}/messages/" if self.http_base_path else "/messages/"
+
 
 config = Config()

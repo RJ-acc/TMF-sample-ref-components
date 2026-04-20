@@ -20,4 +20,9 @@ Environment:
 - `TMF623_BASE_URL=http://localhost:8080`
 - `TMF623_API_VERSION=v2`
 - `TMF623_SPEC_URL=https://raw.githubusercontent.com/tmforum/TMFAPISWAGGER/develop/slaManagement/v2/swagger2.json`
-- `MCP_HTTP_BASE_PATH=/r1-slamanagement` to expose the server under a release-prefixed path as well as the default `/mcp`
+- `MCP_HTTP_BASE_PATH=/r1-slamanagement` to expose the server under a release-prefixed path as well as the default routes
+
+HTTP endpoints:
+- Streamable HTTP: `/mcp` and, when `MCP_HTTP_BASE_PATH` is set, `<base>/mcp`
+- Legacy SSE compatibility: `/sse` with POST messages at `/messages/`, and `<base>/sse` with POST messages at `<base>/messages/`
+- Compatibility for older aliases: a GET to `/mcp` or `<base>/mcp` without an MCP session header still opens the legacy SSE stream, with POST messages at `/mcp/messages/` or `<base>/mcp/messages/`
