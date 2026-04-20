@@ -3,7 +3,17 @@ entries:
   billgenerationmanagement:
   - apiVersion: v2
     appVersion: 0.4.1
-    created: "2026-04-14T06:28:56.527506728Z"
+    created: "2026-04-20T12:58:46.28903377Z"
+    description: A reference-style TMFC030 Bill Generation Management ODA Component
+    digest: 219c735536e5593466ad89c096b74f31ccb2b26523e21610649e1842e335ecfd
+    name: billgenerationmanagement
+    type: application
+    urls:
+    - https://RJ-acc.github.io/TMF-sample-ref-components/billgenerationmanagement-0.5.2.tgz
+    version: 0.5.2
+  - apiVersion: v2
+    appVersion: 0.4.1
+    created: "2026-04-20T12:58:46.288539094Z"
     description: A reference-style TMFC030 Bill Generation Management ODA Component
     digest: 1590c4a2792506d54d5ad26e217f87f0f173896bbf92717c5e243a870bf57f4b
     name: billgenerationmanagement
@@ -13,7 +23,7 @@ entries:
     version: 0.5.1
   - apiVersion: v2
     appVersion: 0.4.0
-    created: "2026-04-14T06:28:56.527032902Z"
+    created: "2026-04-20T12:58:46.288038847Z"
     description: A reference-style TMFC030 Bill Generation Management ODA Component
     digest: 689bc3b828654fc448820f1ebe5ef5f8a13b7fa7b9d40c9add5abdc783818fa7
     name: billgenerationmanagement
@@ -23,7 +33,7 @@ entries:
     version: 0.5.0
   - apiVersion: v2
     appVersion: 0.4.0
-    created: "2026-04-14T06:28:56.5265077Z"
+    created: "2026-04-20T12:58:46.287582804Z"
     description: A reference-style TMFC030 Bill Generation Management ODA Component
     digest: 14a3a6ee0ba716b3b9be103683e5f14cb7faac1d55182566b6b3bc3a96b69d46
     name: billgenerationmanagement
@@ -33,7 +43,7 @@ entries:
     version: 0.4.0
   - apiVersion: v2
     appVersion: 0.3.0
-    created: "2026-04-14T06:28:56.525469943Z"
+    created: "2026-04-20T12:58:46.287037543Z"
     description: A reference-style TMFC030 Bill Generation Management ODA Component
     digest: c20a0116f57d96deff404cc9737843b52fa1f3d51019f118ed487d51d285d770
     name: billgenerationmanagement
@@ -43,7 +53,7 @@ entries:
     version: 0.3.0
   - apiVersion: v2
     appVersion: 0.2.0
-    created: "2026-04-14T06:28:56.524745269Z"
+    created: "2026-04-20T12:58:46.286564458Z"
     description: A reference-style TMFC030 Bill Generation Management ODA Component
     digest: 6e5c7628cd66bb301cff7a66ab49da3e0225826b34bd24d97ed843d09ccd6020
     name: billgenerationmanagement
@@ -53,7 +63,7 @@ entries:
     version: 0.2.0
   - apiVersion: v2
     appVersion: 0.1.2
-    created: "2026-04-14T06:28:56.523990799Z"
+    created: "2026-04-20T12:58:46.286037852Z"
     description: A reference-style TMFC030 Bill Generation Management ODA Component
     digest: 4b919f764abeba1ea3841d38d6e4689b9d0c3df2fb31504c734ec190df2faff8
     name: billgenerationmanagement
@@ -64,7 +74,17 @@ entries:
   billingaccountmanagement:
   - apiVersion: v2
     appVersion: 0.4.1
-    created: "2026-04-14T06:28:56.530836352Z"
+    created: "2026-04-20T12:58:46.293667743Z"
+    description: A reference-style TMFC024 Billing Account Management ODA Component
+    digest: e7bcd7a7b1be7114ae106193e2113e227d7eaa8a6198d1334d0fc46318e7aa15
+    name: billingaccountmanagement
+    type: application
+    urls:
+    - https://RJ-acc.github.io/TMF-sample-ref-components/billingaccountmanagement-0.5.2.tgz
+    version: 0.5.2
+  - apiVersion: v2
+    appVersion: 0.4.1
+    created: "2026-04-20T12:58:46.293115499Z"
     description: A reference-style TMFC024 Billing Account Management ODA Component
     digest: 1da49b9d878568771a8f380c898b23f773ba9f3bdf2d1e1721739b061de9f7a3
     name: billingaccountmanagement
@@ -74,7 +94,7 @@ entries:
     version: 0.5.1
   - apiVersion: v2
     appVersion: 0.4.0
-    created: "2026-04-14T06:28:56.53026304Z"
+    created: "2026-04-20T12:58:46.292635391Z"
     description: A reference-style TMFC024 Billing Account Management ODA Component
     digest: f0727008e034411f1ef2b3c4acdd913df55eb3e93e2796477868e99ddfa0efcd
     name: billingaccountmanagement
@@ -84,7 +104,7 @@ entries:
     version: 0.5.0
   - apiVersion: v2
     appVersion: 0.4.0
-    created: "2026-04-14T06:28:56.529720787Z"
+    created: "2026-04-20T12:58:46.292086824Z"
     description: A reference-style TMFC024 Billing Account Management ODA Component
     digest: 3514323a124000bea99eee4aaa448e05c21cc3d3ace7f62cbba9c0ed042717c4
     name: billingaccountmanagement
@@ -94,7 +114,7 @@ entries:
     version: 0.4.0
   - apiVersion: v2
     appVersion: 0.3.0
-    created: "2026-04-14T06:28:56.529137236Z"
+    created: "2026-04-20T12:58:46.29155577Z"
     description: A reference-style TMFC024 Billing Account Management ODA Component
     digest: fa20461e78d23f4e34bcb345c752bd6d45f5026d1312172738804ea059a4d7b2
     name: billingaccountmanagement
@@ -104,7 +124,7 @@ entries:
     version: 0.3.0
   - apiVersion: v2
     appVersion: 0.2.0
-    created: "2026-04-14T06:28:56.528585224Z"
+    created: "2026-04-20T12:58:46.290887489Z"
     description: A reference-style TMFC024 Billing Account Management ODA Component
     digest: c107886aea37ad718cf24d5d396100781bf3590aafeef5a3bfdc9da4b604aa8a
     name: billingaccountmanagement
@@ -114,7 +134,7 @@ entries:
     version: 0.2.0
   - apiVersion: v2
     appVersion: 0.1.2
-    created: "2026-04-14T06:28:56.528068177Z"
+    created: "2026-04-20T12:58:46.289729682Z"
     description: A reference-style TMFC024 Billing Account Management ODA Component
     digest: a00ab4a3616fb619c99de6e89495ad88815414a3815730be6c46dc60a076d2a3
     name: billingaccountmanagement
@@ -125,7 +145,17 @@ entries:
   partyinteractionmanagement:
   - apiVersion: v2
     appVersion: 0.4.1
-    created: "2026-04-14T06:28:56.534509912Z"
+    created: "2026-04-20T12:58:46.297709901Z"
+    description: A reference-style TMFC023 Party Interaction Management ODA Component
+    digest: 1d59186a804a5d740646785524850b05dd0e131eb25fc5adefad2df6288882eb
+    name: partyinteractionmanagement
+    type: application
+    urls:
+    - https://RJ-acc.github.io/TMF-sample-ref-components/partyinteractionmanagement-0.5.2.tgz
+    version: 0.5.2
+  - apiVersion: v2
+    appVersion: 0.4.1
+    created: "2026-04-20T12:58:46.296977508Z"
     description: A reference-style TMFC023 Party Interaction Management ODA Component
     digest: d6bdfa037b5640c4e41c46b8a383afe6fdb0298c9b5954c779ce4832adefd015
     name: partyinteractionmanagement
@@ -135,7 +165,7 @@ entries:
     version: 0.5.1
   - apiVersion: v2
     appVersion: 0.4.0
-    created: "2026-04-14T06:28:56.534063086Z"
+    created: "2026-04-20T12:58:46.296031718Z"
     description: A reference-style TMFC023 Party Interaction Management ODA Component
     digest: b8270bf378c37a7b2b29861d73744b60656f769e229be16fc36ec55e8416eef8
     name: partyinteractionmanagement
@@ -145,7 +175,7 @@ entries:
     version: 0.5.0
   - apiVersion: v2
     appVersion: 0.4.0
-    created: "2026-04-14T06:28:56.533584652Z"
+    created: "2026-04-20T12:58:46.295572839Z"
     description: A reference-style TMFC023 Party Interaction Management ODA Component
     digest: 4afbf060f3c650a59a708b605740e7afb2328d79d53c281a6e55c79334b85c66
     name: partyinteractionmanagement
@@ -155,7 +185,7 @@ entries:
     version: 0.4.0
   - apiVersion: v2
     appVersion: 0.3.0
-    created: "2026-04-14T06:28:56.533093113Z"
+    created: "2026-04-20T12:58:46.295062674Z"
     description: A reference-style TMFC023 Party Interaction Management ODA Component
     digest: 876f0f76a7d842328c5c163ff28ffbcd304e23bc8ae4af50d3bd524b1ea5595c
     name: partyinteractionmanagement
@@ -165,7 +195,7 @@ entries:
     version: 0.3.0
   - apiVersion: v2
     appVersion: 0.2.0
-    created: "2026-04-14T06:28:56.531801556Z"
+    created: "2026-04-20T12:58:46.294616409Z"
     description: A reference-style TMFC023 Party Interaction Management ODA Component
     digest: cdf0fcca515e90b061a83ff8b7515d226c26d0c8813fc50d09bb91e0d85fdb3f
     name: partyinteractionmanagement
@@ -175,7 +205,7 @@ entries:
     version: 0.2.0
   - apiVersion: v2
     appVersion: 0.1.2
-    created: "2026-04-14T06:28:56.531305869Z"
+    created: "2026-04-20T12:58:46.294118116Z"
     description: A reference-style TMFC023 Party Interaction Management ODA Component
     digest: 08091647551aad43d7ab9f320b1294ffa0cd0f6de3f2c089a9dfadebf06f117a
     name: partyinteractionmanagement
@@ -186,7 +216,17 @@ entries:
   partymanagement:
   - apiVersion: v2
     appVersion: 0.4.1
-    created: "2026-04-14T06:28:56.537192656Z"
+    created: "2026-04-20T12:58:46.301137617Z"
+    description: A reference-style TMFC028 Party Management ODA Component
+    digest: d0acc76a8e9e2a57c3d373f1f82b864af1dbf1062d5fc44897110d657326f92d
+    name: partymanagement
+    type: application
+    urls:
+    - https://RJ-acc.github.io/TMF-sample-ref-components/partymanagement-0.5.2.tgz
+    version: 0.5.2
+  - apiVersion: v2
+    appVersion: 0.4.1
+    created: "2026-04-20T12:58:46.300671334Z"
     description: A reference-style TMFC028 Party Management ODA Component
     digest: 8f54539ee38753d0a6d833af0e0ff0c22101d819f89e07dcba4fc517a59d7afd
     name: partymanagement
@@ -196,7 +236,7 @@ entries:
     version: 0.5.1
   - apiVersion: v2
     appVersion: 0.4.0
-    created: "2026-04-14T06:28:56.536759657Z"
+    created: "2026-04-20T12:58:46.30018309Z"
     description: A reference-style TMFC028 Party Management ODA Component
     digest: 7bf3e53098c96eb950456decb2a64a2bb35eed74c4ccfca93a3a311c51273683
     name: partymanagement
@@ -206,7 +246,7 @@ entries:
     version: 0.5.0
   - apiVersion: v2
     appVersion: 0.4.0
-    created: "2026-04-14T06:28:56.536311028Z"
+    created: "2026-04-20T12:58:46.299740051Z"
     description: A reference-style TMFC028 Party Management ODA Component
     digest: 9bd96747d1b0ee2b7c465ddc6a1295f3da2db79bfd653bfddd0c98b20728e68c
     name: partymanagement
@@ -216,7 +256,7 @@ entries:
     version: 0.4.0
   - apiVersion: v2
     appVersion: 0.3.0
-    created: "2026-04-14T06:28:56.535882978Z"
+    created: "2026-04-20T12:58:46.299276122Z"
     description: A reference-style TMFC028 Party Management ODA Component
     digest: 847b0849a083dd2a918a41b002c88ffcca670394234fcfa1305f98986a9431b2
     name: partymanagement
@@ -226,7 +266,7 @@ entries:
     version: 0.3.0
   - apiVersion: v2
     appVersion: 0.2.0
-    created: "2026-04-14T06:28:56.535426154Z"
+    created: "2026-04-20T12:58:46.298715132Z"
     description: A reference-style TMFC028 Party Management ODA Component
     digest: 6e175996aae3f595f7b26dd3da1e13f8a400a9925ece4518dcf2d6988ec13638
     name: partymanagement
@@ -236,7 +276,7 @@ entries:
     version: 0.2.0
   - apiVersion: v2
     appVersion: 0.1.2
-    created: "2026-04-14T06:28:56.534978037Z"
+    created: "2026-04-20T12:58:46.298160825Z"
     description: A reference-style TMFC028 Party Management ODA Component
     digest: 3d949cab3f37a28ab08d40fd317e159de6f7c7d5947e3cef8cb299bfffa1d4ba
     name: partymanagement
@@ -247,7 +287,17 @@ entries:
   permissionsmanagement:
   - apiVersion: v2
     appVersion: 0.4.1
-    created: "2026-04-14T06:28:56.54101609Z"
+    created: "2026-04-20T12:58:46.305545695Z"
+    description: A reference-style TMFC035 Permissions Management ODA Component
+    digest: 4387e79319d70664422a087a1695a6f4994d7864d07f4753cf6d3f7e34f05342
+    name: permissionsmanagement
+    type: application
+    urls:
+    - https://RJ-acc.github.io/TMF-sample-ref-components/permissionsmanagement-0.5.2.tgz
+    version: 0.5.2
+  - apiVersion: v2
+    appVersion: 0.4.1
+    created: "2026-04-20T12:58:46.305020522Z"
     description: A reference-style TMFC035 Permissions Management ODA Component
     digest: 7f1241672a14862bf40901aeb1be15a358f9b52ea5c1860631f370261217d35e
     name: permissionsmanagement
@@ -257,7 +307,7 @@ entries:
     version: 0.5.1
   - apiVersion: v2
     appVersion: 0.4.0
-    created: "2026-04-14T06:28:56.540533107Z"
+    created: "2026-04-20T12:58:46.304513262Z"
     description: A reference-style TMFC035 Permissions Management ODA Component
     digest: 9ee29d5372be8122c1521e61d4e1bf6ead5996cfdd98f28190da73d3ae3a76f5
     name: permissionsmanagement
@@ -267,7 +317,7 @@ entries:
     version: 0.5.0
   - apiVersion: v2
     appVersion: 0.4.0
-    created: "2026-04-14T06:28:56.540021281Z"
+    created: "2026-04-20T12:58:46.303974424Z"
     description: A reference-style TMFC035 Permissions Management ODA Component
     digest: 04be5252aee446f2c72e0d5f4b63a03ac6cb0ab5cea058f4978e029d3e23395a
     name: permissionsmanagement
@@ -277,7 +327,7 @@ entries:
     version: 0.4.0
   - apiVersion: v2
     appVersion: 0.3.0
-    created: "2026-04-14T06:28:56.539504745Z"
+    created: "2026-04-20T12:58:46.302615112Z"
     description: A reference-style TMFC035 Permissions Management ODA Component
     digest: 004404a66ab1ef6d7972cb997a9646f9e012e3fe1c55734beb60e0fdc4efd755
     name: permissionsmanagement
@@ -287,7 +337,7 @@ entries:
     version: 0.3.0
   - apiVersion: v2
     appVersion: 0.2.0
-    created: "2026-04-14T06:28:56.538484782Z"
+    created: "2026-04-20T12:58:46.302100308Z"
     description: A reference-style TMFC035 Permissions Management ODA Component
     digest: fe55354a9f4d929b448463812be8579f6b1f9595068db2cd3020eefb4d3a635b
     name: permissionsmanagement
@@ -297,7 +347,7 @@ entries:
     version: 0.2.0
   - apiVersion: v2
     appVersion: 0.1.2
-    created: "2026-04-14T06:28:56.537666743Z"
+    created: "2026-04-20T12:58:46.301620791Z"
     description: A reference-style TMFC035 Permissions Management ODA Component
     digest: c9af86b4ddcebf8b81e42ea45d3a22a3f3a8f882eb5fb92beeb53caf2b572bbd
     name: permissionsmanagement
@@ -308,7 +358,17 @@ entries:
   productcatalogmanagement:
   - apiVersion: v2
     appVersion: 0.4.1
-    created: "2026-04-14T06:28:56.543425665Z"
+    created: "2026-04-20T12:58:46.308517557Z"
+    description: A reference-style TMFC001 Product Catalog Management ODA Component
+    digest: 6476ca606d36b2afa0e17905fd5573344f5b5c93eead19672c72535676fc90f3
+    name: productcatalogmanagement
+    type: application
+    urls:
+    - https://RJ-acc.github.io/TMF-sample-ref-components/productcatalogmanagement-0.5.3.tgz
+    version: 0.5.3
+  - apiVersion: v2
+    appVersion: 0.4.1
+    created: "2026-04-20T12:58:46.308015718Z"
     description: A reference-style TMFC001 Product Catalog Management ODA Component
     digest: 0f6566d93d019c157ecd7db9b571d9415e354f641f39d3591dde58d6ce643c34
     name: productcatalogmanagement
@@ -318,7 +378,7 @@ entries:
     version: 0.5.1
   - apiVersion: v2
     appVersion: 0.4.0
-    created: "2026-04-14T06:28:56.542950837Z"
+    created: "2026-04-20T12:58:46.30755208Z"
     description: A reference-style TMFC001 Product Catalog Management ODA Component
     digest: 96901672efdea779f42c064b1add2cdcba859b4b6a9172ff01942ea17751631e
     name: productcatalogmanagement
@@ -328,7 +388,7 @@ entries:
     version: 0.5.0
   - apiVersion: v2
     appVersion: 0.4.0
-    created: "2026-04-14T06:28:56.542464097Z"
+    created: "2026-04-20T12:58:46.307035503Z"
     description: A reference-style TMFC001 Product Catalog Management ODA Component
     digest: 4f38eb31ca7f4791abddbc4d6fa2871ce5283cfe88137d7329ef9b4ef9d46c0a
     name: productcatalogmanagement
@@ -338,7 +398,7 @@ entries:
     version: 0.4.0
   - apiVersion: v2
     appVersion: 0.3.0
-    created: "2026-04-14T06:28:56.541995431Z"
+    created: "2026-04-20T12:58:46.306562267Z"
     description: A reference-style TMFC001 Product Catalog Management ODA Component
     digest: aa582c591db30b240f0ba73d3da2ed8e918ea1a4905a84cd7e27da6dbde0154f
     name: productcatalogmanagement
@@ -348,7 +408,7 @@ entries:
     version: 0.3.0
   - apiVersion: v2
     appVersion: 0.2.0
-    created: "2026-04-14T06:28:56.541506998Z"
+    created: "2026-04-20T12:58:46.306053135Z"
     description: A reference-style TMFC001 Product Catalog Management ODA Component
     digest: 42d47d48779b08dec097664344bc6e09fbc56b36968513409912630b271514b4
     name: productcatalogmanagement
@@ -359,7 +419,17 @@ entries:
   productconfigurator:
   - apiVersion: v2
     appVersion: 0.4.1
-    created: "2026-04-14T06:28:56.547099866Z"
+    created: "2026-04-20T12:58:46.312758758Z"
+    description: A reference-style TMFC027 Product Configurator ODA Component
+    digest: 8390d82a72ac86c2821a7285a937e51ba54a98635e6a2bf7edb84dcf942cb2ed
+    name: productconfigurator
+    type: application
+    urls:
+    - https://RJ-acc.github.io/TMF-sample-ref-components/productconfigurator-0.5.2.tgz
+    version: 0.5.2
+  - apiVersion: v2
+    appVersion: 0.4.1
+    created: "2026-04-20T12:58:46.312299758Z"
     description: A reference-style TMFC027 Product Configurator ODA Component
     digest: f6153221d49dfb61c44502e12c2feed27fbf9fb57ae472547d2baf0fed34b56c
     name: productconfigurator
@@ -369,7 +439,7 @@ entries:
     version: 0.5.1
   - apiVersion: v2
     appVersion: 0.4.0
-    created: "2026-04-14T06:28:56.546625279Z"
+    created: "2026-04-20T12:58:46.311794884Z"
     description: A reference-style TMFC027 Product Configurator ODA Component
     digest: f73f5695d5f565007f8353f8d82dd6a9df5bf9d5321885cebb76438ea525dcaf
     name: productconfigurator
@@ -379,7 +449,7 @@ entries:
     version: 0.5.0
   - apiVersion: v2
     appVersion: 0.4.0
-    created: "2026-04-14T06:28:56.546169336Z"
+    created: "2026-04-20T12:58:46.311284108Z"
     description: A reference-style TMFC027 Product Configurator ODA Component
     digest: a2790513c84e3523360111d44b1e4ab3625a3f58e8a9f124f32c462104189e41
     name: productconfigurator
@@ -389,7 +459,7 @@ entries:
     version: 0.4.0
   - apiVersion: v2
     appVersion: 0.3.0
-    created: "2026-04-14T06:28:56.545663871Z"
+    created: "2026-04-20T12:58:46.309907518Z"
     description: A reference-style TMFC027 Product Configurator ODA Component
     digest: 2871c3c6c5a28c67a6c29b0b15635505983194d35bb449608bb4148fec22ba63
     name: productconfigurator
@@ -399,7 +469,7 @@ entries:
     version: 0.3.0
   - apiVersion: v2
     appVersion: 0.2.0
-    created: "2026-04-14T06:28:56.544357406Z"
+    created: "2026-04-20T12:58:46.309439733Z"
     description: A reference-style TMFC027 Product Configurator ODA Component
     digest: b68833daae3ffbb2d2c74593b47e42a36b873adb84df8f357207ae722b0143f8
     name: productconfigurator
@@ -409,7 +479,7 @@ entries:
     version: 0.2.0
   - apiVersion: v2
     appVersion: 0.1.1
-    created: "2026-04-14T06:28:56.543913166Z"
+    created: "2026-04-20T12:58:46.308966768Z"
     description: A reference-style TMFC027 Product Configurator ODA Component
     digest: f028f204cdd895ec99dbc6f9bcdc21e66df741e12458b8305b69282d0cbc5211
     name: productconfigurator
@@ -420,7 +490,17 @@ entries:
   productinventorymanagement:
   - apiVersion: v2
     appVersion: 0.3.1
-    created: "2026-04-14T06:28:56.548869353Z"
+    created: "2026-04-20T12:58:46.315061678Z"
+    description: A reference-style TMFC005 Product Inventory Management ODA Component
+    digest: 63cff87783ba371edf6b1360999c0b6f4551d9cc8a8a7b154390b73f6e75da9a
+    name: productinventorymanagement
+    type: application
+    urls:
+    - https://RJ-acc.github.io/TMF-sample-ref-components/productinventorymanagement-0.4.2.tgz
+    version: 0.4.2
+  - apiVersion: v2
+    appVersion: 0.3.1
+    created: "2026-04-20T12:58:46.314590757Z"
     description: A reference-style TMFC005 Product Inventory Management ODA Component
     digest: 0ba597bb001fd6da701dca5becc59f76d9a248c088f8cbc2eade523d45d7c8fd
     name: productinventorymanagement
@@ -430,7 +510,7 @@ entries:
     version: 0.4.1
   - apiVersion: v2
     appVersion: 0.3.0
-    created: "2026-04-14T06:28:56.548416507Z"
+    created: "2026-04-20T12:58:46.314135104Z"
     description: A reference-style TMFC005 Product Inventory Management ODA Component
     digest: ebee68a7a33611bb2467bcea2abb54a613772cdc806aa01c297380982b7b89eb
     name: productinventorymanagement
@@ -440,7 +520,7 @@ entries:
     version: 0.4.0
   - apiVersion: v2
     appVersion: 0.3.0
-    created: "2026-04-14T06:28:56.547989358Z"
+    created: "2026-04-20T12:58:46.313704638Z"
     description: A reference-style TMFC005 Product Inventory Management ODA Component
     digest: c20ede9a91cd8b49f1007befc6b29d4980a32592759463553cd61480fbcaa39b
     name: productinventorymanagement
@@ -450,7 +530,7 @@ entries:
     version: 0.3.0
   - apiVersion: v2
     appVersion: 0.2.0
-    created: "2026-04-14T06:28:56.547538826Z"
+    created: "2026-04-20T12:58:46.313255888Z"
     description: A reference-style TMFC005 Product Inventory Management ODA Component
     digest: 8b0d51064164ea1f0c361c6b55887d09d2e1af767d2293756dfc32d9e21e5c52
     name: productinventorymanagement
@@ -461,7 +541,18 @@ entries:
   productordercapturevalidation:
   - apiVersion: v2
     appVersion: 0.4.1
-    created: "2026-04-14T06:28:56.552582411Z"
+    created: "2026-04-20T12:58:46.319454598Z"
+    description: A reference-style TMFC002 Product Order Capture & Validation ODA
+      Component
+    digest: 6c0d2c8bfe73ce2f30e5fa45248f2fe0997da43fccb2ca257022ec86f6a245ce
+    name: productordercapturevalidation
+    type: application
+    urls:
+    - https://RJ-acc.github.io/TMF-sample-ref-components/productordercapturevalidation-0.5.2.tgz
+    version: 0.5.2
+  - apiVersion: v2
+    appVersion: 0.4.1
+    created: "2026-04-20T12:58:46.318941046Z"
     description: A reference-style TMFC002 Product Order Capture & Validation ODA
       Component
     digest: bb6e2f89fdc341f114691b759ec6aa845ecfc54f38d002346ee18a089d39363c
@@ -472,7 +563,7 @@ entries:
     version: 0.5.1
   - apiVersion: v2
     appVersion: 0.4.0
-    created: "2026-04-14T06:28:56.552071706Z"
+    created: "2026-04-20T12:58:46.318413639Z"
     description: A reference-style TMFC002 Product Order Capture & Validation ODA
       Component
     digest: 2984809fb2f35e03a8ecf6b0b66778708786a206b214b3d0935a3ad35d72cddd
@@ -483,7 +574,7 @@ entries:
     version: 0.5.0
   - apiVersion: v2
     appVersion: 0.4.0
-    created: "2026-04-14T06:28:56.551024001Z"
+    created: "2026-04-20T12:58:46.317339942Z"
     description: A reference-style TMFC002 Product Order Capture & Validation ODA
       Component
     digest: ad7e1b2c5bd64355508535d885664a3d1977a21b34675f8d6dc38b78e660aeaf
@@ -494,7 +585,7 @@ entries:
     version: 0.4.0
   - apiVersion: v2
     appVersion: 0.3.0
-    created: "2026-04-14T06:28:56.550291782Z"
+    created: "2026-04-20T12:58:46.31654278Z"
     description: A reference-style TMFC002 Product Order Capture & Validation ODA
       Component
     digest: b7d56d4f287783aae5f7eadf39db1deaac4acc94c0d9ca30c511f9f084f23c43
@@ -505,7 +596,7 @@ entries:
     version: 0.3.0
   - apiVersion: v2
     appVersion: 0.2.0
-    created: "2026-04-14T06:28:56.549837703Z"
+    created: "2026-04-20T12:58:46.316057181Z"
     description: A reference-style TMFC002 Product Order Capture & Validation ODA
       Component
     digest: 0a3798f56137746024c4ad350ed7bc1937cc60692d5b857f33dde0be12fd7a7f
@@ -516,7 +607,7 @@ entries:
     version: 0.2.0
   - apiVersion: v2
     appVersion: 0.1.1
-    created: "2026-04-14T06:28:56.549345503Z"
+    created: "2026-04-20T12:58:46.31559705Z"
     description: A reference-style TMFC002 Product Order Capture & Validation ODA
       Component
     digest: b3ce5fbe59da7027fc5e9f23cbfc6455f1afde2ba24207112feba3353d301a56
@@ -528,7 +619,17 @@ entries:
   productrecommendation:
   - apiVersion: v2
     appVersion: 0.4.1
-    created: "2026-04-14T06:28:56.55534786Z"
+    created: "2026-04-20T12:58:46.322750677Z"
+    description: A reference-style TMFC050 Product Recommendation ODA Component
+    digest: 6270b2eeea12bfa0f30698eac54a30e1bb822f7f33cf934831684a9e6864d4a8
+    name: productrecommendation
+    type: application
+    urls:
+    - https://RJ-acc.github.io/TMF-sample-ref-components/productrecommendation-0.5.2.tgz
+    version: 0.5.2
+  - apiVersion: v2
+    appVersion: 0.4.1
+    created: "2026-04-20T12:58:46.322311475Z"
     description: A reference-style TMFC050 Product Recommendation ODA Component
     digest: 13d48f1114558e6ae323f1e97d70145c78323ce28df84971790eebb3249b3576
     name: productrecommendation
@@ -538,7 +639,7 @@ entries:
     version: 0.5.1
   - apiVersion: v2
     appVersion: 0.4.0
-    created: "2026-04-14T06:28:56.554913849Z"
+    created: "2026-04-20T12:58:46.321834161Z"
     description: A reference-style TMFC050 Product Recommendation ODA Component
     digest: 91a022a17ad7da43ef2513fd8aa237b30df3b1e35cc4ebd42593183783485e81
     name: productrecommendation
@@ -548,7 +649,7 @@ entries:
     version: 0.5.0
   - apiVersion: v2
     appVersion: 0.4.0
-    created: "2026-04-14T06:28:56.554414906Z"
+    created: "2026-04-20T12:58:46.321361236Z"
     description: A reference-style TMFC050 Product Recommendation ODA Component
     digest: 0c50aa6ad23160ae4398ae57998b479c0dbb36ed9e3c0446b39887d9b2a07128
     name: productrecommendation
@@ -558,7 +659,7 @@ entries:
     version: 0.4.0
   - apiVersion: v2
     appVersion: 0.3.0
-    created: "2026-04-14T06:28:56.553979673Z"
+    created: "2026-04-20T12:58:46.320844349Z"
     description: A reference-style TMFC050 Product Recommendation ODA Component
     digest: 133b602cdfb6fef618a4cc86729d5ae492963a73f528fe524fd02c17b9eecc58
     name: productrecommendation
@@ -568,7 +669,7 @@ entries:
     version: 0.3.0
   - apiVersion: v2
     appVersion: 0.2.0
-    created: "2026-04-14T06:28:56.553512289Z"
+    created: "2026-04-20T12:58:46.320405017Z"
     description: A reference-style TMFC050 Product Recommendation ODA Component
     digest: 838fd053697ff8a928aff9a49d3344d90ef911ed80da4f1eb40eb9b2a443001b
     name: productrecommendation
@@ -578,7 +679,7 @@ entries:
     version: 0.2.0
   - apiVersion: v2
     appVersion: 0.1.1
-    created: "2026-04-14T06:28:56.553071405Z"
+    created: "2026-04-20T12:58:46.31991014Z"
     description: A reference-style TMFC050 Product Recommendation ODA Component
     digest: 3e637457c502d5aebee488a8763e7bac4413de042dd46f8ac9da40784d01a5fb
     name: productrecommendation
@@ -589,7 +690,17 @@ entries:
   serviceinventorymanagement:
   - apiVersion: v2
     appVersion: 0.2.1
-    created: "2026-04-14T06:28:56.556264624Z"
+    created: "2026-04-20T12:58:46.324956242Z"
+    description: A reference-style TMFC008 Service Inventory Management ODA Component
+    digest: dcb6aaf728bff2a0656ed01767b4788b7fa01f16475ca460a20d2db5851e40c4
+    name: serviceinventorymanagement
+    type: application
+    urls:
+    - https://RJ-acc.github.io/TMF-sample-ref-components/serviceinventorymanagement-0.3.2.tgz
+    version: 0.3.2
+  - apiVersion: v2
+    appVersion: 0.2.1
+    created: "2026-04-20T12:58:46.323661792Z"
     description: A reference-style TMFC008 Service Inventory Management ODA Component
     digest: 39b8c333f6a530de5119fbcb422f96895ffcdd2b8e0d19c4dd7ca5e803674d7a
     name: serviceinventorymanagement
@@ -599,7 +710,7 @@ entries:
     version: 0.3.1
   - apiVersion: v2
     appVersion: 0.2.0
-    created: "2026-04-14T06:28:56.555805065Z"
+    created: "2026-04-20T12:58:46.323203685Z"
     description: A reference-style TMFC008 Service Inventory Management ODA Component
     digest: e8cec1a29a83cfd71b1db0de76cf5cc775869b8f17fa29e303b7adfa6bfcdabe
     name: serviceinventorymanagement
@@ -610,7 +721,17 @@ entries:
   slamanagement:
   - apiVersion: v2
     appVersion: 0.2.1
-    created: "2026-04-14T06:28:56.557173463Z"
+    created: "2026-04-20T12:58:46.326432425Z"
+    description: A reference-style TMF623 SLA Management ODA Component
+    digest: 13f16f80a1a36bcc443efbb29ae6e2fc2e4b88c1effbf39615da3452639cac4c
+    name: slamanagement
+    type: application
+    urls:
+    - https://RJ-acc.github.io/TMF-sample-ref-components/slamanagement-0.3.2.tgz
+    version: 0.3.2
+  - apiVersion: v2
+    appVersion: 0.2.1
+    created: "2026-04-20T12:58:46.325949912Z"
     description: A reference-style TMF623 SLA Management ODA Component
     digest: 6e859b038854ee550cfae8609c3d72fca470750f43f842348a7dfdf72513005d
     name: slamanagement
@@ -620,7 +741,7 @@ entries:
     version: 0.3.1
   - apiVersion: v2
     appVersion: 0.2.0
-    created: "2026-04-14T06:28:56.556726377Z"
+    created: "2026-04-20T12:58:46.325480944Z"
     description: A reference-style TMF623 SLA Management ODA Component
     digest: 1e525f88acb7098b3907557aff69d1d8d84af746a87eea26d666890a837d2c2d
     name: slamanagement
@@ -631,7 +752,17 @@ entries:
   troubleticketmanagement:
   - apiVersion: v2
     appVersion: 0.2.1
-    created: "2026-04-14T06:28:56.558944717Z"
+    created: "2026-04-20T12:58:46.327800215Z"
+    description: A reference-style TMF621 Trouble Ticket Management ODA Component
+    digest: 6f89386845247a8939ac8c057d5c70145bd814a3315c559bc53ec40653b77da9
+    name: troubleticketmanagement
+    type: application
+    urls:
+    - https://RJ-acc.github.io/TMF-sample-ref-components/troubleticketmanagement-0.3.2.tgz
+    version: 0.3.2
+  - apiVersion: v2
+    appVersion: 0.2.1
+    created: "2026-04-20T12:58:46.327352257Z"
     description: A reference-style TMF621 Trouble Ticket Management ODA Component
     digest: b452ec8499a2c79e45241b5b2eda6aba936c250b567a8ba718c20655a73affe4
     name: troubleticketmanagement
@@ -641,7 +772,7 @@ entries:
     version: 0.3.1
   - apiVersion: v2
     appVersion: 0.2.0
-    created: "2026-04-14T06:28:56.558437889Z"
+    created: "2026-04-20T12:58:46.32687828Z"
     description: A reference-style TMF621 Trouble Ticket Management ODA Component
     digest: ccc4b356ef91940be5a62e43f971c15864a08b1c159474ef967a914a8be87d1c
     name: troubleticketmanagement
@@ -649,4 +780,4 @@ entries:
     urls:
     - https://RJ-acc.github.io/TMF-sample-ref-components/troubleticketmanagement-0.3.0.tgz
     version: 0.3.0
-generated: "2026-04-14T06:28:56.523260333Z"
+generated: "2026-04-20T12:58:46.285391062Z"
