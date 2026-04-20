@@ -5,7 +5,7 @@ component:
   name: troubleticketmanagement
   functionalBlock: TroubleManagement
   publicationDate: 2026-04-09T00:00:00.000Z
-  version: "0.2.0"
+  version: "0.2.1"
   apiVersion: v5
   specificationUrl: https://raw.githubusercontent.com/tmforum-apis/TMF621_TroubleTicket/main/TMF621-Trouble_Ticket-v5.0.1.oas.yaml
   storageClassName: ""

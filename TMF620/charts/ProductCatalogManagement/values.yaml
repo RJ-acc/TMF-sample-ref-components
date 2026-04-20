@@ -5,7 +5,7 @@ component:
   name: productcatalogmanagement
   functionalBlock: CoreCommerce
   publicationDate: 2026-04-09T00:00:00.000Z
-  version: "0.4.0"
+  version: "0.4.1"
   apiVersion: v5
   specificationUrl: https://raw.githubusercontent.com/tmforum-apis/TMF620_ProductCatalog/main/TMF620-Product_Catalog_Management-v5.0.0.oas.yaml
   storageClassName: ""

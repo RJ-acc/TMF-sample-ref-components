@@ -5,7 +5,7 @@ component:
   name: slamanagement
   functionalBlock: ServiceQualityManagement
   publicationDate: 2026-04-09T00:00:00.000Z
-  version: "0.2.0"
+  version: "0.2.1"
   apiVersion: v2
   specificationUrl: https://raw.githubusercontent.com/tmforum/TMFAPISWAGGER/develop/slaManagement/v2/swagger2.json
   storageClassName: ""

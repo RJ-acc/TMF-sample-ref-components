@@ -5,7 +5,7 @@ component:
   name: serviceinventorymanagement
   functionalBlock: Production
   publicationDate: 2026-04-09T00:00:00.000Z
-  version: "0.2.0"
+  version: "0.2.1"
   apiVersion: v5
   specificationUrl: https://raw.githubusercontent.com/tmforum-apis/TMF638_ServiceInventory/main/TMF638-Service_Inventory_Management-v5.0.0.oas.yaml
   storageClassName: ""
